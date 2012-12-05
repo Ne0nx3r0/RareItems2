@@ -1,0 +1,166 @@
+package com.gmail.ne0nx3r0.rareitems.item;
+
+import com.gmail.ne0nx3r0.rareitems.RareItems;
+import com.gmail.ne0nx3r0.utils.Namer;
+import com.gmail.ne0nx3r0.utils.RomanNumeral;
+import java.util.HashMap;
+import java.util.logging.Logger;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+
+public class RareItem
+{
+    private final int id;
+    private final int materialId;
+    private final byte dataValue;
+    private final HashMap<ItemProperty,Integer> properties;
+    private final String owner;
+    public static final Logger logger = Logger.getLogger("RareItemsRegistration");
+    
+    public RareItem(int riId, String owner, int materialId, byte dataValue,HashMap<ItemProperty,Integer> properties)
+    {
+        this.id = riId;
+        this.owner = owner;
+        this.materialId = materialId;
+        this.dataValue = dataValue;
+        this.properties = properties;
+    }
+    
+    public void onInteract(PlayerInteractEvent e)
+    {
+        for(ItemProperty ip : properties.keySet())
+        {
+            if(e.getPlayer().getFoodLevel() >= ip.getCost())
+            {
+                if(ip.onInteract(e, properties.get(ip)))
+                {
+                    e.getPlayer().setFoodLevel(e.getPlayer().getFoodLevel() - ip.getCost());
+                }
+            }
+            else
+            {
+                e.getPlayer().sendMessage("You need to eat something!");
+            }
+        }
+    }
+    
+    public void onDamagedOther(final EntityDamageByEntityEvent e)
+    {        
+        if(e.getDamager() instanceof Player)
+        {
+            Player p = (Player) e.getDamager();
+            
+
+            for(ItemProperty ip : properties.keySet())
+            {
+                if(p.getFoodLevel() >= ip.getCost())
+                {
+                    if(ip.onDamagedOther(e, properties.get(ip)))
+                    {
+                        p.setFoodLevel(p.getFoodLevel() - ip.getCost());
+                    }
+                }
+                else
+                {
+                    p.sendMessage("You need to eat something!");
+                }
+            }
+        }
+    }
+
+    public void onEquipped(Player p)
+    {
+        for(ItemProperty ip : properties.keySet())
+        {
+            ip.onEquip(p, properties.get(ip));
+        }
+    }    
+    
+    public void onUnequipped(Player p)
+    {
+        for(ItemProperty ip : properties.keySet())
+        {
+            ip.onUnequip(p, properties.get(ip));
+        }
+    }
+
+    public Integer getId()
+    {
+        return this.id;
+    }
+
+    public String getOwner()
+    {
+        return this.owner;
+    }
+
+    public ItemStack generateItemStack()
+    {
+        CraftItemStack cssRareItem = new CraftItemStack(Material.getMaterial(materialId));
+        
+        if(dataValue != 0x0)
+        {
+            cssRareItem.getData().setData(dataValue);
+        }
+      
+        for(ItemProperty ip : properties.keySet())
+        {
+            String sLevel = "";
+            
+            if(properties.get(ip) > 1)
+            {
+                sLevel = " "+RomanNumeral.convertToRoman(properties.get(ip));
+            }
+
+            Namer.addLore(cssRareItem, ip.getName() + sLevel);
+        }
+        
+        Namer.addLore(cssRareItem, RareItems.rig.getRidPrefix()+this.id);
+        
+        if(cssRareItem.getType().equals(Material.WRITTEN_BOOK))
+        {
+            Namer.setName(cssRareItem,"Spellbook");
+        }
+        
+        return (ItemStack) cssRareItem;
+    }
+
+    void revokeItemProperties()
+    {
+        Player p = Bukkit.getPlayer(owner);
+        
+        for(ItemProperty ip : properties.keySet())
+        {
+            ip.onUnequip(p, properties.get(ip));
+        }
+    }
+
+    public String getDisplayName()
+    {
+        String dispName = Material.getMaterial(this.materialId).name().toLowerCase()+" ";
+        
+        for(ItemProperty ip : properties.keySet())
+        {
+            dispName += ip.getName()+" "+properties.get(ip)+",";
+        }
+        
+        return dispName.substring(0,dispName.length()-1);
+    }
+
+    public int getMaterialId()
+    {
+        return this.materialId;
+    }
+
+    public byte getDataValue()
+    {
+        return this.dataValue;
+    }
+    
+    
+}
