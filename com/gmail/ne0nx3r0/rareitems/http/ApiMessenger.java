@@ -8,13 +8,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -87,7 +85,7 @@ public class ApiMessenger
                     RareItems.logger.log(Level.SEVERE, null, ex);
                 }
             }
-        }, 20*60*30, 20*60*30);
+        }, 20*30, 20*30);
     }
 
     public static void receivePlayerUpdate(String response)
@@ -110,13 +108,13 @@ public class ApiMessenger
  *  }
  *}
  * */
-        System.out.println(response);
+        //System.out.println(response);
         
         try
         {
             JSONObject json = (JSONObject) (new JSONParser()).parse(response);
             
-            if(((String) json.get("status")).equals("success"))
+            if(((String) json.get("status")).equals("success") && (boolean) json.get("hasItems"))
             {
                 Map<String,Object> playersData = (Map<String,Object>) json.get("players");
                 
@@ -129,20 +127,22 @@ public class ApiMessenger
                     {
                         RareItems.rig.removeAllPlayerRareItems(sPlayerName);
                         
-                        Map<Integer,Object> pendingItems = (Map<Integer,Object>) playersData.get(sPlayerName);
+                        Map<String,Object> pendingItems = (Map<String,Object>) playersData.get(sPlayerName);
                             
-                        for(int pendingItemId : pendingItems.keySet())
+                        for(String sPendingItemId : pendingItems.keySet())
                         {   
-                            Map<String,Object> pendingItem = (Map<String,Object>) pendingItems.get(pendingItemId);
+                            Map<String,Object> pendingItem = (Map<String,Object>) pendingItems.get(sPendingItemId);
                             
                             HashMap<ItemProperty,Integer> ips = new HashMap<>();
                             
                             String ipString = "";
-                            Map<Integer,Integer> pendingItemProperties = (Map<Integer,Integer>) pendingItem.get("properties");
-                            for(int ipId : pendingItemProperties.keySet())
+                            Map<String,String> pendingItemProperties = (Map<String,String>) pendingItem.get("properties");
+                            for(String sIpId : pendingItemProperties.keySet())
                             {
+                                int ipId = Integer.parseInt(sIpId);
+                                
                                 ItemProperty ip = RareItems.rig.getItemProperty(ipId);
-                                int ipLevel = pendingItemProperties.get(ipId);
+                                int ipLevel = Integer.parseInt(pendingItemProperties.get(sIpId));
 
                                 ips.put(
                                     ip,
@@ -150,22 +150,22 @@ public class ApiMessenger
                                 );
                             }
                             
-                            int materialId = Integer.parseInt((String) json.get("material"));
+                            int materialId = Integer.parseInt((String) pendingItem.get("material"));
                             
                             RareItem ri = new RareItem(
-                                pendingItemId,
+                                Integer.parseInt(sPendingItemId),
                                 sPlayerName,
                                 materialId,
-                                Byte.parseByte((String) json.get("dataValue")),
+                                Byte.parseByte((String) pendingItem.get("dataValue")),
                                 ips
                             );
                             RareItems.rig.addPlayerAvailableRareItem(ri);
                             
                             if(((String) pendingItem.get("pending")).equals("1"))
                             {
-                                RareItems.self.getServer().broadcastMessage("-----------------------------------------------------------");
+                                RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
                                 RareItems.self.getServer().broadcastMessage(sPlayerName + " scored a "+ri.getDisplayName()+"!");
-                                RareItems.self.getServer().broadcastMessage("-----------------------------------------------------------");
+                                RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
                             }
                         }
                         
@@ -239,7 +239,7 @@ public class ApiMessenger
                 if((boolean) json.get("hasItems"))
                 {
                     String sPlayerName = (String) json.get("player");
-                    int iPlayerSiteId = (int) json.get("player");
+                    int iPlayerSiteId = Integer.parseInt((String) json.get("siteId"));
                     
                     RareItems.am.addSiteId(sPlayerName, iPlayerSiteId);
 
@@ -264,11 +264,11 @@ public class ApiMessenger
                         RareItem ri = new RareItem(rid,sPlayerName,materialId,dataValue,ips);
                         RareItems.rig.addPlayerAvailableRareItem(ri);
                     
-                        if(((String) items.get(sRid).get("pending")).equals("1"))
+                        if((boolean) items.get(sRid).get("pending"))
                         {
-                            RareItems.self.getServer().broadcastMessage("-----------------------------------------------------------");
+                            RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
                             RareItems.self.getServer().broadcastMessage(sPlayerName + " scored a "+ri.getDisplayName()+"!");
-                            RareItems.self.getServer().broadcastMessage("-----------------------------------------------------------");
+                            RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
                         }
                     }
                     

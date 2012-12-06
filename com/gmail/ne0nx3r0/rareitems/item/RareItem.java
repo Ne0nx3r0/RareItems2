@@ -35,16 +35,23 @@ public class RareItem
     {
         for(ItemProperty ip : properties.keySet())
         {
-            if(e.getPlayer().getFoodLevel() >= ip.getCost())
+            if(ip.hasCost(e.getPlayer()))
             {
                 if(ip.onInteract(e, properties.get(ip)))
                 {
-                    e.getPlayer().setFoodLevel(e.getPlayer().getFoodLevel() - ip.getCost());
+                    ip.takeCost(e.getPlayer());
                 }
             }
             else
             {
-                e.getPlayer().sendMessage("You need to eat something!");
+                if(RareItems.COST_TYPE == RareItems.COST_TYPE_FOOD)
+                {
+                    e.getPlayer().sendMessage("Your food bar is too low to use this!");
+                }
+                else if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
+                {
+                    e.getPlayer().sendMessage("You need more EXP to use this!");
+                }
             }
         }
     }
@@ -58,16 +65,23 @@ public class RareItem
 
             for(ItemProperty ip : properties.keySet())
             {
-                if(p.getFoodLevel() >= ip.getCost())
+                if(ip.hasCost(p))
                 {
                     if(ip.onDamagedOther(e, properties.get(ip)))
                     {
-                        p.setFoodLevel(p.getFoodLevel() - ip.getCost());
+                        ip.takeCost(p);
                     }
                 }
                 else
                 {
-                    p.sendMessage("You need to eat something!");
+                    if(RareItems.COST_TYPE == RareItems.COST_TYPE_FOOD)
+                    {
+                        p.sendMessage("Your food bar is too low to use this skill!");
+                    }
+                    else if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
+                    {
+                        p.sendMessage("You need more EXP to use this skill!");
+                    }
                 }
             }
         }

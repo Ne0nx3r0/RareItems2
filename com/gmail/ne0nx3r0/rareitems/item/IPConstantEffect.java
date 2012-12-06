@@ -7,7 +7,12 @@ public class IPConstantEffect extends ItemProperty
 {
     public IPConstantEffect(int id,String name,String description)
     {
-        super(id,name,description);
+        super(id,name,description,0);
+    }
+    
+    public IPConstantEffect(int id,String name,String description,int cost)
+    {
+        super(id,name,description,cost);
     }
     
     @Override

@@ -11,7 +11,7 @@ public class Fly extends IPConstantEffect
 {
     public Fly()
     {
-        super(8,"Fly","You can fly.");
+        super(8,"Fly","You can fly.",1);
         
         this.createRepeatingAppliedEffect(this,20*5);
         
@@ -26,7 +26,7 @@ public class Fly extends IPConstantEffect
                 {
                     Player p = Bukkit.getPlayer(sPlayer);
                     
-                    if(p.isFlying() && p.getFoodLevel() == 0)
+                    if(p.isFlying() && !ip.hasCost(p))
                     {
                         p.setFlying(false);
                     }
@@ -55,16 +55,9 @@ public class Fly extends IPConstantEffect
     {
         if(p.isFlying())
         {
-            if(p.getFoodLevel() > 0)
+            if(this.hasCost(p))
             {
-                int iNewFoodLevel = p.getFoodLevel() - 5 + level;
-                
-                if(iNewFoodLevel < 0)
-                {
-                    iNewFoodLevel = 0;
-                }
-                
-                p.setFoodLevel(iNewFoodLevel);
+                this.takeCost(p);
             }
             else
             {

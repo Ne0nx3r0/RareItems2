@@ -6,7 +6,6 @@ import net.minecraft.server.DataWatcher;
 import net.minecraft.server.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -18,14 +17,6 @@ public class ItemProperty
     private final String name;
     private final String description;
     private final int cost;
-     
-    public ItemProperty(int id,String name,String description)
-    {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.cost = 0;
-    }
     
     public ItemProperty(int id,String name,String description,int cost)
     {
@@ -110,5 +101,36 @@ public class ItemProperty
                 }
             }
         }, duration, duration);
+    }
+    
+    public boolean hasCost(Player p)
+    {
+        if(RareItems.COST_TYPE == RareItems.COST_TYPE_FOOD)
+        {
+            if(p.getFoodLevel() < cost * RareItems.COST_MULTIPLIER)
+            {
+                return true;
+            }
+        }        
+        if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
+        {
+            if(p.getExp() < cost * RareItems.COST_MULTIPLIER)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void takeCost(Player p)
+    {
+        if(RareItems.COST_TYPE == RareItems.COST_TYPE_FOOD)
+        {
+            p.setFoodLevel(p.getFoodLevel() - cost * RareItems.COST_MULTIPLIER);
+        }        
+        if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
+        {
+            p.setExp(p.getExp() - cost * RareItems.COST_MULTIPLIER);
+        }
     }
 }

@@ -1,0 +1,10 @@
+#
+# RareItems2 v0.1 
+#
+# Hipster config file doesn't believe you've never heard of RareItems 1
+#
+# Documentation / Examples: <bug ne0nx3r0@gmail.com until he puts a url here>
+#
+costType: food
+costMultiplier: 1
+maxItemsCheckedOut: 5

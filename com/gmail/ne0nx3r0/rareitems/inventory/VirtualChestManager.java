@@ -18,10 +18,13 @@ import org.bukkit.entity.Player;
 public final class VirtualChestManager
 {
     private static HashMap<String, HashMap<Integer,Integer[]>> checkedOutItems;//Lower case player name
+    private final int MAX_ITEMS_CHECKED_OUT;
     
     public VirtualChestManager()
     {
-        checkedOutItems = new HashMap<>();      
+        checkedOutItems = new HashMap<>(); 
+        
+        MAX_ITEMS_CHECKED_OUT = RareItems.self.getConfig().getInt("maxItemsCheckedOut");
         
         this.load();
     }
@@ -60,7 +63,7 @@ public final class VirtualChestManager
         
         if(!checkedOutItems.get(sPlayerName).containsKey(ri.getId()))
         {
-            if(checkedOutItems.get(sPlayerName).size() < 5)
+            if(checkedOutItems.get(sPlayerName).size() < MAX_ITEMS_CHECKED_OUT)
             {
                 checkedOutItems.get(sPlayerName).put(ri.getId(),new Integer[]{
                     ri.getMaterialId(),
