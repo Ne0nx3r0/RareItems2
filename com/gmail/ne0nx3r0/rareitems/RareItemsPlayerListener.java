@@ -92,7 +92,9 @@ public class RareItemsPlayerListener implements Listener
                 {
                     RareItem riPuttingDown = RareItems.rig.getRareItem(((Player) e.getWhoClicked()).getName(),e.getCursor());
 
-                    if(riPuttingDown == null || !riPuttingDown.getOwner().equalsIgnoreCase(p.getName()))
+                    if(riPuttingDown == null 
+                    || !riPuttingDown.getOwner().equalsIgnoreCase(p.getName())
+                    || !RareItems.vcm.isCheckedOut(p.getName(),riPuttingDown.getId()))
                     {
                         p.sendMessage("You can only check in your own RareItems!");
 
@@ -116,9 +118,11 @@ public class RareItemsPlayerListener implements Listener
 
                 if(e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR)//picking up
                 {
-                    RareItem riPickingUp = RareItems.rig.getRareItem(((Player) e.getWhoClicked()).getName(),e.getCurrentItem());
+                    RareItem riPickingUp = RareItems.rig.getRareItem((p).getName(),e.getCurrentItem());
 
-                    if(riPickingUp == null || !riPickingUp.getOwner().equalsIgnoreCase(p.getName()))
+                    if(riPickingUp == null 
+                    || !riPickingUp.getOwner().equalsIgnoreCase(p.getName())
+                    || RareItems.vcm.isCheckedOut(p.getName(),riPickingUp.getId()))
                     {
                         p.sendMessage("You can only check out your own RareItems!");
 

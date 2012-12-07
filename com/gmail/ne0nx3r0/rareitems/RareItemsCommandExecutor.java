@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -73,7 +74,9 @@ public class RareItemsCommandExecutor implements CommandExecutor
                             }
                             else
                             {
-                                p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+rid+" (Unknown)");
+                                Integer[] checkedOutRareItemData = RareItems.vcm.getCheckedOutRareItemData(p.getName(), rid);
+                                
+                                p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+rid+" ("+Material.getMaterial(checkedOutRareItemData[0]) +")");
                             }
                         }
                     }

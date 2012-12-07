@@ -32,6 +32,8 @@ public class ApiMessenger
             @Override
             public void run()
             {
+                System.out.println("Checking if any players have new RareItems...");
+                
                 JSONObject json = new JSONObject();
 
                 JSONArray jPlayers = new JSONArray();
