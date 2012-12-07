@@ -76,30 +76,37 @@ public class RareItemsCommandExecutor implements CommandExecutor
                 
                 if(args.length < 2)
                 {
-                    p.sendMessage(ChatColor.YELLOW+"Here are the items you can return:");
-                    
                     Set<Integer> checkedOutRareItems = RareItems.vcm.getCheckedOutRareItems(p.getName());
                     
-                    if(checkedOutRareItems != null)
+                    if(!checkedOutRareItems.isEmpty())
                     {
-                        for(Iterator<Integer> it = checkedOutRareItems.iterator(); it.hasNext();)
+                        p.sendMessage(ChatColor.YELLOW+"Here are the items you can return:");
+
+                        if(checkedOutRareItems != null)
                         {
-                            int rid = it.next();
-                            RareItem ri = RareItems.rig.getRareItem(p.getName(), rid);
-                            if(ri != null)
+                            for(Iterator<Integer> it = checkedOutRareItems.iterator(); it.hasNext();)
                             {
-                                p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+ri.getId());
-                            }
-                            else
-                            {
-                                Integer[] riData = RareItems.vcm.getCheckedOutRareItemData(p.getName(), rid);
-                                
-                                p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+rid+" ("+MaterialName.getMaterialDisplayName(riData[0], riData[0].byteValue()) +")");
+                                int rid = it.next();
+                                RareItem ri = RareItems.rig.getRareItem(p.getName(), rid);
+                                if(ri != null)
+                                {
+                                    p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+ri.getId());
+                                }
+                                else
+                                {
+                                    Integer[] riData = RareItems.vcm.getCheckedOutRareItemData(p.getName(), rid);
+
+                                    p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+rid+" ("+MaterialName.getMaterialDisplayName(riData[0], riData[0].byteValue()) +")");
+                                }
                             }
                         }
+
+                        p.sendMessage(ChatColor.YELLOW+"Use /ri return <rid> to exchange an it");
                     }
-                    
-                    p.sendMessage(ChatColor.YELLOW+"Use /ri return <rid> to exchange an it");
+                    else
+                    {
+                        p.sendMessage(ChatColor.YELLOW+"You don't have any items checked out!");
+                    }
                 }
                 else
                 {
@@ -127,7 +134,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
                             && is.getData().getData() == riData[1].byteValue()
                             && RareItems.rig.isRareItem(is,rid))
                             {
-                                p.getInventory().remove(is);
+                                p.getInventory().removeItem(is);
                                 
                                 /* 
                                  * It seems cruel to attempt check-in after 
@@ -155,7 +162,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
                             && is.getTypeId() == riData[0]
                             && is.getData().getData() == riData[1].byteValue())
                             {
-                                p.getInventory().remove(is);
+                                p.getInventory().removeItem(is);
                                 
                                 if(RareItems.vcm.checkIn(rid, p))
                                 {

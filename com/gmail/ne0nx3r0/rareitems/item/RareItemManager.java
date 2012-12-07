@@ -76,6 +76,7 @@ public class RareItemManager
         this.storeItemProperty(new SummonSlime());
         this.storeItemProperty(new SummonPig());
         this.storeItemProperty(new Invisibility());
+        this.storeItemProperty(new CatsFeet());
         
         this.storeItemProperty(new AngelicGlow());
         this.storeItemProperty(new Burning());

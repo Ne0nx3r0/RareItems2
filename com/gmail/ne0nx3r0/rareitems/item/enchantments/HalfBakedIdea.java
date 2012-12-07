@@ -10,7 +10,7 @@ public class HalfBakedIdea extends ItemProperty
 {
     public HalfBakedIdea()
     {
-        super(25,"Half-Baked Idea","To the lab mouse, life is a confusing array of cheese and electricity",6);
+        super(39,"Half-Baked Idea","To the lab mouse, life is a confusing array of cheese and electricity",4);
     }
     
     @Override
