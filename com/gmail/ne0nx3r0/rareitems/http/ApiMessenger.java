@@ -139,12 +139,20 @@ public class ApiMessenger
                                 int ipId = Integer.parseInt(sIpId);
                                 
                                 ItemProperty ip = RareItems.rig.getItemProperty(ipId);
-                                int ipLevel = Integer.parseInt(pendingItemProperties.get(sIpId));
 
-                                ips.put(
-                                    ip,
-                                    ipLevel
-                                );
+                                if(ip != null)
+                                {
+                                    int ipLevel = Integer.parseInt(pendingItemProperties.get(sIpId));
+
+                                    ips.put(
+                                        ip,
+                                        ipLevel
+                                    );
+                                }
+                                else
+                                {
+                                    RareItems.logger.log(Level.WARNING,"Server returned an invalid ItemProperty ID"+ipId+"! (is RareItems up to date?)");
+                                }
                             }
                             
                             int materialId = Integer.parseInt((String) pendingItem.get("material"));
@@ -252,15 +260,24 @@ public class ApiMessenger
                         HashMap<ItemProperty,Integer> ips = new HashMap<>();
                         for(String sIPid : ipData.keySet())
                         {
-                            ips.put(
-                                RareItems.rig.getItemProperty(Integer.parseInt(sIPid)),
-                                Integer.parseInt(ipData.get(sIPid))
-                            );
+                            ItemProperty ip = RareItems.rig.getItemProperty(Integer.parseInt(sIPid));
+                            
+                            if(ip != null)
+                            {
+                                ips.put(
+                                    ip,
+                                    Integer.parseInt(ipData.get(sIPid))
+                                );
+                            }
+                            else
+                            {
+                                RareItems.logger.log(Level.WARNING,"Server returned an invalid ItemProperty ID"+sIPid+"! (is RareItems up to date?)");
+                            }
                         }
 
                         RareItem ri = new RareItem(rid,sPlayerName,materialId,dataValue,ips);
                         RareItems.rig.addPlayerAvailableRareItem(ri);
-
+                        
                         if((boolean) items.get(sRid).get("pending"))
                         {
                             RareItems.self.getServer().broadcastMessage("----------------------------------------------------");

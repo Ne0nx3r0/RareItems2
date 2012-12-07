@@ -14,7 +14,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -52,6 +51,7 @@ public class RareItemManager
         this.storeItemProperty(new FireHandling());
         this.storeItemProperty(new MeltObsidian());
         this.storeItemProperty(new PaintWool());
+        this.storeItemProperty(new HalfBakedIdea());
         
         this.storeItemProperty(new Backstab());
         this.storeItemProperty(new CallLightning());
