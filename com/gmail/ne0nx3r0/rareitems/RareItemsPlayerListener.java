@@ -18,7 +18,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class RareItemsPlayerListener implements Listener
@@ -84,17 +83,15 @@ public class RareItemsPlayerListener implements Listener
         if(e.getInventory().getHolder() instanceof VirtualChest)
         {
             Player p = (Player) e.getWhoClicked();
-            Inventory inv = e.getInventory();
             
             if(e.getRawSlot() < 54)
             {
                 if(e.getCursor() != null && e.getCursor().getType() != Material.AIR)//putting down
                 {
-                    RareItem riPuttingDown = RareItems.rig.getRareItem(((Player) e.getWhoClicked()).getName(),e.getCursor());
+                    RareItem riPuttingDown = RareItems.rig.getRareItem(((Player) e.getWhoClicked()).getName(),e.getCursor(),true);
 
                     if(riPuttingDown == null 
-                    || !riPuttingDown.getOwner().equalsIgnoreCase(p.getName())
-                    || !RareItems.vcm.isCheckedOut(p.getName(),riPuttingDown.getId()))
+                    || !riPuttingDown.getOwner().equalsIgnoreCase(p.getName()))
                     {
                         p.sendMessage("You can only check in your own RareItems!");
 
@@ -118,11 +115,10 @@ public class RareItemsPlayerListener implements Listener
 
                 if(e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR)//picking up
                 {
-                    RareItem riPickingUp = RareItems.rig.getRareItem((p).getName(),e.getCurrentItem());
+                    RareItem riPickingUp = RareItems.rig.getRareItem((p).getName(),e.getCurrentItem(),true);
 
                     if(riPickingUp == null 
-                    || !riPickingUp.getOwner().equalsIgnoreCase(p.getName())
-                    || RareItems.vcm.isCheckedOut(p.getName(),riPickingUp.getId()))
+                    || !riPickingUp.getOwner().equalsIgnoreCase(p.getName()))
                     {
                         p.sendMessage("You can only check out your own RareItems!");
 

@@ -89,8 +89,12 @@ public class RareItemManager
         this.storeItemProperty(new Strength());
         this.storeItemProperty(new WaterBreathing());
     }
-    
     public RareItem getRareItem(String sPlayerName,ItemStack is)
+    {
+        return getRareItem(sPlayerName,is,false);
+    }
+    
+    public RareItem getRareItem(String sPlayerName,ItemStack is,boolean ignoreCheckout)
     {
         if(is != null && is.getType() != Material.AIR && ((CraftItemStack) is).getHandle().tag != null)
         {
@@ -107,7 +111,8 @@ public class RareItemManager
                     int riId = Integer.parseInt(sRIDString.substring(RID_PREFIX.length()));
                     
                     if(playerRareItems.containsKey(sPlayerName)
-                    && playerRareItems.get(sPlayerName).containsKey(riId))
+                    && playerRareItems.get(sPlayerName).containsKey(riId)
+                    && (ignoreCheckout || RareItems.vcm.isCheckedOut(sPlayerName,riId)))
                     {
                         return playerRareItems.get(sPlayerName).get(riId);
                     }
