@@ -21,6 +21,8 @@ public class RareItems extends JavaPlugin{
     public static int COST_TYPE;
     public static int COST_MULTIPLIER; 
     
+    public static boolean USE_PERMISSIONS;
+    
     @Override
     public void onEnable()
     {        
@@ -44,6 +46,8 @@ public class RareItems extends JavaPlugin{
         }
         
         COST_MULTIPLIER = getConfig().getInt("costMultiplier");
+        
+        USE_PERMISSIONS = getConfig().getBoolean("usePermissions");
         
         RareItems.rig = new RareItemManager();
         

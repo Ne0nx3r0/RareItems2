@@ -63,7 +63,9 @@ public final class VirtualChestManager
         
         if(!checkedOutItems.get(sPlayerName).containsKey(ri.getId()))
         {
-            if(checkedOutItems.get(sPlayerName).size() < MAX_ITEMS_CHECKED_OUT)
+            if(checkedOutItems.get(sPlayerName).size() < MAX_ITEMS_CHECKED_OUT
+            || (RareItems.USE_PERMISSIONS && p.hasPermission("rareitems.ignoreLimits"))
+            || p.isOp())
             {
                 checkedOutItems.get(sPlayerName).put(ri.getId(),new Integer[]{
                     ri.getMaterialId(),

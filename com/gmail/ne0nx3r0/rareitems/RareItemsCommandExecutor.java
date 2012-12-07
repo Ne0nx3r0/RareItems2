@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -38,6 +37,15 @@ public class RareItemsCommandExecutor implements CommandExecutor
         {
             if(args[0].equalsIgnoreCase("claim"))
             {
+                if(RareItems.USE_PERMISSIONS 
+                && !p.hasPermission("rareitems.claim") 
+                && !p.isOp())
+                {
+                    p.sendMessage(ChatColor.RED+"You do not have permission to do this.");
+                    
+                    return true;
+                }
+                
                 if(RareItems.rig.hasRareItems(p.getName()))
                 {
                     VirtualChest vc = new VirtualChest(p.getName()+"'s RareItems");
@@ -57,6 +65,15 @@ public class RareItemsCommandExecutor implements CommandExecutor
             }
             else if(args[0].equalsIgnoreCase("return"))
             {
+                if(RareItems.USE_PERMISSIONS 
+                && !p.hasPermission("rareitems.return")
+                && !p.isOp())
+                {
+                    p.sendMessage(ChatColor.RED+"You do not have permission to do this.");
+                    
+                    return true;
+                }
+                
                 if(args.length < 2)
                 {
                     p.sendMessage(ChatColor.YELLOW+"Here are the items you can return:");
@@ -161,7 +178,18 @@ public class RareItemsCommandExecutor implements CommandExecutor
             }
             else if(args[0].equalsIgnoreCase("clear"))
             {
-                //
+                p.sendMessage(ChatColor.RED+">>>Not setup yet.<<<");
+                
+                if((RareItems.USE_PERMISSIONS && !p.hasPermission("rareitems.clear"))
+                || !p.isOp())
+                {
+                    p.sendMessage(ChatColor.RED+"You do not have permission to do this.");
+                    
+                    return true;
+                }
+                
+                //rareitems.clear.others
+                                
             }
         }
         
