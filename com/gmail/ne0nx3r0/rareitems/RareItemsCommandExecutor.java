@@ -2,6 +2,7 @@ package com.gmail.ne0nx3r0.rareitems;
 
 import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChest;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
+import com.gmail.ne0nx3r0.utils.MaterialName;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
@@ -70,13 +71,13 @@ public class RareItemsCommandExecutor implements CommandExecutor
                             RareItem ri = RareItems.rig.getRareItem(p.getName(), rid);
                             if(ri != null)
                             {
-                                p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+ri.getId() + " ("+ri.getDisplayName()+")");
+                                p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+ri.getId());
                             }
                             else
                             {
-                                Integer[] checkedOutRareItemData = RareItems.vcm.getCheckedOutRareItemData(p.getName(), rid);
+                                Integer[] riData = RareItems.vcm.getCheckedOutRareItemData(p.getName(), rid);
                                 
-                                p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+rid+" ("+Material.getMaterial(checkedOutRareItemData[0]) +")");
+                                p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+rid+" ("+MaterialName.getMaterialDisplayName(riData[0], riData[0].byteValue()) +")");
                             }
                         }
                     }
