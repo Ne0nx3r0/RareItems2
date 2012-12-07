@@ -46,11 +46,6 @@ public class ApiMessenger
                     jPlayers.add(iSiteId);
                 }
                 
-                jPlayers.add(1);
-                jPlayers.add(2);
-                jPlayers.add(8);
-                jPlayers.add(10);
-                
                 json.put("server_players", jPlayers);
                 
                 json.put("server_name", Bukkit.getServerName());
