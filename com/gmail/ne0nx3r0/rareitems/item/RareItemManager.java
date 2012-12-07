@@ -300,7 +300,9 @@ public class RareItemManager
 
     public void refreshArmor(Player p)
     {
-        revokeAllItemProperties(p.getName());
+        String sPlayerName = p.getName().toLowerCase();
+        
+        revokeAllItemProperties(sPlayerName);
         
         if(p != null)
         {
@@ -310,11 +312,11 @@ public class RareItemManager
 
                 for(int i=0;i<armor.length;i++)
                 {
-                    RareItem ri = RareItems.rig.getRareItem(p.getName(),armor[i]);
+                    RareItem ri = RareItems.rig.getRareItem(sPlayerName,armor[i]);
 
                     if(ri != null)
                     {
-                        ri.onEquipped(Bukkit.getPlayer(p.getName()));
+                        ri.onEquipped(Bukkit.getPlayer(sPlayerName));
                     }
                 }
             }
