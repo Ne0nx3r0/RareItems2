@@ -2,12 +2,10 @@ package com.gmail.ne0nx3r0.rareitems;
 
 import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChest;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -48,6 +46,10 @@ public class RareItemsCommandExecutor implements CommandExecutor
 
                     p.openInventory(vc.getInventory());
                 }
+                else
+                {
+                    p.sendMessage("You don't have any rare items! Ouch.");
+                }
 
                 return true;
             }
@@ -76,7 +78,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
                         }
                     }
                     
-                    p.sendMessage(ChatColor.YELLOW+"Use /ri relcaim <rid> to exchange an it");
+                    p.sendMessage(ChatColor.YELLOW+"Use /ri return <rid> to exchange an it");
                 }
                 else
                 {

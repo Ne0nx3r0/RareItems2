@@ -107,14 +107,14 @@ public class ItemProperty
     {
         if(RareItems.COST_TYPE == RareItems.COST_TYPE_FOOD)
         {
-            if(p.getFoodLevel() < cost * RareItems.COST_MULTIPLIER)
+            if(p.getFoodLevel() >= cost * RareItems.COST_MULTIPLIER)
             {
                 return true;
             }
         }        
         if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
         {
-            if(p.getExp() < cost * RareItems.COST_MULTIPLIER)
+            if(p.getExp() >= cost * RareItems.COST_MULTIPLIER)
             {
                 return true;
             }

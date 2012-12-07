@@ -85,7 +85,7 @@ public class ApiMessenger
                     RareItems.logger.log(Level.SEVERE, null, ex);
                 }
             }
-        }, 20*30, 20*30);
+        }, 20*60*30, 20*60*30);
     }
 
     public static void receivePlayerUpdate(String response)
@@ -263,7 +263,7 @@ public class ApiMessenger
 
                         RareItem ri = new RareItem(rid,sPlayerName,materialId,dataValue,ips);
                         RareItems.rig.addPlayerAvailableRareItem(ri);
-                    
+
                         if((boolean) items.get(sRid).get("pending"))
                         {
                             RareItems.self.getServer().broadcastMessage("----------------------------------------------------");

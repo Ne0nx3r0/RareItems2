@@ -107,7 +107,8 @@ public class RareItemManager
                     int riId = Integer.parseInt(sRIDString.substring(RID_PREFIX.length()));
                     
                     if(playerRareItems.containsKey(sPlayerName)
-                    && playerRareItems.get(sPlayerName).containsKey(riId))
+                    && playerRareItems.get(sPlayerName).containsKey(riId)
+                    && RareItems.vcm.isCheckedOut(sPlayerName,riId))
                     {
                         return playerRareItems.get(sPlayerName).get(riId);
                     }
@@ -186,7 +187,7 @@ public class RareItemManager
             {
                 ri.revokeItemProperties();
             }
-            this.playerRareItems.remove(playerName.toLowerCase());
+            //this.playerRareItems.remove(playerName.toLowerCase());
         }
     }
 
@@ -197,14 +198,14 @@ public class RareItemManager
 
     public void addPlayerAvailableRareItem(RareItem rareItem)
     {
-        String sPlayerName = rareItem.getOwner();
+        String sPlayerName = rareItem.getOwner().toLowerCase();
         
         if(!this.playerRareItems.containsKey(sPlayerName))
         {
-            this.playerRareItems.put(sPlayerName.toLowerCase(), new HashMap<Integer,RareItem>());
+            this.playerRareItems.put(sPlayerName, new HashMap<Integer,RareItem>());
         }
         
-        this.playerRareItems.get(sPlayerName.toLowerCase()).put(rareItem.getId(),rareItem);
+        this.playerRareItems.get(sPlayerName).put(rareItem.getId(),rareItem);
     }
 
     public boolean hasRareItems(String sPlayerName)
