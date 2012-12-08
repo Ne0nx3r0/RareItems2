@@ -9,6 +9,7 @@ import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class ItemProperty
@@ -30,6 +31,8 @@ public class ItemProperty
     
     public boolean onInteract(PlayerInteractEvent e,int level){return false;}
 
+    public boolean onInteractEntity(PlayerInteractEntityEvent e, Integer level){return false;}
+    
     public boolean onDamagedOther(EntityDamageByEntityEvent e, int level){return false;}
     
     public void onEquip(Player p,int level){}

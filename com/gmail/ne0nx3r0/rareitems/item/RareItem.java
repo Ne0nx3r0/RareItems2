@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -38,6 +39,31 @@ public class RareItem
             if(ip.hasCost(e.getPlayer()))
             {
                 if(ip.onInteract(e, properties.get(ip)))
+                {
+                    ip.takeCost(e.getPlayer());
+                }
+            }
+            else
+            {
+                if(RareItems.COST_TYPE == RareItems.COST_TYPE_FOOD)
+                {
+                    e.getPlayer().sendMessage("Your food bar is too low to use this!");
+                }
+                else if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
+                {
+                    e.getPlayer().sendMessage("You need more EXP to use this!");
+                }
+            }
+        }
+    }
+
+    public void onInteractEntity(PlayerInteractEntityEvent e)
+    {
+        for(ItemProperty ip : properties.keySet())
+        {
+            if(ip.hasCost(e.getPlayer()))
+            {
+                if(ip.onInteractEntity(e, properties.get(ip)))
                 {
                     ip.takeCost(e.getPlayer());
                 }
@@ -175,6 +201,4 @@ public class RareItem
     {
         return this.dataValue;
     }
-    
-    
 }

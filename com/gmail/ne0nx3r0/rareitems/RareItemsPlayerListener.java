@@ -44,7 +44,12 @@ public class RareItemsPlayerListener implements Listener
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerInteractedWithEntity(PlayerInteractEntityEvent e)
     {
-        System.out.println(e.getPlayer().getName()+"interacted!" + e.getRightClicked() + " ");
+        RareItem ri = RareItems.rig.getRareItem(e.getPlayer().getName(),e.getPlayer().getItemInHand());
+
+        if(ri != null)
+        {
+            ri.onInteractEntity(e);
+        }
     }
     
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
