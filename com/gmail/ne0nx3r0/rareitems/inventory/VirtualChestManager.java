@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public final class VirtualChestManager
@@ -160,5 +161,24 @@ public final class VirtualChestManager
     public Integer[] getCheckedOutRareItemData(String sPlayerName, int rid) 
     {
         return checkedOutItems.get(sPlayerName.toLowerCase()).get(rid);
+    }
+
+    public void checkInAllItems(String sPlayerName)
+    {
+        Player p = Bukkit.getPlayer(sPlayerName);
+        sPlayerName = sPlayerName.toLowerCase();
+        
+        if(checkedOutItems.containsKey(sPlayerName))
+        {
+            for(int rid: checkedOutItems.get(sPlayerName).keySet())
+            {
+                checkIn(rid,p);
+            }
+        }
+    }
+
+    public void resetCheckOuts()
+    {
+        checkedOutItems = new HashMap<>();
     }
 }

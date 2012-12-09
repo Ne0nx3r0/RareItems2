@@ -1,6 +1,7 @@
 package com.gmail.ne0nx3r0.rareitems.item;
 
 import com.gmail.ne0nx3r0.rareitems.RareItems;
+import com.gmail.ne0nx3r0.utils.MaterialName;
 import com.gmail.ne0nx3r0.utils.Namer;
 import com.gmail.ne0nx3r0.utils.RomanNumeral;
 import java.util.HashMap;
@@ -170,7 +171,7 @@ public class RareItem
         return (ItemStack) cssRareItem;
     }
 
-    void revokeItemProperties()
+    public void revokeItemProperties()
     {
         Player p = Bukkit.getPlayer(owner);
         
@@ -182,11 +183,11 @@ public class RareItem
 
     public String getDisplayName()
     {
-        String dispName = Material.getMaterial(this.materialId).name().toLowerCase()+" ";
+        String dispName = MaterialName.getMaterialDisplayName(materialId, dataValue);
         
         for(ItemProperty ip : properties.keySet())
         {
-            dispName += ip.getName()+" "+properties.get(ip)+",";
+            dispName += " "+ip.getName()+" "+properties.get(ip)+",";
         }
         
         return dispName.substring(0,dispName.length()-1);
@@ -194,11 +195,11 @@ public class RareItem
 
     public int getMaterialId()
     {
-        return this.materialId;
+        return materialId;
     }
 
     public byte getDataValue()
     {
-        return this.dataValue;
+        return dataValue;
     }
 }

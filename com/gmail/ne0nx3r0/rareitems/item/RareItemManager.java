@@ -27,18 +27,11 @@ public class RareItemManager
     private final Map<String,Map<Integer,RareItem>> playerRareItems;//Lower case player name
     private final HashMap<ItemProperty, HashMap<String,Integer>> activeEffects;
     private final Map<String,Map<ItemProperty,Integer>> playerActiveEffects;
-    private final EnumMap<ItemRarities, String> rarityStrings;
     private final Map<String,ItemProperty> itemProperties;
     private final Map<Integer,ItemProperty> itemPropertiesIdLookup;
     
     public RareItemManager()
-    {
-        rarityStrings = new EnumMap<>(ItemRarities.class);
-        rarityStrings.put(ItemRarities.COMMON,    ChatColor.GRAY + "Common");    
-        rarityStrings.put(ItemRarities.UNCOMMON,  ChatColor.BLUE + "Uncommon");    
-        rarityStrings.put(ItemRarities.RARE,      ChatColor.GOLD + "Rare");    
-        rarityStrings.put(ItemRarities.LEGENDARY, ChatColor.RED  + "Legendary"); 
-        
+    {        
         playerRareItems = new HashMap<>();//Lower case player name
         playerActiveEffects = new HashMap<>();
         activeEffects = new HashMap<>();
@@ -90,6 +83,7 @@ public class RareItemManager
         this.storeItemProperty(new Strength());
         this.storeItemProperty(new WaterBreathing());
     }
+    /*
     public RareItem getRareItem(String sPlayerName,ItemStack is)
     {
         return getRareItem(sPlayerName,is,false);
@@ -175,15 +169,6 @@ public class RareItemManager
         return false;
     }
     
-    public boolean playerHasItemProperty(String playerName, int id)
-    {
-        if(playerActiveEffects.containsKey(playerName))
-        {
-            return playerActiveEffects.get(playerName).containsKey(itemPropertiesIdLookup.get(id));
-        }
-        return false;
-    }
-
     public void revokeAllItemProperties(String playerName)
     {
         if(playerRareItems.containsKey(playerName.toLowerCase()))
@@ -195,6 +180,17 @@ public class RareItemManager
             //this.playerRareItems.remove(playerName.toLowerCase());
         }
     }
+    */
+    
+    public boolean playerHasItemProperty(String playerName, int id)
+    {
+        if(playerActiveEffects.containsKey(playerName))
+        {
+            return playerActiveEffects.get(playerName).containsKey(itemPropertiesIdLookup.get(id));
+        }
+        return false;
+    }
+
 
     public ItemProperty getItemProperty(int itempropertyID)
     {
@@ -297,31 +293,6 @@ public class RareItemManager
             return this.playerRareItems.get(sPlayerName).get(rid);
         }
         return null;
-    }
-
-    public void refreshArmor(Player p)
-    {
-        String sPlayerName = p.getName().toLowerCase();
-        
-        revokeAllItemProperties(sPlayerName);
-        
-        if(p != null)
-        {
-            if(p.getInventory().getArmorContents().length > 0)
-            {
-                ItemStack[] armor = p.getInventory().getArmorContents();
-
-                for(int i=0;i<armor.length;i++)
-                {
-                    RareItem ri = RareItems.rig.getRareItem(sPlayerName,armor[i]);
-
-                    if(ri != null)
-                    {
-                        ri.onEquipped(Bukkit.getPlayer(sPlayerName));
-                    }
-                }
-            }
-        }
     }
 
     public void removeAllPlayerRareItems(String sPlayerName)

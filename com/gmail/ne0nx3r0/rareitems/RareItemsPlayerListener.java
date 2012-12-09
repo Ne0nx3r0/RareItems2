@@ -18,7 +18,6 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -30,10 +29,10 @@ public class RareItemsPlayerListener implements Listener
     {
         if(e.getEntity() instanceof Player)
         {
-            String sPlayerName = ((Player) e.getEntity()).getName();
+            Player p = (Player) e.getEntity();
             for(ItemStack isDrop : e.getDrops())
             {
-                if(RareItems.rig.getRareItem(sPlayerName, isDrop) != null)
+                if(RareItems.pm.getRareItem(p, isDrop) != null)
                 {
                     e.getDrops().remove(isDrop);
                 }
@@ -44,7 +43,7 @@ public class RareItemsPlayerListener implements Listener
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerInteractedWithEntity(PlayerInteractEntityEvent e)
     {
-        RareItem ri = RareItems.rig.getRareItem(e.getPlayer().getName(),e.getPlayer().getItemInHand());
+        RareItem ri = RareItems.pm.getRareItem(e.getPlayer(),e.getPlayer().getItemInHand());
 
         if(ri != null)
         {
@@ -56,9 +55,10 @@ public class RareItemsPlayerListener implements Listener
     public void onPlayerInteract(PlayerInteractEvent e)
     {
         if((e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK)
+        && e.getPlayer().getItemInHand() != null
         && e.getPlayer().getItemInHand().getType() != Material.AIR)
         {
-            RareItem ri = RareItems.rig.getRareItem(e.getPlayer().getName(),e.getPlayer().getItemInHand());
+            RareItem ri = RareItems.pm.getRareItem(e.getPlayer(),e.getPlayer().getItemInHand());
 
             if(ri != null)
             {
@@ -74,8 +74,7 @@ public class RareItemsPlayerListener implements Listener
         {
             if(e.getCursor() != null && e.getCursor().getType() != Material.AIR)//equipped item
             {
-                RareItem riEquipped = RareItems.rig.getRareItem(((Player) e.getWhoClicked()).getName(),e.getCursor());
-                
+                RareItem riEquipped = RareItems.pm.getRareItem((Player) e.getWhoClicked(),e.getCursor());
                 if(riEquipped != null)
                 {
                     riEquipped.onEquipped(((Player) e.getWhoClicked()));
@@ -83,7 +82,7 @@ public class RareItemsPlayerListener implements Listener
             }
             if(e.getCurrentItem().getType() != Material.AIR)//unequipped item
             {                
-                RareItem riUnequipped = RareItems.rig.getRareItem(((Player) e.getWhoClicked()).getName(),e.getCurrentItem());
+                RareItem riUnequipped = RareItems.pm.getRareItem((Player) e.getWhoClicked(),e.getCurrentItem());
                 
                 if(riUnequipped != null)
                 {
@@ -100,7 +99,7 @@ public class RareItemsPlayerListener implements Listener
             {
                 if(e.getCursor() != null && e.getCursor().getType() != Material.AIR)//putting down
                 {
-                    RareItem riPuttingDown = RareItems.rig.getRareItem(((Player) e.getWhoClicked()).getName(),e.getCursor(),true);
+                    RareItem riPuttingDown = RareItems.pm.getRareItem(((Player) e.getWhoClicked()),e.getCursor(),true);
 
                     if(riPuttingDown == null 
                     || !riPuttingDown.getOwner().equalsIgnoreCase(p.getName()))
@@ -127,7 +126,7 @@ public class RareItemsPlayerListener implements Listener
 
                 if(e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR)//picking up
                 {
-                    RareItem riPickingUp = RareItems.rig.getRareItem((p).getName(),e.getCurrentItem(),true);
+                    RareItem riPickingUp = RareItems.pm.getRareItem(p,e.getCurrentItem(),true);
 
                     if(riPickingUp == null 
                     || !riPickingUp.getOwner().equalsIgnoreCase(p.getName()))
@@ -140,7 +139,7 @@ public class RareItemsPlayerListener implements Listener
                     }
                     else
                     {
-                        if(!RareItems.vcm.checkOut(riPickingUp,p))
+                        if(!RareItems.pm.checkOutRareItem(riPickingUp,p))
                         {
                             p.sendMessage("You cannot check out that item");
 
@@ -151,34 +150,6 @@ public class RareItemsPlayerListener implements Listener
                     }
                 }  
             }
-        }
-    }
-    /*
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onPlayerItemHeldChange(PlayerItemHeldEvent e)
-    {
-        RareItem riHeld = RareItems.rig.getRareItem(e.getPlayer().getName(),e
-                .getPlayer().getInventory().getItem(e.getNewSlot()));
-        if(riHeld != null)
-        {
-            riHeld.onHeld(e);
-        }
-        
-        RareItem riUnheld = RareItems.rig.getRareItem(e.getPlayer().getName(),e
-                .getPlayer().getInventory().getItem(e.getPreviousSlot()));
-        if(riUnheld != null)
-        {
-            riUnheld.onUnheld(e);
-        }
-    }
-    */
-    
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onPlayerItemPickUp(PlayerPickupItemEvent e)
-    {
-        if(RareItems.rig.isAnotherPlayersRareItem(e.getItem().getItemStack(),e.getPlayer().getName()))
-        {
-            e.getItem().setItemStack(new ItemStack(e.getItem().getItemStack().getType()));
         }
     }
     
@@ -196,7 +167,7 @@ public class RareItemsPlayerListener implements Listener
                     +RareItems.rig.getPlayerEffectLevel(attacker.getName(),5));//Strength
             }
             
-            RareItem ri = RareItems.rig.getRareItem(attacker.getName(), attacker.getItemInHand());
+            RareItem ri = RareItems.pm.getRareItem(attacker, attacker.getItemInHand());
             
             if(ri != null)
             {
@@ -225,23 +196,21 @@ public class RareItemsPlayerListener implements Listener
     }
     
     @EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
-    public void onPlayerJoin(PlayerChangedWorldEvent e)
+    public void onPlayerChangeWorld(PlayerChangedWorldEvent e)
     {
-        RareItems.rig.refreshArmor(Bukkit.getPlayer(e.getPlayer().getName()));
+        RareItems.pm.refreshArmor(e.getPlayer());
     }
      
     
     @EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
     public void onPlayerJoin(PlayerJoinEvent e)
-    {
-        RareItems.am.fetchPlayerRareItems(e.getPlayer().getName());
+    {        
+        RareItems.pm.loadPlayerProfile(e.getPlayer());
     }
 
     @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled=true)
     public void onPlayerQuit(PlayerQuitEvent e)
     {
-        RareItems.am.removeSiteId(e.getPlayer().getName());
-        
-        RareItems.rig.revokeAllItemProperties(e.getPlayer().getName());
+        RareItems.pm.removePlayerProfile(e.getPlayer());
     }
 }

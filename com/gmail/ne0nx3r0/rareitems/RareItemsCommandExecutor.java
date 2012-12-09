@@ -28,8 +28,9 @@ public class RareItemsCommandExecutor implements CommandExecutor
         {
             p.sendMessage("Usage:");
             p.sendMessage("/ri claim - check-out/in RareItems");
-            p.sendMessage("/ri return - check-in a RareItem you lost or traded away.");
-            p.sendMessage("/ri clear - Clear a RareItem's properties");
+            p.sendMessage("/ri return - check-in a RareItem you lost or traded away");
+            p.sendMessage("/ri reset - reset your checked out items");
+            p.sendMessage("/ri reset <playerName> - reset another players checked out items");
             
             return true;
         }
@@ -46,13 +47,13 @@ public class RareItemsCommandExecutor implements CommandExecutor
                     return true;
                 }
                 
-                if(RareItems.rig.hasRareItems(p.getName()))
+                if(RareItems.pm.hasRareItems(p))
                 {
                     VirtualChest vc = new VirtualChest(p.getName()+"'s RareItems");
 
                     Inventory inv = vc.getInventory();
 
-                    RareItems.rig.fillWithAvailableRareItems(p,inv);
+                    RareItems.pm.fillWithCheckedInItems(p,inv);
 
                     p.openInventory(vc.getInventory());
                 }
@@ -78,7 +79,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
                 {
                     Set<Integer> checkedOutRareItems = RareItems.vcm.getCheckedOutRareItems(p.getName());
                     
-                    if(!checkedOutRareItems.isEmpty())
+                    if(checkedOutRareItems != null && !checkedOutRareItems.isEmpty())
                     {
                         p.sendMessage(ChatColor.YELLOW+"Here are the items you can return:");
 
@@ -132,7 +133,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
                             if(is != null 
                             && is.getTypeId() == riData[0]
                             && is.getData().getData() == riData[1].byteValue()
-                            && RareItems.rig.isRareItem(is,rid))
+                            && RareItems.pm.isRareItem(p,is,rid))
                             {
                                 p.getInventory().removeItem(is);
                                 
@@ -183,20 +184,25 @@ public class RareItemsCommandExecutor implements CommandExecutor
                     }
                 }
             }
-            else if(args[0].equalsIgnoreCase("clear"))
+            else if(args[0].equalsIgnoreCase("reset") && args.length == 1)
             {
-                p.sendMessage(ChatColor.RED+">>>Not setup yet.<<<");
-                
-                if((RareItems.USE_PERMISSIONS && !p.hasPermission("rareitems.clear"))
+                if((RareItems.USE_PERMISSIONS && !p.hasPermission("rareitems.reset"))
                 || !p.isOp())
                 {
                     p.sendMessage(ChatColor.RED+"You do not have permission to do this.");
                     
                     return true;
                 }
-                
-                //rareitems.clear.others
-                                
+            }
+            else if(args[0].equalsIgnoreCase("reset") && args.length == 2)
+            {
+                if((RareItems.USE_PERMISSIONS && !p.hasPermission("rareitems.reset"))
+                || !p.isOp())
+                {
+                    p.sendMessage(ChatColor.RED+"You do not have permission to do this.");
+                    
+                    return true;
+                }
             }
         }
         
