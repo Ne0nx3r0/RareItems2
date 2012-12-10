@@ -74,7 +74,10 @@ public class RareItems extends JavaPlugin{
         
         getCommand("ri").setExecutor(new RareItemsCommandExecutor());
 
-        ApiMessenger.fetchPlayerRareItems(Bukkit.getOnlinePlayers(), false);
+        if(Bukkit.getOnlinePlayers().length > 0)
+        {
+            ApiMessenger.fetchPlayerRareItems(Bukkit.getOnlinePlayers(), false);
+        }
     }    
     
     @Override
