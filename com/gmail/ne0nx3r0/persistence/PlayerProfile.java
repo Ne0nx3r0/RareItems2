@@ -144,6 +144,8 @@ public class PlayerProfile
                     ((Byte) ri.getDataValue()).intValue()
                 });
                 
+                RareItems.pm.savePlayerProfile(this);
+                
                 return true;
             }
         }
@@ -161,6 +163,8 @@ public class PlayerProfile
         if(checkouts.containsKey(rid))
         {
             checkouts.remove(rid);
+                
+            RareItems.pm.savePlayerProfile(this);
             
             return true;
         }

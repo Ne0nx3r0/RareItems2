@@ -36,6 +36,13 @@ public class ProfileManager
     {
         String sPlayerName = p.getName().toLowerCase();
         
+        if(playerProfiles.containsKey(sPlayerName))
+        {
+            ApiMessenger.fetchPlayerRareItems(playerProfiles.get(sPlayerName).getSiteId(),false);
+            
+            return;
+        }
+        
         File playerProfile = new File(PROFILE_DIRECTORY,sPlayerName+".yml");
 
         if(playerProfile.exists())

@@ -2,7 +2,6 @@ package com.gmail.ne0nx3r0.rareitems;
 
 import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChest;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
