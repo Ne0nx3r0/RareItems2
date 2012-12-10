@@ -15,6 +15,7 @@ public class PlayerProfile
 {
     private final String username;
     private final int siteId;
+    private final int money;
     private HashMap<Integer,RareItem> rareItems;//rid
     private HashMap<Integer,Integer[]> checkouts;
 
@@ -22,16 +23,17 @@ public class PlayerProfile
     {
         this.username = username;
         this.siteId = siteId;
+        this.money = 0;
         
         this.rareItems = new HashMap<>();
         this.checkouts = new HashMap<>();
     }
 
-    PlayerProfile(String username, int siteId, HashMap<Integer, RareItem> rareItems, HashMap<Integer, Integer[]> checkedOutRareItems)
+    PlayerProfile(String username, int siteId, int money,HashMap<Integer, RareItem> rareItems, HashMap<Integer, Integer[]> checkedOutRareItems)
     {
         this.username = username;
         this.siteId = siteId;
-        
+        this.money = money;
         this.rareItems = rareItems;
         this.checkouts = checkedOutRareItems;
     }
@@ -199,5 +201,15 @@ public class PlayerProfile
     Integer[] getCheckedOutRareItemData(int rid)
     {
         return this.checkouts.get(rid);
+    }
+
+    public int getMoney()
+    {
+        return this.money;
+    }
+
+    public void setMoney(int parseInt)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

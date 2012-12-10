@@ -64,6 +64,7 @@ public class ProfileManager
             FileConfiguration yml = YamlConfiguration.loadConfiguration(ymlFile);
 
             int iSiteId = yml.getInt("siteId");
+            int iMoney = yml.getInt("money");
             
             HashMap<Integer,Integer[]> checkOuts = new HashMap<>();
             for(String sRid : yml.getConfigurationSection("checkedOut").getKeys(false))
@@ -100,6 +101,7 @@ public class ProfileManager
             playerProfiles.put(sPlayerName, new PlayerProfile(
                 sPlayerName,
                 iSiteId,
+                iMoney,
                 rareItems,
                 checkOuts
             ));
@@ -131,6 +133,7 @@ public class ProfileManager
         FileConfiguration yml = YamlConfiguration.loadConfiguration(ymlFile);
         
         yml.set("siteId", pp.getSiteId());
+        yml.set("money", pp.getMoney());
         yml.set("checkedOut", pp.getCheckedOutItems());
         
         HashMap<Integer,Object> rareItems = new HashMap<>();
