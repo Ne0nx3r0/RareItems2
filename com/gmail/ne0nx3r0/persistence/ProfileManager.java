@@ -235,7 +235,11 @@ public class ProfileManager
         
         if(playerProfiles.containsKey(sPlayerName))
         {
-            return (playerProfiles.get(sPlayerName).getRareItem(is, false).getId() == rid);
+            RareItem ri = playerProfiles.get(sPlayerName).getRareItem(is, false);
+            if(ri != null && ri.getId() == rid)
+            {
+                return true;
+            }
         }
         return false;
     }

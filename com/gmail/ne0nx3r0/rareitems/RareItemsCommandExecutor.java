@@ -155,7 +155,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
                         
                         //if it wasn't found in the last look for a clean copy
                         for(ItemStack is : p.getInventory().getContents())
-                        {
+                        {                            
                             //Basically the same check for a clean item
                             if(is != null 
                             && is.getTypeId() == riData[0]
