@@ -67,7 +67,7 @@ public class ApiMessenger
             sQuery += p.getName().toLowerCase()+",";
         }
         
-        fetchPlayerRareItems("usernames="+sQuery.substring(0,sQuery.length()-1),onlyPending);
+        fetchPlayerRareItems("players="+sQuery.substring(0,sQuery.length()-1),onlyPending);
     }
     
     public static void fetchPlayerRareItems(final String sQuery,final boolean onlyPending)
