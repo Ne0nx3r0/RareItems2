@@ -7,6 +7,7 @@ import com.gmail.ne0nx3r0.rareitems.item.RareItem;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -63,7 +64,7 @@ public class ProfileManager
             {
                 checkOuts.put(
                     Integer.parseInt(sRid),
-                    yml.getIntegerList(sRid).toArray(new Integer[2])
+                    yml.getIntegerList("checkedOut."+sRid).toArray(new Integer[2])
                 );
             }
             
@@ -249,6 +250,16 @@ public class ProfileManager
         return playerProfiles.get(p.getName().toLowerCase()).checkOut(ri);
     }
 
+    public boolean checkInRareItem(RareItem ri, Player p)
+    {
+        return playerProfiles.get(p.getName().toLowerCase()).checkIn(ri);
+    }
+    
+    public boolean checkInRareItem(int rid, Player p)
+    {
+        return playerProfiles.get(p.getName().toLowerCase()).checkIn(rid);
+    }
+
     public PlayerProfile getPlayerProfile(String sPlayerName,int iSiteId)
     {
         if(playerProfiles.containsKey(sPlayerName.toLowerCase()))
@@ -269,6 +280,20 @@ public class ProfileManager
         {
             savePlayerProfile(pp);
         }
+    }    
+
+    public Integer[] getCheckedOutRareItemData(Player p, int rid)
+    {
+        return this.playerProfiles.get(p.getName().toLowerCase()).getCheckedOutRareItemData(rid);
     }
-    
+
+    public boolean isCheckedOut(Player p, int rid)
+    {
+        return this.playerProfiles.get(p.getName().toLowerCase()).isCheckedOut(rid);
+    }
+
+    public HashMap<Integer, Integer[]> getCheckedOutRareItemIds(Player p)
+    {
+        return this.playerProfiles.get(p.getName().toLowerCase()).getCheckedOutItems();
+    }
 }

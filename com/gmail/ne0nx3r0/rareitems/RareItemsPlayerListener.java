@@ -107,18 +107,14 @@ public class RareItemsPlayerListener implements Listener
                         p.sendMessage("You can only check in your own RareItems!");
 
                         e.setCancelled(true);
-
-                        return;
                     }
                     else
                     {
-                        if(!RareItems.vcm.checkIn(riPuttingDown.getId(),p))
+                        if(!RareItems.pm.checkInRareItem(riPuttingDown,p))
                         {
                             p.sendMessage("You cannot check in that item");
 
                             e.setCancelled(true);
-
-                            return;
                         }
                     }
                      
@@ -135,7 +131,6 @@ public class RareItemsPlayerListener implements Listener
 
                         e.setCancelled(true);
 
-                        return;
                     }
                     else
                     {
@@ -144,8 +139,6 @@ public class RareItemsPlayerListener implements Listener
                             p.sendMessage("You cannot check out that item");
 
                             e.setCancelled(true);
-
-                            return;
                         }
                     }
                 }  

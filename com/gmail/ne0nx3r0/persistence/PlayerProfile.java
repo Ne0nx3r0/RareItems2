@@ -84,7 +84,7 @@ public class PlayerProfile
         return null;
     }
 
-    private boolean isCheckedOut(int rid)
+    public boolean isCheckedOut(int rid)
     {
         return checkouts.containsKey(rid);
     }
@@ -151,7 +151,23 @@ public class PlayerProfile
         return false;
     }
 
-    private boolean isCheckedOut(RareItem ri)
+    boolean checkIn(RareItem ri)
+    {
+        return checkIn(ri.getId());
+    }
+
+    boolean checkIn(int rid)
+    {
+        if(checkouts.containsKey(rid))
+        {
+            checkouts.remove(rid);
+            
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isCheckedOut(RareItem ri)
     {
         return this.checkouts.containsKey(ri.getId());
     }
@@ -174,5 +190,10 @@ public class PlayerProfile
     HashMap<Integer,RareItem> getRareItems()
     {
         return this.rareItems;
+    }
+
+    Integer[] getCheckedOutRareItemData(int rid)
+    {
+        return this.checkouts.get(rid);
     }
 }

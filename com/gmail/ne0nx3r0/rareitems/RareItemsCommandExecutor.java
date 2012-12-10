@@ -77,7 +77,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
                 
                 if(args.length < 2)
                 {
-                    Set<Integer> checkedOutRareItems = RareItems.vcm.getCheckedOutRareItems(p.getName());
+                    Set<Integer> checkedOutRareItems = RareItems.pm.getCheckedOutRareItemIds(p).keySet();
                     
                     if(checkedOutRareItems != null && !checkedOutRareItems.isEmpty())
                     {
@@ -91,11 +91,11 @@ public class RareItemsCommandExecutor implements CommandExecutor
                                 RareItem ri = RareItems.pm.getRareItem(p, rid);
                                 if(ri != null)
                                 {
-                                    p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+ri.getId());
+                                    p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+ri.getId() + " " + ri.getDisplayName());
                                 }
                                 else
                                 {
-                                    Integer[] riData = RareItems.vcm.getCheckedOutRareItemData(p.getName(), rid);
+                                    Integer[] riData = RareItems.pm.getCheckedOutRareItemData(p, rid);
 
                                     p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+rid+" ("+MaterialName.getMaterialDisplayName(riData[0], riData[0].byteValue()) +")");
                                 }
@@ -124,9 +124,9 @@ public class RareItemsCommandExecutor implements CommandExecutor
                         return true;
                     }
                     
-                    if(RareItems.vcm.isCheckedOut(p.getName(),rid))
+                    if(RareItems.pm.isCheckedOut(p,rid))
                     {
-                        Integer[] riData = RareItems.vcm.getCheckedOutRareItemData(p.getName(), rid);
+                        Integer[] riData = RareItems.pm.getCheckedOutRareItemData(p, rid);
                         
                         for(ItemStack is : p.getInventory().getContents())
                         {
@@ -146,7 +146,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
                                  * Additionally this is unlikely to fail since
                                  * it was just verified using isCheckedOut
                                 */
-                                if(RareItems.vcm.checkIn(rid, p))
+                                if(RareItems.pm.checkInRareItem(rid, p))
                                 {
                                     p.sendMessage("Checked in RID"+rid+"!");
 
@@ -165,7 +165,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
                             {
                                 p.getInventory().removeItem(is);
                                 
-                                if(RareItems.vcm.checkIn(rid, p))
+                                if(RareItems.pm.checkInRareItem(rid, p))
                                 {
                                     p.sendMessage("Checked in RID"+rid+"!");
 

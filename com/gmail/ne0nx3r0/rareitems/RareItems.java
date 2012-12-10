@@ -2,7 +2,6 @@ package com.gmail.ne0nx3r0.rareitems;
 
 import com.gmail.ne0nx3r0.persistence.ProfileManager;
 import com.gmail.ne0nx3r0.rareitems.http.ApiMessenger;
-import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChestManager;
 import com.gmail.ne0nx3r0.rareitems.item.ItemPropertyManager;
 import java.io.File;
 import java.util.logging.Logger;
@@ -14,7 +13,7 @@ public class RareItems extends JavaPlugin{
     public static Plugin self;
     public static ItemPropertyManager rig;
     public static ApiMessenger am;
-    public static VirtualChestManager vcm;
+    //public static VirtualChestManager vcm;
     public static ProfileManager pm;
     
     public static final Logger logger = Logger.getLogger("RareItemsRegistration");
@@ -65,7 +64,7 @@ public class RareItems extends JavaPlugin{
         
         RareItems.pm = new ProfileManager();
         
-        RareItems.vcm = new VirtualChestManager();
+        //RareItems.vcm = new VirtualChestManager();
         
         //register events
         getServer().getPluginManager().registerEvents(new RareItemsPlayerListener(), this);

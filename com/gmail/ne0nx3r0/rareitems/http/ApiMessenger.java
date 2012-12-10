@@ -166,11 +166,11 @@ public class ApiMessenger
                                     RareItems.logger.log(Level.WARNING,"Server returned an invalid ItemProperty ID"+ipId+"! (is RareItems up to date?)");
                                 }
                             }
- 
+
                             RareItem ri = new RareItem(
                                 Integer.parseInt(sPendingItemId),
                                 sPlayerName,
-                                Integer.parseInt((String) pendingItem.get("mid")),
+                                Integer.parseInt((String) pendingItem.get("m")),
                                 Byte.parseByte((String) pendingItem.get("dv")),
                                 ips
                             );
