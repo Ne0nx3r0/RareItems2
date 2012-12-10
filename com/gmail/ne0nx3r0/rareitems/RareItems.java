@@ -74,16 +74,13 @@ public class RareItems extends JavaPlugin{
         
         getCommand("ri").setExecutor(new RareItemsCommandExecutor());
 
-        for(Player p : Bukkit.getOnlinePlayers())
-        {
-            pm.loadPlayerProfile(p);
-        }
+        ApiMessenger.fetchPlayerRareItems(Bukkit.getOnlinePlayers(), false);
     }    
     
     @Override
     public void onDisable()
     {      
-        RareItems.am.fetchPlayerRareItems(Bukkit.getOnlinePlayers(), false);
+        RareItems.pm.saveAllPlayerProfiles();
 
         Bukkit.getScheduler().cancelTasks(this);
     }
