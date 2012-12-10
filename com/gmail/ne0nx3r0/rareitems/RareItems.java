@@ -5,7 +5,9 @@ import com.gmail.ne0nx3r0.rareitems.http.ApiMessenger;
 import com.gmail.ne0nx3r0.rareitems.item.ItemPropertyManager;
 import java.io.File;
 import java.util.logging.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -70,6 +72,11 @@ public class RareItems extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new RareItemsPlayerListener(), this);
         
         getCommand("ri").setExecutor(new RareItemsCommandExecutor());
+        
+        for(Player p : Bukkit.getOnlinePlayers())
+        {
+            pm.loadPlayerProfile(p);
+        }
     }    
     
     @Override
