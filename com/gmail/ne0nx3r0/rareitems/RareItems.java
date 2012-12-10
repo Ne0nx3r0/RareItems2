@@ -67,8 +67,6 @@ public class RareItems extends JavaPlugin{
         
         RareItems.pm = new ProfileManager();
         
-        //RareItems.vcm = new VirtualChestManager();
-        
         //register events
         getServer().getPluginManager().registerEvents(new RareItemsPlayerListener(), this);
         

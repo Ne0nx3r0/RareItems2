@@ -31,7 +31,10 @@ public class ApiMessenger
             @Override
             public void run()
             {
-                ApiMessenger.fetchPlayerRareItems(Bukkit.getOnlinePlayers(),true);
+                if(Bukkit.getOnlinePlayers().length > 0)
+                {
+                    ApiMessenger.fetchPlayerRareItems(Bukkit.getOnlinePlayers(),true);
+                }
             }
         }, 20*60*30, 20*60*30);
     }
