@@ -70,8 +70,6 @@ public class ApiMessenger
     
     public static void fetchPlayerRareItems(final String sQuery,final boolean onlyPending)
     {
-        System.out.println("sQuery = "+sQuery);
-        
         (new Thread(){
             @Override
             public void run()
@@ -98,9 +96,7 @@ public class ApiMessenger
                     }
                     
                     final String sReturnString = returnString;
-                    
-                    System.out.println(sReturnString);
-                    
+
                     Bukkit.getScheduler().scheduleSyncDelayedTask(RareItems.self,new Runnable(){
                         @Override
                         public void run()

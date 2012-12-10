@@ -73,6 +73,17 @@ public class PlayerProfile
         return null;
     }
 
+    RareItem getRareItem(int rid, boolean includeInactive)
+    {
+        if(rareItems.containsKey(rid)
+        && (this.isCheckedOut(rid) || includeInactive))
+        {
+            return rareItems.get(rid);
+        }
+        
+        return null;
+    }
+
     private boolean isCheckedOut(int rid)
     {
         return checkouts.containsKey(rid);

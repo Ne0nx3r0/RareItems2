@@ -159,7 +159,7 @@ public class RareItem
             Namer.addLore(cssRareItem, ip.getName() + sLevel);
         }
         
-        Namer.addLore(cssRareItem, RareItems.rig.getRidPrefix()+this.id);
+        Namer.addLore(cssRareItem, RareItems.RID_PREFIX+this.id);
         
         if(cssRareItem.getType().equals(Material.WRITTEN_BOOK))
         {

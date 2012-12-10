@@ -3,7 +3,7 @@ package com.gmail.ne0nx3r0.rareitems;
 import com.gmail.ne0nx3r0.persistence.ProfileManager;
 import com.gmail.ne0nx3r0.rareitems.http.ApiMessenger;
 import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChestManager;
-import com.gmail.ne0nx3r0.rareitems.item.RareItemManager;
+import com.gmail.ne0nx3r0.rareitems.item.ItemPropertyManager;
 import java.io.File;
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class RareItems extends JavaPlugin{
     public static Plugin self;
-    public static RareItemManager rig;
+    public static ItemPropertyManager rig;
     public static ApiMessenger am;
     public static VirtualChestManager vcm;
     public static ProfileManager pm;
@@ -59,7 +59,7 @@ public class RareItems extends JavaPlugin{
         
         MAX_CHECKED_OUT_ITEMS = getConfig().getInt("maxItemsCheckedOut");
         
-        RareItems.rig = new RareItemManager();
+        RareItems.rig = new ItemPropertyManager();
         
         RareItems.am = new ApiMessenger();
         

@@ -21,6 +21,4 @@ public class VirtualChest implements InventoryHolder
     {
        return this.chest;
     }
-    
-    
 }

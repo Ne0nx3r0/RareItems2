@@ -88,7 +88,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
                             for(Iterator<Integer> it = checkedOutRareItems.iterator(); it.hasNext();)
                             {
                                 int rid = it.next();
-                                RareItem ri = RareItems.rig.getRareItem(p.getName(), rid);
+                                RareItem ri = RareItems.pm.getRareItem(p, rid);
                                 if(ri != null)
                                 {
                                     p.sendMessage(ChatColor.YELLOW+"RID: "+ChatColor.WHITE+ri.getId());

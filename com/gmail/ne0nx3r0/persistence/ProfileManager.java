@@ -7,12 +7,8 @@ import com.gmail.ne0nx3r0.rareitems.item.RareItem;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -59,27 +55,7 @@ public class ProfileManager
             }
 
             FileConfiguration yml = YamlConfiguration.loadConfiguration(ymlFile);
-            /*
-            siteId: 1
-            checkedOut:
-            75:
-            - 398
-            - 0
-            76:
-            - 398
-            - 0
-            rareItems:
-            75:
-            dv: 0
-            p:
-            39: 1
-            m: 398
-            76:
-            dv: 0
-            p:
-            39: 1
-            m: 398
-             */
+
             int iSiteId = yml.getInt("siteId");
             
             HashMap<Integer,Integer[]> checkOuts = new HashMap<>();
@@ -181,6 +157,7 @@ public class ProfileManager
     public void addPlayerProfile(PlayerProfile pp)
     {
         this.playerProfiles.put(pp.getName().toLowerCase(), pp);
+        
         System.out.println("Added player profile "+pp.getName());
         
         pp.refreshArmor();
@@ -202,7 +179,24 @@ public class ProfileManager
         
         return null;
     }
-
+    
+    public RareItem getRareItem(Player p, int rid)
+    {
+        return getRareItem(p, rid, false);
+    }
+    
+    public RareItem getRareItem(Player p, int rid, boolean includeInactive)
+    {
+        String sPlayerName = p.getName().toLowerCase();
+        
+        if(playerProfiles.containsKey(sPlayerName))
+        {
+            return playerProfiles.get(sPlayerName).getRareItem(rid,includeInactive);
+        }
+        
+        return null;
+    }
+    
     public void removePlayerProfile(Player p)
     {
         String sPlayerName = p.getName().toLowerCase();
