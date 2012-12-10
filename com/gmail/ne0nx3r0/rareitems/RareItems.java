@@ -83,7 +83,7 @@ public class RareItems extends JavaPlugin{
     @Override
     public void onDisable()
     {      
-        RareItems.pm.saveAllPlayerProfiles();
+        RareItems.am.fetchPlayerRareItems(Bukkit.getOnlinePlayers(), false);
 
         Bukkit.getScheduler().cancelTasks(this);
     }
