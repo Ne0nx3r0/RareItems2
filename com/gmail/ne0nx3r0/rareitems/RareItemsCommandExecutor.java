@@ -29,8 +29,6 @@ public class RareItemsCommandExecutor implements CommandExecutor
             p.sendMessage("Usage:");
             p.sendMessage("/ri claim - check-out/in RareItems");
             p.sendMessage("/ri return - check-in a RareItem you lost or traded away");
-            p.sendMessage("/ri reset - reset your checked out items");
-            p.sendMessage("/ri reset <playerName> - reset another players checked out items");
             
             return true;
         }
@@ -182,26 +180,6 @@ public class RareItemsCommandExecutor implements CommandExecutor
                     {
                         p.sendMessage("RID"+rid+" is not checked out!");
                     }
-                }
-            }
-            else if(args[0].equalsIgnoreCase("reset") && args.length == 1)
-            {
-                if((RareItems.USE_PERMISSIONS && !p.hasPermission("rareitems.reset"))
-                || !p.isOp())
-                {
-                    p.sendMessage(ChatColor.RED+"You do not have permission to do this.");
-                    
-                    return true;
-                }
-            }
-            else if(args[0].equalsIgnoreCase("reset") && args.length == 2)
-            {
-                if((RareItems.USE_PERMISSIONS && !p.hasPermission("rareitems.reset"))
-                || !p.isOp())
-                {
-                    p.sendMessage(ChatColor.RED+"You do not have permission to do this.");
-                    
-                    return true;
                 }
             }
         }

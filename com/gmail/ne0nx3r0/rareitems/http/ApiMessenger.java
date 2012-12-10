@@ -22,9 +22,11 @@ import org.json.simple.parser.ParseException;
 
 public class ApiMessenger
 {
+    private int TASK_ID;
+    
     public ApiMessenger()
     {
-        Bukkit.getScheduler().scheduleAsyncRepeatingTask(RareItems.self,new Runnable()
+        TASK_ID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(RareItems.self,new Runnable()
         {
             @Override
             public void run()
@@ -70,6 +72,9 @@ public class ApiMessenger
     
     public static void fetchPlayerRareItems(final String sQuery,final boolean onlyPending)
     {
+                    System.out.println("query:"+sQuery
+                            +"&onlyPending="+(onlyPending?'1':'0')
+                            +"&serverPort="+Bukkit.getServer().getPort());
         (new Thread(){
             @Override
             public void run()
@@ -84,7 +89,6 @@ public class ApiMessenger
                         writer.write(sQuery
                             +"&onlyPending="+(onlyPending?'1':'0')
                             +"&serverPort="+Bukkit.getServer().getPort()
-                            +"&serverId="+Bukkit.getServerId()
                         );
                         writer.flush();
                     }
@@ -111,7 +115,9 @@ public class ApiMessenger
                 }
                 catch (Exception ex)
                 {
-                    System.out.println("query:"+sQuery);
+                    System.out.println("query:"+sQuery
+                            +"&onlyPending="+(onlyPending?'1':'0')
+                            +"&serverPort="+Bukkit.getServer().getPort());
                     RareItems.logger.log(Level.SEVERE, null, ex);
                 }
             }
@@ -120,6 +126,7 @@ public class ApiMessenger
     
     public static void receivePlayersUpdate(String response)
     {
+        System.out.println("Response: "+response);
         try
         {
             JSONObject json = (JSONObject) (new JSONParser()).parse(response);
