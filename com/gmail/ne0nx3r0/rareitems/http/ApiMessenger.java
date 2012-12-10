@@ -81,7 +81,11 @@ public class ApiMessenger
 
                     try(OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream()))
                     {
-                        writer.write(sQuery+"&onlyPending="+(onlyPending?'1':'0'));
+                        writer.write(sQuery
+                            +"&onlyPending="+(onlyPending?'1':'0')
+                            +"&serverPort="+Bukkit.getServer().getPort()
+                            +"&serverId="+Bukkit.getServerId()
+                        );
                         writer.flush();
                     }
 
@@ -107,6 +111,7 @@ public class ApiMessenger
                 }
                 catch (Exception ex)
                 {
+                    System.out.println("query:"+sQuery);
                     RareItems.logger.log(Level.SEVERE, null, ex);
                 }
             }
@@ -145,7 +150,7 @@ public class ApiMessenger
                             
                             HashMap<ItemProperty,Integer> ips = new HashMap<>();
                             
-                            Map<String,String> pendingItemProperties = (Map<String,String>) pendingItem.get("properties");
+                            Map<String,String> pendingItemProperties = (Map<String,String>) pendingItem.get("ip");
                             for(String sIpId : pendingItemProperties.keySet())
                             {
                                 int ipId = Integer.parseInt(sIpId);
@@ -166,10 +171,6 @@ public class ApiMessenger
                                     RareItems.logger.log(Level.WARNING,"Server returned an invalid ItemProperty ID"+ipId+"! (is RareItems up to date?)");
                                 }
                             }
-
-                            System.out.println(Integer.parseInt(sPendingItemId));
-                            System.out.println(Integer.parseInt((String) pendingItem.get("m")));
-                            System.out.println(Byte.parseByte((String) pendingItem.get("dv")));
                             
                             RareItem ri = new RareItem(
                                 Integer.parseInt(sPendingItemId),
@@ -181,7 +182,7 @@ public class ApiMessenger
                             
                             pp.addRareItem(ri);
                             
-                            if(((String) pendingItem.get("pending")).equals("1"))
+                            if(((String) pendingItem.get("p")).equals("1"))
                             {
                                 RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
                                 RareItems.self.getServer().broadcastMessage(sPlayerName + " scored a "+ri.getDisplayName()+"!");
@@ -197,6 +198,7 @@ public class ApiMessenger
         }
         catch(ParseException ex)
         {
+            System.out.println("Response: "+response);
             Logger.getLogger(ApiMessenger.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
