@@ -167,6 +167,10 @@ public class ApiMessenger
                                 }
                             }
 
+                            System.out.println(Integer.parseInt(sPendingItemId));
+                            System.out.println(Integer.parseInt((String) pendingItem.get("m")));
+                            System.out.println(Byte.parseByte((String) pendingItem.get("dv")));
+                            
                             RareItem ri = new RareItem(
                                 Integer.parseInt(sPendingItemId),
                                 sPlayerName,

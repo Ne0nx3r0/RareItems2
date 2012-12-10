@@ -7,7 +7,6 @@ import com.gmail.ne0nx3r0.rareitems.item.RareItem;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -226,7 +225,7 @@ public class ProfileManager
         
         if(playerProfiles.containsKey(sPlayerName))
         {
-            return (playerProfiles.get(sPlayerName).getRareItem(is, true) != null);
+            return (playerProfiles.get(sPlayerName).getRareItem(is, false).getId() == rid);
         }
         return false;
     }

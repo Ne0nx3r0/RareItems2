@@ -67,7 +67,7 @@ public class RareItemsPlayerListener implements Listener
         }
     }
     
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerInventoryClick(InventoryClickEvent e)
     {
         if(e.getSlotType() == SlotType.ARMOR)
@@ -93,6 +93,11 @@ public class RareItemsPlayerListener implements Listener
         
         if(e.getInventory().getHolder() instanceof VirtualChest)
         {
+            if(e.isShiftClick())
+            {
+                e.setCancelled(true);
+                return;
+            }
             Player p = (Player) e.getWhoClicked();
             
             if(e.getRawSlot() < 54)
