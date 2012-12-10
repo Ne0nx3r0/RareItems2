@@ -8,7 +8,7 @@ public class SummonPig extends ItemProperty
 {
     public SummonPig()
     {
-        super(37,"Summon Pig","Creates a pig.",6);
+        super(37,"Summon Pig","Creates a pig.",12);
     }
     
     @Override

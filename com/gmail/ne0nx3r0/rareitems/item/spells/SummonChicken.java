@@ -8,7 +8,7 @@ public class SummonChicken extends ItemProperty
 {
     public SummonChicken()
     {
-        super(31,"Summon Chicken","Creates a chicken.",6);
+        super(31,"Summon Chicken","Creates a chicken.",12);
     }
     
     @Override

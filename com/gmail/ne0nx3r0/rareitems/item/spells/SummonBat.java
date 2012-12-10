@@ -8,7 +8,7 @@ public class SummonBat extends ItemProperty
 {
     public SummonBat()
     {
-        super(30,"Summon Bat","Creates a bat.",6);
+        super(30,"Summon Bat","Creates a bat.",8);
     }
     
     @Override

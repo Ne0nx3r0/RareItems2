@@ -41,7 +41,7 @@ public class ItemProperty
 
     int getCost()
     {
-        return cost;
+        return cost * RareItems.COST_MULTIPLIER;
     }
 
     public String getName()

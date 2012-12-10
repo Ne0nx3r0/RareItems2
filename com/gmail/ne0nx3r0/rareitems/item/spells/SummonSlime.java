@@ -10,7 +10,7 @@ public class SummonSlime extends ItemProperty
 {
     public SummonSlime()
     {
-        super(36,"Summon Slime","Creates a slime.",11);
+        super(36,"Summon Slime","Creates a slime.",16);
     }
     
     @Override

@@ -8,7 +8,7 @@ public class SummonMooshroom extends ItemProperty
 {
     public SummonMooshroom()
     {
-        super(33,"Summon Mooshroom","Creates a mooshroom.",11);
+        super(33,"Summon Mooshroom","Creates a mooshroom.",19);
     }
     
     @Override
