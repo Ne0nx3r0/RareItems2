@@ -6,6 +6,7 @@ import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChestManager;
 import com.gmail.ne0nx3r0.rareitems.item.RareItemManager;
 import java.io.File;
 import java.util.logging.Logger;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,7 +17,6 @@ public class RareItems extends JavaPlugin{
     public static VirtualChestManager vcm;
     public static ProfileManager pm;
     
-   // public static SQLite sqlite;
     public static final Logger logger = Logger.getLogger("RareItemsRegistration");
     
     public static final int COST_TYPE_FOOD = 0;
@@ -28,6 +28,8 @@ public class RareItems extends JavaPlugin{
     public static boolean USE_PERMISSIONS;
     
     public static int MAX_CHECKED_OUT_ITEMS;
+
+    public static final String RID_PREFIX = ChatColor.DARK_GRAY+"RID: "+ChatColor.GRAY;
     
     @Override
     public void onEnable()
@@ -56,39 +58,6 @@ public class RareItems extends JavaPlugin{
         USE_PERMISSIONS = getConfig().getBoolean("usePermissions");
         
         MAX_CHECKED_OUT_ITEMS = getConfig().getInt("maxItemsCheckedOut");
-//Setup database
-        /*
-        sqlite = new SQLite(getLogger(),"RareItems2","ri2",getDataFolder().getAbsolutePath());
-        
-        try
-        {
-            sqlite.open();
-        }
-        catch (Exception e)
-        {
-            getLogger().info(e.getMessage());
-            getPluginLoader().disablePlugin(this);
-            
-            return;
-        }
-
-        if(!sqlite.checkTable("checkout"))
-        {
-            sqlite.query("CREATE TABLE user("
-                        + "id INT UNSIGNED PRIMARY KEY,"
-                        + "username VARCHAR(50) PRIMARY KEY"
-                    + ");");
-            
-            sqlite.query("CREATE TABLE rareitem("
-                        + "id INT UNSIGNED PRIMARY KEY, "
-                        + "user_id INT UNSIGNED, "
-                        + "properties_string VARCHAR(50), "
-                        + "checked_out boolean"
-                        + "FOREIGN KEY(user_id) REFERENCES user(id)"
-                    + ");");
-            
-            getLogger().info("Checkouts table created.");
-        }*/
         
         RareItems.rig = new RareItemManager();
         
@@ -102,5 +71,11 @@ public class RareItems extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new RareItemsPlayerListener(), this);
         
         getCommand("ri").setExecutor(new RareItemsCommandExecutor());
+    }    
+    
+    @Override
+    public void onDisable()
+    {      
+        RareItems.pm.saveAllPlayerProfiles();
     }
 }

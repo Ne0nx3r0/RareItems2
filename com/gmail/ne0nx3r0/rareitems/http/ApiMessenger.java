@@ -137,7 +137,9 @@ public class ApiMessenger
                     
                     if(p != null)
                     {
-                        PlayerProfile pp = new PlayerProfile(sPlayerName,iSiteId);
+                        PlayerProfile pp = RareItems.pm.getPlayerProfile(sPlayerName,iSiteId);
+                        
+                        pp.removeAllRareItems();
                         
                         Map<String,Object> pendingItems = (Map<String,Object>) playerData.get("items");
                             
@@ -176,7 +178,7 @@ public class ApiMessenger
                                 Byte.parseByte((String) pendingItem.get("dv")),
                                 ips
                             );
-
+                            
                             pp.addRareItem(ri);
                             
                             if(((String) pendingItem.get("pending")).equals("1"))
@@ -187,9 +189,10 @@ public class ApiMessenger
                             }
                         }
                         
-                        RareItems.pm.addPlayerProfile(pp);
+                        RareItems.pm.savePlayerProfile(pp);
                     }
                 }
+                
             }
         }
         catch(ParseException ex)

@@ -5,7 +5,6 @@ import com.gmail.ne0nx3r0.rareitems.item.RareItem;
 import java.util.HashMap;
 import net.minecraft.server.NBTTagList;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
@@ -18,15 +17,23 @@ public class PlayerProfile
     private final int siteId;
     private HashMap<Integer,RareItem> rareItems;//rid
     private HashMap<Integer,Integer[]> checkouts;
-    private static final String RID_PREFIX = ChatColor.DARK_GRAY+"RID: "+ChatColor.GRAY;
 
     public PlayerProfile(String username, int siteId)
     {
         this.username = username;
         this.siteId = siteId;
         
-        rareItems = new HashMap<>();
-        checkouts = new HashMap<>();
+        this.rareItems = new HashMap<>();
+        this.checkouts = new HashMap<>();
+    }
+
+    PlayerProfile(String username, int siteId, HashMap<Integer, RareItem> rareItems, HashMap<Integer, Integer[]> checkedOutRareItems)
+    {
+        this.username = username;
+        this.siteId = siteId;
+        
+        this.rareItems = rareItems;
+        this.checkouts = checkedOutRareItems;
     }
 
     public String getName()
@@ -50,9 +57,9 @@ public class PlayerProfile
             {
                 String sRIDString = lore.get(lore.size()-1).toString();
                                 
-                if(sRIDString.startsWith(RID_PREFIX))
+                if(sRIDString.startsWith(RareItems.RID_PREFIX))
                 {
-                    int rid = Integer.parseInt(sRIDString.substring(RID_PREFIX.length()));
+                    int rid = Integer.parseInt(sRIDString.substring(RareItems.RID_PREFIX.length()));
                     
                     if(rareItems.containsKey(rid)
                     && (this.isCheckedOut(rid) || includeInactive))
@@ -136,5 +143,25 @@ public class PlayerProfile
     private boolean isCheckedOut(RareItem ri)
     {
         return this.checkouts.containsKey(ri.getId());
+    }
+
+    public void removeAllRareItems()
+    {
+        this.rareItems = new HashMap<>();
+    }
+
+    int getSiteId()
+    {
+        return this.siteId;
+    }
+
+    HashMap<Integer,Integer[]> getCheckedOutItems()
+    {
+        return this.checkouts;
+    }
+
+    HashMap<Integer,RareItem> getRareItems()
+    {
+        return this.rareItems;
     }
 }

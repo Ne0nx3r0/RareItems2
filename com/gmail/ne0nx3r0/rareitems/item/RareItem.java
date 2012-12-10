@@ -22,7 +22,6 @@ public class RareItem
     private final byte dataValue;
     private final HashMap<ItemProperty,Integer> properties;
     private final String owner;
-    public static final Logger logger = Logger.getLogger("RareItemsRegistration");
     
     public RareItem(int riId, String owner, int materialId, byte dataValue,HashMap<ItemProperty,Integer> properties)
     {
@@ -201,5 +200,10 @@ public class RareItem
     public byte getDataValue()
     {
         return dataValue;
+    }
+
+    public HashMap<ItemProperty, Integer> getItemProperties()
+    {
+        return this.properties;
     }
 }
