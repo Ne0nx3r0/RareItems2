@@ -147,7 +147,7 @@ public class ApiMessenger
                     {
                         PlayerProfile pp = RareItems.pm.getPlayerProfile(sPlayerName,iSiteId);
                         
-                        pp.setMoney(Integer.parseInt((String) playerData.get("money")));
+                        pp.setMoney((int) playerData.get("money"));
                         
                         pp.removeAllRareItems();
                         
