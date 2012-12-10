@@ -15,7 +15,7 @@ public class PlayerProfile
 {
     private final String username;
     private final int siteId;
-    private final int money;
+    private int money;
     private HashMap<Integer,RareItem> rareItems;//rid
     private HashMap<Integer,Integer[]> checkouts;
 
@@ -208,8 +208,8 @@ public class PlayerProfile
         return this.money;
     }
 
-    public void setMoney(int parseInt)
+    public void setMoney(int amount)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        this.money = amount;
     }
 }
