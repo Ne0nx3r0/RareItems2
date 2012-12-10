@@ -5,7 +5,6 @@ import com.gmail.ne0nx3r0.utils.MaterialName;
 import com.gmail.ne0nx3r0.utils.Namer;
 import com.gmail.ne0nx3r0.utils.RomanNumeral;
 import java.util.HashMap;
-import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;

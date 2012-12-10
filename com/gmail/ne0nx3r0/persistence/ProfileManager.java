@@ -9,17 +9,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
-import org.bukkit.craftbukkit.libs.com.google.gson.GsonBuilder;
-import org.bukkit.craftbukkit.libs.com.google.gson.JsonSyntaxException;
-import org.bukkit.craftbukkit.libs.com.google.gson.JsonParseException;
 
 public class ProfileManager
 {
@@ -82,44 +80,45 @@ public class ProfileManager
             39: 1
             m: 398
              */
-            //List<Map<String,Object>> tempCircuits = (List<Map<String,Object>>) yml.get("circuits");
-            List<Map<?, ?>> checkedOut = yml.getMapList(sPlayerName);
-            System.out.println(checkedOut.);
-            
-            if(1==1) return;
-            
             int iSiteId = yml.getInt("siteId");
-            HashMap<String,Object> checkedOutRareItemDatas = (HashMap<String,Object>) yml.get("checkedOut");
-            HashMap<Integer, Integer[]> checkedOutRareItems = new HashMap<>();
-            for(String sRid : checkedOutRareItemDatas.keySet())
+            
+            HashMap<Integer,Integer[]> checkOuts = new HashMap<>();
+            for(String sRid : yml.getConfigurationSection("checkedOut").getKeys(false))
+            {
+                checkOuts.put(
+                    Integer.parseInt(sRid),
+                    yml.getIntegerList(sRid).toArray(new Integer[2])
+                );
+            }
+            
+            HashMap<Integer,RareItem> rareItems = new HashMap<>();
+            for(String sRid : yml.getConfigurationSection("rareItems").getKeys(false))
             {
                 int rid = Integer.parseInt(sRid);
                 
-                checkedOutRareItems.put(rid,(Integer[]) checkedOutRareItemDatas.get(rid));
-            }
-            
-            
-            
-            HashMap<Integer,Object> rareItemMaps = (HashMap<Integer,Object>) yml.get("rareItems");
-            HashMap<Integer,RareItem> rareItems = new HashMap<>();
-            for(Integer rid : rareItemMaps.keySet())
-            {
-                HashMap<String,Object> rareItem = (HashMap<String,Object>) rareItemMaps.get(rid);
+                HashMap<ItemProperty,Integer> ips = new HashMap<ItemProperty,Integer>();
+                for(String sIpId : yml.getConfigurationSection("rareItems."+sRid+".p").getKeys(false))
+                {
+                    ips.put(
+                        RareItems.rig.getItemProperty(Integer.parseInt(sRid)),
+                        yml.getInt("rareItems."+sRid+".p."+sRid)
+                    );
+                }
 
                 rareItems.put(rid,new RareItem(
                     rid,
                     sPlayerName,
-                    Integer.parseInt((String) rareItem.get("m")),
-                    Byte.parseByte((String) rareItem.get("dv")),
-                    (HashMap<ItemProperty,Integer>) rareItem.get("p")
+                    yml.getInt("rareItems."+sRid+".m"),
+                    ((Integer) yml.get("rareItems."+sRid+".dv")).byteValue(),
+                    ips
                 ));
             }
             
-            this.playerProfiles.put(sPlayerName, new PlayerProfile(
+            playerProfiles.put(sPlayerName, new PlayerProfile(
                 sPlayerName,
                 iSiteId,
                 rareItems,
-                checkedOutRareItems
+                checkOuts
             ));
             
             ApiMessenger.fetchPlayerRareItems(iSiteId,false);
@@ -127,6 +126,55 @@ public class ProfileManager
         else
         {
             ApiMessenger.fetchPlayerRareItems(p,false);
+        }
+    }
+
+    public void savePlayerProfile(PlayerProfile pp)
+    {
+        File ymlFile = new File(PROFILE_DIRECTORY,pp.getName()+".yml");
+        
+        if(!ymlFile.exists())
+        {
+            try
+            {
+                ymlFile.createNewFile();
+            }
+            catch(IOException ex)
+            {
+                RareItems.logger.log(Level.INFO, "Could not create {0}", ymlFile.getName());
+            }
+        }
+
+        FileConfiguration yml = YamlConfiguration.loadConfiguration(ymlFile);
+        
+        yml.set("siteId", pp.getSiteId());
+        yml.set("checkedOut", pp.getCheckedOutItems());
+        
+        HashMap<Integer,Object> rareItems = new HashMap<>();
+        for(RareItem ri : pp.getRareItems().values())
+        {
+            HashMap<String,Object> rareItem = new HashMap<>();
+            
+            rareItem.put("m", ri.getMaterialId());
+            rareItem.put("dv", ri.getDataValue());
+            
+            HashMap<Integer,Integer> itemProperties = new HashMap<>();
+            for(ItemProperty ip : ri.getItemProperties().keySet())
+            {
+                itemProperties.put(ip.getId(),ri.getItemProperties().get(ip));
+            }
+            
+            rareItem.put("p", itemProperties);
+                    
+            rareItems.put(ri.getId(),rareItem);
+        }
+        
+        yml.set("rareItems",rareItems);
+
+        try {
+            yml.save(ymlFile);
+        } catch (IOException ex) {
+            Logger.getLogger(ProfileManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -164,57 +212,6 @@ public class ProfileManager
             this.savePlayerProfile(playerProfiles.get(sPlayerName));
             
             playerProfiles.remove(sPlayerName);
-        }
-    }
-
-    public void savePlayerProfile(PlayerProfile pp)
-    {
-        File ymlFile = new File(PROFILE_DIRECTORY,pp.getName()+".yml");
-        
-        if(!ymlFile.exists())
-        {
-            try
-            {
-                ymlFile.createNewFile();
-            }
-            catch(IOException ex)
-            {
-                RareItems.logger.log(Level.INFO, "Could not create {0}", ymlFile.getName());
-            }
-        }
-        
-        FileConfiguration yml = YamlConfiguration.loadConfiguration(ymlFile);
-
-        yml.set("siteId", pp.getSiteId());
-        yml.set("checkedOut", pp.getCheckedOutItems());
-        
-        HashMap<Integer,Object> rareItems = new HashMap<>();
-        for(RareItem ri : pp.getRareItems().values())
-        {
-            HashMap<String,Object> rareItem = new HashMap<>();
-            
-            rareItem.put("m", ri.getMaterialId());
-            rareItem.put("dv", ri.getDataValue());
-            
-            HashMap<Integer,Integer> itemProperties = new HashMap<>();
-            for(ItemProperty ip : ri.getItemProperties().keySet())
-            {
-                itemProperties.put(ip.getId(),ri.getItemProperties().get(ip));
-            }
-            rareItem.put("p", itemProperties);
-                    
-            rareItems.put(ri.getId(),rareItem);
-        }
-        
-        yml.set("rareItems",rareItems);
-        
-        try
-        {
-            yml.save(ymlFile);
-        }
-        catch (IOException ex) 
-        {
-            Logger.getLogger(ProfileManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
