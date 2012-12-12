@@ -5,8 +5,8 @@ import com.gmail.ne0nx3r0.rareitems.item.ItemProperty;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class FireHandling extends ItemProperty
 {
@@ -27,7 +27,7 @@ public class FireHandling extends ItemProperty
             {
                 bFire.setType(Material.AIR);
 
-                CraftItemStack fire = new CraftItemStack(Material.FIRE);
+                ItemStack fire = new ItemStack(Material.FIRE);
 
                 e.getPlayer().getWorld().dropItemNaturally(bFire.getLocation(), fire);
                 

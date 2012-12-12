@@ -9,7 +9,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class Namer
 {
-
 	private static CraftItemStack craftStack;
 	private static net.minecraft.server.ItemStack itemStack;
 
