@@ -75,9 +75,11 @@ public class ApiMessenger
     
     public static void fetchPlayerRareItems(final String sQuery,final boolean onlyPending)
     {
-                    System.out.println("query:"+sQuery
-                            +"&onlyPending="+(onlyPending?'1':'0')
-                            +"&serverPort="+Bukkit.getServer().getPort());
+        if(RareItems.DEBUG_MODE)
+        {
+            RareItems.logger.log(Level.INFO, "query:{0}&onlyPending={1}&serverPort={2}",
+                    new Object[]{sQuery, onlyPending?'1':'0', Bukkit.getServer().getPort()});
+        }
         (new Thread(){
             @Override
             public void run()
@@ -129,7 +131,11 @@ public class ApiMessenger
     
     public static void receivePlayersUpdate(String response)
     {
-        System.out.println("Response: "+response);
+        if(RareItems.DEBUG_MODE)
+        {
+            RareItems.logger.log(Level.INFO, "Response: {0}", response);
+        }
+        
         try
         {
             JSONObject json = (JSONObject) (new JSONParser()).parse(response);

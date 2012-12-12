@@ -9,3 +9,4 @@ usePermissions: true
 costType: food
 costMultiplier: 1
 maxItemsCheckedOut: 5
+debugMode: false

@@ -26,10 +26,9 @@ public class RareItems extends JavaPlugin{
     
     public static int COST_TYPE;
     public static int COST_MULTIPLIER; 
-    
     public static boolean USE_PERMISSIONS;
-    
     public static int MAX_CHECKED_OUT_ITEMS;
+    public static boolean DEBUG_MODE = false;
 
     public static final String RID_PREFIX = ChatColor.DARK_GRAY+"RID: "+ChatColor.GRAY;
     
@@ -58,6 +57,8 @@ public class RareItems extends JavaPlugin{
         COST_MULTIPLIER = getConfig().getInt("costMultiplier");
         
         USE_PERMISSIONS = getConfig().getBoolean("usePermissions");
+        
+        DEBUG_MODE = getConfig().getBoolean("debugMode");
         
         MAX_CHECKED_OUT_ITEMS = getConfig().getInt("maxItemsCheckedOut");
         
