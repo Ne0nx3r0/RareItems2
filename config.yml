@@ -3,10 +3,13 @@
 #
 # Hipster config file doesn't believe you've never heard of RareItems 1
 #
-# Documentation / Examples: <bug ne0nx3r0@gmail.com until he puts a url here>
+# costType - food or xp
+# costMultiplier - increase cost (2 = 200% cost)
+# publishServer - Will publish server to a public list of servers that use RareItems
 #
 usePermissions: true
 costType: food
 costMultiplier: 1
 maxItemsCheckedOut: 5
 debugMode: false
+publishServer: true
