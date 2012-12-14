@@ -203,11 +203,15 @@ public class RareItemsPlayerListener implements Listener
     public void onPlayerJoin(PlayerJoinEvent e)
     {        
         RareItems.pm.loadPlayerProfile(e.getPlayer());
+            
+        RareItems.am.addPlayerToQueue(e.getPlayer());
     }
 
     @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled=true)
     public void onPlayerQuit(PlayerQuitEvent e)
     {
         RareItems.pm.removePlayerProfile(e.getPlayer());
+            
+        RareItems.am.removePlayerFromQueue(e.getPlayer());
     }
 }

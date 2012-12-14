@@ -11,7 +11,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
@@ -25,6 +27,9 @@ public class ApiMessenger
     private int TASK_ID;
     private int LAST_SENT_ID;
     
+    private HashMap<String,Long> LastChecked = new HashMap<>();
+    Queue<String> q = new LinkedList<>();
+    
     public ApiMessenger()
     {
         LAST_SENT_ID = 0;
@@ -36,23 +41,18 @@ public class ApiMessenger
             {
                 if(Bukkit.getOnlinePlayers().length > 0)
                 {
-                    if(Bukkit.getOnlinePlayers().length <= 30)
+                    ArrayList<String> playersToFetch = new ArrayList<>();
+                    
+                    for(int i=0;i<30 && i<q.size();i++)
                     {
-                        ApiMessenger.fetchPlayerRareItems(Bukkit.getOnlinePlayers(),true);
-                    }
-                    else
-                    {
-                        //Rotate through players
-                        ArrayList<Player> playersToSend = new ArrayList<>();
-                        for(int i = LAST_SENT_ID;i<LAST_SENT_ID + 30 && i<Bukkit.getOnlinePlayers().length;i++)
-                        {
-                            playersToSend.add(Bukkit.getOnlinePlayers()[i]);
-                        }
+                        String sPlayerNameLowerCase = q.poll();
                         
-                        ApiMessenger.fetchPlayerRareItems(playersToSend.toArray(new Player[playersToSend.size()]), true);
+                        playersToFetch.add(sPlayerNameLowerCase);
                         
-                        LAST_SENT_ID = LAST_SENT_ID + playersToSend.size();
+                        q.add(sPlayerNameLowerCase);
                     }
+                    
+                    ApiMessenger.fetchPlayerRareItems(playersToFetch.toArray(new String[playersToFetch.size()]),true);
                 }
             }
         }, 20*60*30, 20*60*30);
@@ -68,17 +68,30 @@ public class ApiMessenger
         fetchPlayerRareItems("players="+p.getName().toLowerCase(),onlyPending);
     }
     
-    public static void fetchPlayerRareItems(ArrayList<Integer> ids,boolean onlyPending)
+    public static void fetchPlayerRareItems(String[] sPlayerNames,boolean onlyPending)
     {
         String sQuery = "";
         
-        for(int id : ids)
+        for(int i=0;i<sPlayerNames.length;i++)
         {
-            sQuery += id+",";
+            sQuery += sPlayerNames[i].toLowerCase()+",";
+        }
+        
+        fetchPlayerRareItems("players="+sQuery.substring(0,sQuery.length()-1),onlyPending);
+    }    
+    /*
+    public static void fetchPlayerRareItems(int[] ids,boolean onlyPending)
+    {
+        String sQuery = "";
+        
+        for(int i=0;i<ids.length;i++)
+        {
+            sQuery += ids[i]+",";
         }
         
         fetchPlayerRareItems("ids="+sQuery.substring(0,sQuery.length()-1),onlyPending);
-    }
+    } 
+    */
     
     public static void fetchPlayerRareItems(Player[] players,boolean onlyPending)
     {
@@ -221,7 +234,7 @@ public class ApiMessenger
                             
                             if(((String) pendingItem.get("p")).equals("1"))
                             {
-                                RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
+                                RareItems.self.getServer().broadcastMessage("-------------------    RareItems   -----------------");
                                 RareItems.self.getServer().broadcastMessage(p.getName() + " scored a "+ri.getDisplayName()+"!");
                                 RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
                             }
@@ -238,5 +251,15 @@ public class ApiMessenger
             System.out.println("Response: "+response);
             Logger.getLogger(ApiMessenger.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void removePlayerFromQueue(Player p)
+    {
+        q.remove(p.getName().toLowerCase());
+    }
+
+    public void addPlayerToQueue(Player player)
+    {
+        q.add(player.getName().toLowerCase());
     }
 }
