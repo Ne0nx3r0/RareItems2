@@ -23,9 +23,12 @@ import org.json.simple.parser.ParseException;
 public class ApiMessenger
 {
     private int TASK_ID;
+    private int LAST_SENT_ID;
     
     public ApiMessenger()
     {
+        LAST_SENT_ID = 0;
+        
         TASK_ID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(RareItems.self,new Runnable()
         {
             @Override
@@ -33,7 +36,23 @@ public class ApiMessenger
             {
                 if(Bukkit.getOnlinePlayers().length > 0)
                 {
-                    ApiMessenger.fetchPlayerRareItems(Bukkit.getOnlinePlayers(),true);
+                    if(Bukkit.getOnlinePlayers().length <= 30)
+                    {
+                        ApiMessenger.fetchPlayerRareItems(Bukkit.getOnlinePlayers(),true);
+                    }
+                    else
+                    {
+                        //Rotate through players
+                        ArrayList<Player> playersToSend = new ArrayList<>();
+                        for(int i = LAST_SENT_ID;i<LAST_SENT_ID + 30 && i<Bukkit.getOnlinePlayers().length;i++)
+                        {
+                            playersToSend.add(Bukkit.getOnlinePlayers()[i]);
+                        }
+                        
+                        ApiMessenger.fetchPlayerRareItems(playersToSend.toArray(new Player[playersToSend.size()]), true);
+                        
+                        LAST_SENT_ID = LAST_SENT_ID + playersToSend.size();
+                    }
                 }
             }
         }, 20*60*30, 20*60*30);
@@ -203,7 +222,7 @@ public class ApiMessenger
                             if(((String) pendingItem.get("p")).equals("1"))
                             {
                                 RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
-                                RareItems.self.getServer().broadcastMessage(sPlayerName + " scored a "+ri.getDisplayName()+"!");
+                                RareItems.self.getServer().broadcastMessage(p.getName() + " scored a "+ri.getDisplayName()+"!");
                                 RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
                             }
                         }
