@@ -32,7 +32,7 @@ public class RareItems extends JavaPlugin{
     
     @Override
     public void onEnable()
-    {        
+    {              
         RareItems.self = this;
         
         File check = new File(getDataFolder(), "config.yml");
@@ -81,7 +81,7 @@ public class RareItems extends JavaPlugin{
     public void onDisable()
     {      
         RareItems.pm.saveAllPlayerProfiles();
-
+        
         Bukkit.getScheduler().cancelTasks(this);
     }
 }

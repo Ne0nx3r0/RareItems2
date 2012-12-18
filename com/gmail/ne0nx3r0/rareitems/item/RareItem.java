@@ -168,15 +168,7 @@ public class RareItem
 
         if (version.equals("craftbukkit"))
         {
-            if(is.getType().equals(Material.WRITTEN_BOOK))
-            {
-                Namer.setName(is, "Spellbook");
-            }
-            
-            for(String sLine : lore)
-            {
-                Namer.addLore(is, sLine);
-            }
+            return Namer.generateRareItemStack(materialId,dataValue,lore);
         }
         else
         {

@@ -79,19 +79,6 @@ public class ApiMessenger
         
         fetchPlayerRareItems("players="+sQuery.substring(0,sQuery.length()-1),onlyPending);
     }    
-    /*
-    public static void fetchPlayerRareItems(int[] ids,boolean onlyPending)
-    {
-        String sQuery = "";
-        
-        for(int i=0;i<ids.length;i++)
-        {
-            sQuery += ids[i]+",";
-        }
-        
-        fetchPlayerRareItems("ids="+sQuery.substring(0,sQuery.length()-1),onlyPending);
-    } 
-    */
     
     public static void fetchPlayerRareItems(Player[] players,boolean onlyPending)
     {

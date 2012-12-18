@@ -36,6 +36,11 @@ public class Namer
         
 	public static ItemStack setName(ItemStack item, String name)
 	{
+                CraftItemStack cis = new CraftItemStack(item.getType());
+                cis.getData().setData(item.getData().getData());
+            
+                item = cis;
+                
 		if (item instanceof CraftItemStack)
 		{
 			craftStack = (CraftItemStack) item;
@@ -200,4 +205,27 @@ public class Namer
 		strings.toArray(lores);
 		return lores;
 	}
+
+    public static ItemStack generateRareItemStack(int materialId, byte dataValue, ArrayList<String> lore)
+    {
+        CraftItemStack cssRareItem = new CraftItemStack(Material.getMaterial(materialId));
+        
+        if(dataValue != 0x0)
+        {
+            cssRareItem.getData().setData(dataValue);
+        }
+      
+        for(String sLore : lore)
+        {
+            Namer.addLore(cssRareItem, sLore);
+        }
+        
+        
+        if(cssRareItem.getType().equals(Material.WRITTEN_BOOK))
+        {
+            Namer.setName(cssRareItem,"Spellbook");
+        }
+        
+        return (ItemStack) cssRareItem;
+    }
 }
