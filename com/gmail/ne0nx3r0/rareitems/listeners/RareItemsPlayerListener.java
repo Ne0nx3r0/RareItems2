@@ -1,5 +1,6 @@
-package com.gmail.ne0nx3r0.rareitems;
+package com.gmail.ne0nx3r0.rareitems.listeners;
 
+import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChest;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
 import org.bukkit.Material;
@@ -22,32 +23,26 @@ import org.bukkit.inventory.ItemStack;
 
 public class RareItemsPlayerListener implements Listener
 {
-    
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-    public void onEntityDeath(EntityDeathEvent e)
+    @EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
+    public void onPlayerJoin(PlayerJoinEvent e)
+    {        
+        RareItems.pm.loadPlayerProfile(e.getPlayer());
+            
+        RareItems.am.addPlayerToQueue(e.getPlayer());
+    }
+
+    @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled=true)
+    public void onPlayerQuit(PlayerQuitEvent e)
     {
-        if(e.getEntity() instanceof Player)
-        {
-            Player p = (Player) e.getEntity();
-            for(ItemStack isDrop : e.getDrops())
-            {
-                if(RareItems.pm.getRareItem(p, isDrop) != null)
-                {
-                    e.getDrops().remove(isDrop);
-                }
-            }
-        }
+        RareItems.pm.removePlayerProfile(e.getPlayer());
+            
+        RareItems.am.removePlayerFromQueue(e.getPlayer());
     }
     
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onPlayerInteractedWithEntity(PlayerInteractEntityEvent e)
+    @EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
+    public void onPlayerChangeWorld(PlayerChangedWorldEvent e)
     {
-        RareItem ri = RareItems.pm.getRareItem(e.getPlayer(),e.getPlayer().getItemInHand());
-
-        if(ri != null)
-        {
-            ri.onInteractEntity(e);
-        }
+        RareItems.pm.refreshArmor(e.getPlayer());
     }
     
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -63,6 +58,17 @@ public class RareItemsPlayerListener implements Listener
             {
                 ri.onInteract(e);
             }
+        }
+    }
+    
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onPlayerInteractedWithEntity(PlayerInteractEntityEvent e)
+    {
+        RareItem ri = RareItems.pm.getRareItem(e.getPlayer(),e.getPlayer().getItemInHand());
+
+        if(ri != null)
+        {
+            ri.onInteractEntity(e);
         }
     }
     
@@ -195,26 +201,19 @@ public class RareItemsPlayerListener implements Listener
         }
     }
     
-    @EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
-    public void onPlayerChangeWorld(PlayerChangedWorldEvent e)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    public void onEntityDeath(EntityDeathEvent e)
     {
-        RareItems.pm.refreshArmor(e.getPlayer());
-    }
-     
-    
-    @EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
-    public void onPlayerJoin(PlayerJoinEvent e)
-    {        
-        RareItems.pm.loadPlayerProfile(e.getPlayer());
-            
-        RareItems.am.addPlayerToQueue(e.getPlayer());
-    }
-
-    @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled=true)
-    public void onPlayerQuit(PlayerQuitEvent e)
-    {
-        RareItems.pm.removePlayerProfile(e.getPlayer());
-            
-        RareItems.am.removePlayerFromQueue(e.getPlayer());
+        if(e.getEntity() instanceof Player)
+        {
+            Player p = (Player) e.getEntity();
+            for(ItemStack isDrop : e.getDrops())
+            {
+                if(RareItems.pm.getRareItem(p, isDrop) != null)
+                {
+                    e.getDrops().remove(isDrop);
+                }
+            }
+        }
     }
 }

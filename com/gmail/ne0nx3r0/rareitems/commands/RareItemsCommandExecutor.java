@@ -1,5 +1,7 @@
-package com.gmail.ne0nx3r0.rareitems;
+package com.gmail.ne0nx3r0.rareitems.commands;
 
+import com.gmail.ne0nx3r0.rareitems.RareItems;
+import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChest;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
 import com.gmail.ne0nx3r0.utils.MaterialName;
