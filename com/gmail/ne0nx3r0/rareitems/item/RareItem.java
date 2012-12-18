@@ -2,6 +2,7 @@ package com.gmail.ne0nx3r0.rareitems.item;
 
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.utils.MaterialName;
+import com.gmail.ne0nx3r0.utils.Namer;
 import com.gmail.ne0nx3r0.utils.RomanNumeral;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -162,12 +163,30 @@ public class RareItem
         
         lore.add(RareItems.RID_PREFIX+this.id);
         
-        if(is.getType().equals(Material.WRITTEN_BOOK))
+        String packageName = RareItems.self.getServer().getClass().getPackage().getName();
+        String version = packageName.substring(packageName.lastIndexOf('.') + 1);
+
+        if (version.equals("craftbukkit"))
         {
-            is.getItemMeta().setDisplayName("Spellbook");
+            if(is.getType().equals(Material.WRITTEN_BOOK))
+            {
+                Namer.setName(is, "Spellbook");
+            }
+            
+            for(String sLine : lore)
+            {
+                Namer.addLore(is, sLine);
+            }
         }
-        
-        is.getItemMeta().setLore(lore);
+        else
+        {
+            if(is.getType().equals(Material.WRITTEN_BOOK))
+            {
+                is.getItemMeta().setDisplayName("Spellbook");
+            }
+
+            is.getItemMeta().setLore(lore);
+        }
         
         return (ItemStack) is;
     }
