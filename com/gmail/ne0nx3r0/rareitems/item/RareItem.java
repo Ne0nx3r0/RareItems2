@@ -2,12 +2,11 @@ package com.gmail.ne0nx3r0.rareitems.item;
 
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.utils.MaterialName;
-import com.gmail.ne0nx3r0.utils.Namer;
 import com.gmail.ne0nx3r0.utils.RomanNumeral;
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -140,13 +139,15 @@ public class RareItem
 
     public ItemStack generateItemStack()
     {
-        CraftItemStack cssRareItem = new CraftItemStack(Material.getMaterial(materialId));
+        ItemStack is = new ItemStack(Material.getMaterial(materialId));
         
         if(dataValue != 0x0)
         {
-            cssRareItem.getData().setData(dataValue);
+            is.getData().setData(dataValue);
         }
       
+        ArrayList<String> lore = new ArrayList<>();
+        
         for(ItemProperty ip : properties.keySet())
         {
             String sLevel = "";
@@ -156,17 +157,19 @@ public class RareItem
                 sLevel = " "+RomanNumeral.convertToRoman(properties.get(ip));
             }
 
-            Namer.addLore(cssRareItem, ip.getName() + sLevel);
+            lore.add(ip.getName() + sLevel);
         }
         
-        Namer.addLore(cssRareItem, RareItems.RID_PREFIX+this.id);
+        lore.add(RareItems.RID_PREFIX+this.id);
         
-        if(cssRareItem.getType().equals(Material.WRITTEN_BOOK))
+        if(is.getType().equals(Material.WRITTEN_BOOK))
         {
-            Namer.setName(cssRareItem,"Spellbook");
+            is.getItemMeta().setDisplayName("Spellbook");
         }
         
-        return (ItemStack) cssRareItem;
+        is.getItemMeta().setLore(lore);
+        
+        return (ItemStack) is;
     }
 
     public void revokeItemProperties()

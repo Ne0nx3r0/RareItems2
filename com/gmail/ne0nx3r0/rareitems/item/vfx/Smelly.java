@@ -3,11 +3,11 @@ package com.gmail.ne0nx3r0.rareitems.item.vfx;
 import com.gmail.ne0nx3r0.rareitems.item.IPConstantEffect;
 import org.bukkit.entity.Player;
 
-public class AngelicGlow extends IPConstantEffect
+public class Smelly extends IPConstantEffect
 {
-    public AngelicGlow()
+    public Smelly()
     {
-        super(12,"Angelic Glow","Creates an angelic glow");
+        super(41,"Smelly","What is that smell?");
         
         this.createRepeatingAppliedEffect(this,20*60);
     }
@@ -15,6 +15,6 @@ public class AngelicGlow extends IPConstantEffect
     @Override
     public void applyEffectToPlayer(Player p,int level)
     {
-        this.addPotionGraphicalEffect(p, 0xffffff, 20*60);
+        this.addPotionGraphicalEffect(p, 0x9AAE07, 20*60);
     }
 }

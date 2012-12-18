@@ -3,10 +3,9 @@ package com.gmail.ne0nx3r0.persistence;
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
 import java.util.HashMap;
-import net.minecraft.server.NBTTagList;
+import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -50,14 +49,15 @@ public class PlayerProfile
 
     public RareItem getRareItem(ItemStack is,boolean includeInactive)
     {
-        if(is != null && is.getType() != Material.AIR && ((CraftItemStack) is).getHandle().tag != null)
+        if(is != null 
+        && is.getType() != Material.AIR 
+        && is.getItemMeta() != null)
         {
-            NBTTagList lore = ((CraftItemStack) is)
-                .getHandle().tag.getCompound("display").getList("Lore");
+            List<String> lore = is.getItemMeta().getLore();
 
             if(lore != null && lore.size() > 0)
             {
-                String sRIDString = lore.get(lore.size()-1).toString();
+                String sRIDString = lore.get(lore.size()-1);
                                 
                 if(sRIDString.startsWith(RareItems.RID_PREFIX))
                 {

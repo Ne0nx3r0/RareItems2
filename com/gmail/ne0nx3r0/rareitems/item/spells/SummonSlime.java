@@ -19,7 +19,7 @@ public class SummonSlime extends ItemProperty
         for(int i=0;i<level;i++)
         {
             Slime slime = (Slime)  e.getPlayer().getWorld().spawnEntity(e.getPlayer().getLocation(),EntityType.SLIME);
-            slime.setSize(new Random().nextInt(10)+1);
+            slime.setSize(new Random().nextInt(5)+1);
         }
 
         return true;

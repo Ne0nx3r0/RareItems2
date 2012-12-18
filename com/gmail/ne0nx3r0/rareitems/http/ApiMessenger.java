@@ -205,7 +205,7 @@ public class ApiMessenger
                             {
                                 int ipId = Integer.parseInt(sIpId);
                                 
-                                ItemProperty ip = RareItems.rig.getItemProperty(ipId);
+                                ItemProperty ip = RareItems.ipm.getItemProperty(ipId);
 
                                 if(ip != null)
                                 {
@@ -218,7 +218,7 @@ public class ApiMessenger
                                 }
                                 else
                                 {
-                                    RareItems.logger.log(Level.WARNING,"Server returned an invalid ItemProperty ID"+ipId+"! (is RareItems up to date?)");
+                                    RareItems.logger.log(Level.WARNING, "Server returned an invalid ItemProperty ID{0}! (is RareItems up to date?)", ipId);
                                 }
                             }
                             

@@ -158,10 +158,10 @@ public class RareItemsPlayerListener implements Listener
             Player attacker = (Player) e.getDamager();
              
             //Strength Ability
-            if(RareItems.rig.playerHasItemProperty(attacker.getName(),5))//Strength
+            if(RareItems.ipm.playerHasItemProperty(attacker.getName(),5))//Strength
             {
                 e.setDamage(e.getDamage()
-                    +RareItems.rig.getPlayerEffectLevel(attacker.getName(),5));//Strength
+                    +RareItems.ipm.getPlayerEffectLevel(attacker.getName(),5));//Strength
             }
             
             RareItem ri = RareItems.pm.getRareItem(attacker, attacker.getItemInHand());
@@ -178,16 +178,19 @@ public class RareItemsPlayerListener implements Listener
     {
         if(e.getEntity() instanceof Player)
         {
-           if(e.getCause().equals(EntityDamageEvent.DamageCause.DROWNING))
+           if(e.getCause() == EntityDamageEvent.DamageCause.FALL
+           && RareItems.ipm.playerHasItemProperty(((Player) e.getEntity()).getName(),40))//Cat's Feet
            {
-               if(RareItems.rig.playerHasItemProperty(((Player) e.getEntity()).getName(),7))//Water Breathing
-               {
-                   e.setCancelled(true);
-               }
+               e.setCancelled(true);
            }
-           else if(RareItems.rig.playerHasItemProperty(((Player) e.getEntity()).getName(),5))//Hardy
+           else if(e.getCause().equals(EntityDamageEvent.DamageCause.DROWNING)
+           && RareItems.ipm.playerHasItemProperty(((Player) e.getEntity()).getName(),7))//Water Breathing
            {
-               e.setDamage(e.getDamage()-1);
+                   e.setCancelled(true);
+           }
+           else if(RareItems.ipm.playerHasItemProperty(((Player) e.getEntity()).getName(),5))//Hardy
+           {
+               e.setDamage(e.getDamage()-RareItems.ipm.getPlayerEffectLevel(((Player) e.getEntity()).getName(), 5));
            }
         }
     }

@@ -2,10 +2,10 @@ package com.gmail.ne0nx3r0.rareitems.item;
 
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import java.util.HashMap;
-import net.minecraft.server.DataWatcher;
-import net.minecraft.server.EntityLiving;
+import net.minecraft.server.v1_4_5.DataWatcher;
+import net.minecraft.server.v1_4_5.EntityLiving;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_4_5.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -73,7 +73,7 @@ public class ItemProperty
                 
                 if(!el.effects.isEmpty())
                 {
-                    c = net.minecraft.server.PotionBrewer.a(el.effects.values());
+                    c = net.minecraft.server.v1_4_5.PotionBrewer.a(el.effects.values());
                 }
                 
                 dw.watch(8, Integer.valueOf(c));
@@ -88,7 +88,7 @@ public class ItemProperty
             @Override
             public void run()
             {
-                HashMap<String, Integer> activePlayers = RareItems.rig.getEffectActivePlayers(ip);
+                HashMap<String, Integer> activePlayers = RareItems.ipm.getEffectActivePlayers(ip);
                 for(String sPlayer : activePlayers.keySet())
                 {
                     Player p = Bukkit.getPlayer(sPlayer);
@@ -99,7 +99,7 @@ public class ItemProperty
                     }
                     else
                     {
-                        RareItems.rig.revokePlayerEffect(sPlayer,ip);
+                        RareItems.ipm.revokePlayerEffect(sPlayer,ip);
                     }
                 }
             }

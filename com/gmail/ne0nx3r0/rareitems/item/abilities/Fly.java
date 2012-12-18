@@ -21,7 +21,7 @@ public class Fly extends IPConstantEffect
             @Override
             public void run()
             {
-                HashMap<String, Integer> activePlayers = RareItems.rig.getEffectActivePlayers(ip);
+                HashMap<String, Integer> activePlayers = RareItems.ipm.getEffectActivePlayers(ip);
                 for(String sPlayer : activePlayers.keySet())
                 {
                     Player p = Bukkit.getPlayer(sPlayer);
@@ -38,14 +38,14 @@ public class Fly extends IPConstantEffect
     @Override
     public void onEquip(Player p,int level)
     {
-        RareItems.rig.grantPlayerEffect(p.getName(),this,level);
+        RareItems.ipm.grantPlayerEffect(p.getName(),this,level);
         p.setAllowFlight(true);
     }
 
     @Override
     public void onUnequip(Player p,int level)
     {
-        RareItems.rig.revokePlayerEffect(p.getName(),this);
+        RareItems.ipm.revokePlayerEffect(p.getName(),this);
         p.setFlying(false);
         p.setAllowFlight(false);
     }

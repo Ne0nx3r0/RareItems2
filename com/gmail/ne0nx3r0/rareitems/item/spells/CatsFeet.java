@@ -1,5 +1,6 @@
 package com.gmail.ne0nx3r0.rareitems.item.spells;
 
+import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.item.ItemProperty;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -30,10 +31,13 @@ public class CatsFeet extends ItemProperty
     {
         if(e.getRightClicked() instanceof LivingEntity)
         {
+            int duration = 20*60*level;
+        
             LivingEntity le = (LivingEntity) e.getRightClicked();
 
-            le.addPotionEffect(new PotionEffect(PotionEffectType.JUMP,20*60*level,1*level));
-
+            le.addPotionEffect(new PotionEffect(PotionEffectType.JUMP,duration,level));
+                    
+            
             if(le instanceof Player)
             {
                 e.getPlayer().sendMessage("You cast Cat's Feet on "+((Player) le).getName()+"!");
@@ -43,6 +47,8 @@ public class CatsFeet extends ItemProperty
             {
                 e.getPlayer().sendMessage("You cast Cat's Feet on that thing!");
             }
+            
+            RareItems.ipm.addTemporaryEffect(e.getPlayer().getName(),this,level,duration);
             
             return true;
         }

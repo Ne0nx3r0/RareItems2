@@ -84,7 +84,7 @@ public class ProfileManager
                 for(String sIpId : yml.getConfigurationSection("rareItems."+sRid+".p").getKeys(false))
                 {
                     ips.put(
-                        RareItems.rig.getItemProperty(Integer.parseInt(sRid)),
+                        RareItems.ipm.getItemProperty(Integer.parseInt(sRid)),
                         yml.getInt("rareItems."+sRid+".p."+sRid)
                     );
                 }
@@ -214,6 +214,8 @@ public class ProfileManager
         if(playerProfiles.containsKey(sPlayerName))
         {
             this.savePlayerProfile(playerProfiles.get(sPlayerName));
+            
+            playerProfiles.get(sPlayerName).revokeAllItemProperties();
             
             playerProfiles.remove(sPlayerName);
         }

@@ -18,12 +18,12 @@ public class IPConstantEffect extends ItemProperty
     @Override
     public void onEquip(Player p,int level)
     {
-        RareItems.rig.grantPlayerEffect(p.getName(),this,level);
+        RareItems.ipm.grantPlayerEffect(p.getName(),this,level);
     }
     
     @Override
     public void onUnequip(Player p,int level)
     {
-        RareItems.rig.revokePlayerEffect(p.getName(),this);
+        RareItems.ipm.revokePlayerEffect(p.getName(),this);
     }
 }
