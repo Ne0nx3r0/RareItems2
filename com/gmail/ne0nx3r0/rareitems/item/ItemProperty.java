@@ -2,10 +2,7 @@ package com.gmail.ne0nx3r0.rareitems.item;
 
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import java.util.HashMap;
-import net.minecraft.server.v1_4_5.DataWatcher;
-import net.minecraft.server.v1_4_5.EntityLiving;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_4_5.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -53,36 +50,28 @@ public class ItemProperty
     {
         return id;
     }
-    
-      
 
     public int addPotionGraphicalEffect(LivingEntity entity, int color, int duration)
     {
-        final EntityLiving el = ((CraftLivingEntity)entity).getHandle();
-        
-        final DataWatcher dw = el.getDataWatcher();
-        
-        dw.watch(8, Integer.valueOf(color));
+        String packageName = RareItems.self.getServer().getClass().getPackage().getName();
+        String version = packageName.substring(packageName.lastIndexOf('.') + 1);
 
-        return Bukkit.getScheduler().scheduleSyncDelayedTask(RareItems.self, new Runnable()
+        if (version.equals("craftbukkit"))
         {
-            @Override
-            public void run()
-            {
-                int c = 0;
-                
-                if(!el.effects.isEmpty())
-                {
-                    c = net.minecraft.server.v1_4_5.PotionBrewer.a(el.effects.values());
-                }
-                
-                dw.watch(8, Integer.valueOf(c));
-            }
-        }, duration);
+            return com.gmail.ne0nx3r0.api.v1_4_5_pre.PotionVisual
+                 .addPotionGraphicalEffect(entity, color, duration);
+        }
+        else if(version.equals("v1_4_5"))
+        {
+            return com.gmail.ne0nx3r0.api.v1_4_5.PotionVisual
+                .addPotionGraphicalEffect(entity, color, duration);
+        }
+
+        return -1;
     }
     
     public void createRepeatingAppliedEffect(final ItemProperty ip,int duration)
-    {
+    {        
         Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(RareItems.self, new Runnable()
         {
             @Override
