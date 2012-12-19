@@ -4,6 +4,7 @@ import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChest;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
 import org.bukkit.Material;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -12,6 +13,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
@@ -20,6 +23,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
 
 public class RareItemsPlayerListener implements Listener
 {
@@ -156,29 +161,6 @@ public class RareItemsPlayerListener implements Listener
         }
     }
     
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-    public void onEntityDamagedByEntity(EntityDamageByEntityEvent e)
-    {
-         if(e.getDamager() instanceof Player)
-         {
-            Player attacker = (Player) e.getDamager();
-             
-            //Strength Ability
-            if(RareItems.ipm.playerHasItemProperty(attacker.getName(),5))//Strength
-            {
-                e.setDamage(e.getDamage()
-                    +RareItems.ipm.getPlayerEffectLevel(attacker.getName(),5));//Strength
-            }
-            
-            RareItem ri = RareItems.pm.getRareItem(attacker, attacker.getItemInHand());
-            
-            if(ri != null)
-            {
-                ri.onDamagedOther(e);
-            }
-         }
-    }
-
     @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled=true)
     public void onEntityDamaged(EntityDamageEvent e)
     {
@@ -201,6 +183,65 @@ public class RareItemsPlayerListener implements Listener
         }
     }
     
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    public void onEntityDamagedByEntity(EntityDamageByEntityEvent e)
+    {
+         if(e.getDamager() instanceof Player)
+         {
+            Player attacker = (Player) e.getDamager();
+             
+            //Strength Ability
+            if(RareItems.ipm.playerHasItemProperty(attacker.getName(),5))//Strength
+            {
+                e.setDamage(e.getDamage()
+                    +RareItems.ipm.getPlayerEffectLevel(attacker.getName(),5));//Strength
+            }
+            
+            RareItem ri = RareItems.pm.getRareItem(attacker, attacker.getItemInHand());
+            
+            if(ri != null)
+            {
+                ri.onDamagedOther(e);
+            }
+         }
+         if(e.getDamager() instanceof Arrow)
+         {
+            Arrow arrow = (Arrow) e.getDamager();
+            
+            System.out.println("hit person!");
+            
+            for(int i=0;i<e.getEntity().getMetadata("test").size();i++)
+            {
+                System.out.println(e.getEntity().getMetadata("test").get(i));
+            }
+         }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onEntityShootBow(EntityShootBowEvent e)
+    {
+        if ((e.getEntity() instanceof Player))
+        {
+            Player p = (Player) e.getEntity();
+            
+            Arrow arrow = (Arrow) e.getProjectile();
+            
+            System.out.println("shot!");
+            arrow.setMetadata("test", new FixedMetadataValue(RareItems.self, "testy!"));
+        }
+    }
+    
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onProjectileHit(ProjectileHitEvent e)
+    {
+        System.out.println("hit!");
+        
+        for(int i=0;i<e.getEntity().getMetadata("test").size();i++)
+        {
+            System.out.println(e.getEntity().getMetadata("test").get(i));
+        }
+    }
+        
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onEntityDeath(EntityDeathEvent e)
     {

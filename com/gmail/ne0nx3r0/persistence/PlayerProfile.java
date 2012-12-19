@@ -2,7 +2,6 @@ package com.gmail.ne0nx3r0.persistence;
 
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
-import com.gmail.ne0nx3r0.utils.Namer;
 import java.util.HashMap;
 import java.util.List;
 import org.bukkit.Bukkit;
@@ -50,46 +49,28 @@ public class PlayerProfile
 
     public RareItem getRareItem(ItemStack is,boolean includeInactive)
     {
-        String packageName = RareItems.self.getServer().getClass().getPackage().getName();
-        String version = packageName.substring(packageName.lastIndexOf('.') + 1);
-
-        if (version.equals("craftbukkit"))
+        if(is != null 
+        && is.getType() != Material.AIR 
+        && is.getItemMeta() != null)
         {
-            int rid = Namer.getRid(is);
-            
-            if(rareItems.containsKey(rid)
-            && (this.isCheckedOut(rid) || includeInactive))
-            {
-                return rareItems.get(rid);
-            }
-        }
-        else
-        {
-            if(is != null 
-            && is.getType() != Material.AIR 
-            && is.getItemMeta() != null)
-            {
-                List<String> lore = is.getItemMeta().getLore();
+            List<String> lore = is.getItemMeta().getLore();
 
-                if(lore != null && lore.size() > 0)
+            if(lore != null && lore.size() > 0)
+            {
+                String sRIDString = lore.get(lore.size()-1);
+
+                if(sRIDString.startsWith(RareItems.RID_PREFIX))
                 {
-                    String sRIDString = lore.get(lore.size()-1);
+                    int rid = Integer.parseInt(sRIDString.substring(RareItems.RID_PREFIX.length()));
 
-                    if(sRIDString.startsWith(RareItems.RID_PREFIX))
+                    if(rareItems.containsKey(rid)
+                    && (this.isCheckedOut(rid) || includeInactive))
                     {
-                        int rid = Integer.parseInt(sRIDString.substring(RareItems.RID_PREFIX.length()));
-
-                        if(rareItems.containsKey(rid)
-                        && (this.isCheckedOut(rid) || includeInactive))
-                        {
-                            return rareItems.get(rid);
-                        }
+                        return rareItems.get(rid);
                     }
                 }
             }
         }
-  
-        
         
         return null;
     }

@@ -2,6 +2,7 @@ package com.gmail.ne0nx3r0.rareitems.item;
 
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import java.util.HashMap;
+import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -56,12 +57,7 @@ public class ItemProperty
         String packageName = RareItems.self.getServer().getClass().getPackage().getName();
         String version = packageName.substring(packageName.lastIndexOf('.') + 1);
 
-        if (version.equals("craftbukkit"))
-        {
-            return com.gmail.ne0nx3r0.api.v1_4_5_pre.PotionVisual
-                 .addPotionGraphicalEffect(entity, color, duration);
-        }
-        else if(version.equals("v1_4_5"))
+        if(version.equals("v1_4_5"))
         {
             return com.gmail.ne0nx3r0.api.v1_4_5.PotionVisual
                 .addPotionGraphicalEffect(entity, color, duration);
