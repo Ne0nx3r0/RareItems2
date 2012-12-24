@@ -11,7 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class RareItem
 {
@@ -162,14 +164,18 @@ public class RareItem
         
         lore.add(RareItems.RID_PREFIX+this.id);
 
+        ItemMeta im = is.getItemMeta();
+        
         if(is.getType().equals(Material.WRITTEN_BOOK))
         {
-            is.getItemMeta().setDisplayName("Spellbook");
+            im.setDisplayName("Spellbook");
         }
 
-        is.getItemMeta().setLore(lore);
+        im.setLore(lore);
         
-        return (ItemStack) is;
+        is.setItemMeta(im);
+        
+        return is;
     }
 
     public void revokeItemProperties()
