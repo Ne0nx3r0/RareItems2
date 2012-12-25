@@ -27,7 +27,7 @@ public class CatsFeet extends ItemProperty
     }    
     
     @Override
-    public boolean onInteractEntity(PlayerInteractEntityEvent e, Integer level)
+    public boolean onInteractEntity(PlayerInteractEntityEvent e, int level)
     {
         if(e.getRightClicked() instanceof LivingEntity)
         {

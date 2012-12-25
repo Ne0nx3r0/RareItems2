@@ -3,6 +3,8 @@ package com.gmail.ne0nx3r0.rareitems.listeners;
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChest;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
+import java.util.List;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -24,6 +26,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
 
 public class RareItemsPlayerListener implements Listener
 {
@@ -144,7 +147,6 @@ public class RareItemsPlayerListener implements Listener
                         p.sendMessage("You can only check out your own RareItems!");
 
                         e.setCancelled(true);
-
                     }
                     else
                     {
@@ -185,37 +187,49 @@ public class RareItemsPlayerListener implements Listener
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onEntityDamagedByEntity(EntityDamageByEntityEvent e)
     {
-         if(e.getDamager() instanceof Player)
-         {
+        //Let the bow hit handler deal with RI arrows
+        if(e.getDamager() instanceof Arrow)
+        {
+            Arrow arrow = (Arrow) e.getDamager();
+
+            List<MetadataValue> ridMeta = arrow.getMetadata("rid");
+
+            if(!ridMeta.isEmpty())
+            {
+                int rid = ridMeta.get(0).asInt();
+                Player p = Bukkit.getPlayer(e.getEntity().getMetadata("shooter").get(0).asString());
+
+                if(p != null)
+                {
+                    RareItem ri = RareItems.pm.getRareItem(p, rid);
+
+                    if(ri != null)
+                    {
+                        ri.onArrowHitEntity(e,p);
+                    }
+                }
+            }
+        }
+        else if(e.getDamager() instanceof Player)
+        {
             Player attacker = (Player) e.getDamager();
-             
+
             //Strength Ability
             if(RareItems.ipm.playerHasItemProperty(attacker.getName(),5))//Strength
             {
                 e.setDamage(e.getDamage()
                     +RareItems.ipm.getPlayerEffectLevel(attacker.getName(),5));//Strength
             }
-            
+
             RareItem ri = RareItems.pm.getRareItem(attacker, attacker.getItemInHand());
-            
+
             if(ri != null)
             {
                 ri.onDamagedOther(e);
             }
-         }/*
-         if(e.getDamager() instanceof Arrow)
-         {
-            Arrow arrow = (Arrow) e.getDamager();
-            
-            System.out.println("hit person!");
-            
-            for(int i=0;i<e.getEntity().getMetadata("test").size();i++)
-            {
-                System.out.println(e.getEntity().getMetadata("test").get(i));
-            }
-         }*/
+        }
     }
-/*
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onEntityShootBow(EntityShootBowEvent e)
     {
@@ -225,21 +239,38 @@ public class RareItemsPlayerListener implements Listener
             
             Arrow arrow = (Arrow) e.getProjectile();
             
-            System.out.println("shot!");
-            arrow.setMetadata("test", new FixedMetadataValue(RareItems.self, "testy!"));
+            RareItem ri = RareItems.pm.getRareItem(p,p.getItemInHand());
+
+            //Save RI info for when the arrow hits
+            if(ri != null)
+            {
+                arrow.setMetadata("rid", new FixedMetadataValue(RareItems.self, ri.getId()));
+                arrow.setMetadata("shooter", new FixedMetadataValue(RareItems.self, p.getName()));
+            }
         }
     }
     
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onProjectileHit(ProjectileHitEvent e)
     {
-        System.out.println("hit!");
+        List<MetadataValue> ridMeta = e.getEntity().getMetadata("rid");
         
-        for(int i=0;i<e.getEntity().getMetadata("test").size();i++)
+        if(!ridMeta.isEmpty())
         {
-            System.out.println(e.getEntity().getMetadata("test").get(i));
+            int rid = ridMeta.get(0).asInt();
+            Player p = Bukkit.getPlayer(e.getEntity().getMetadata("shooter").get(0).asString());
+            
+            if(p != null)
+            {
+                RareItem ri = RareItems.pm.getRareItem(p, rid);
+                
+                if(ri != null)
+                {
+                    ri.onArrowHitGround(e,p);
+                }
+            }
         }
-    }*/
+    }
         
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onEntityDeath(EntityDeathEvent e)

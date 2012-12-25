@@ -168,8 +168,6 @@ public class ProfileManager
     {
         this.playerProfiles.put(pp.getName().toLowerCase(), pp);
         
-        System.out.println("Added player profile "+pp.getName());
-        
         pp.refreshArmor();
     }
 

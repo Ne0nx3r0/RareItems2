@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -25,17 +26,21 @@ public class ItemProperty
         this.cost = cost;
     }
     
-    public void applyEffectToPlayer(Player p,int level){}
+    public void applyEffectToPlayer(Player p, int level){}
     
-    public boolean onInteract(PlayerInteractEvent e,int level){return false;}
+    public boolean onInteract(PlayerInteractEvent e, int level){return false;}
 
-    public boolean onInteractEntity(PlayerInteractEntityEvent e, Integer level){return false;}
+    public boolean onInteractEntity(PlayerInteractEntityEvent e, int level){return false;}
     
     public boolean onDamagedOther(EntityDamageByEntityEvent e, int level){return false;}
+
+    public boolean onArrowHitGround(ProjectileHitEvent e, Player shooter, int level){return false;}
+
+    public boolean onArrowHitEntity(EntityDamageByEntityEvent e, Player shooter, int level){return false;}
+
+    public void onEquip(Player p, int level){}
     
-    public void onEquip(Player p,int level){}
-    
-    public void onUnequip(Player p,int level){}
+    public void onUnequip(Player p, int level){}
 
     int getCost()
     {

@@ -206,6 +206,14 @@ public class ApiMessenger
                                 else
                                 {
                                     RareItems.logger.log(Level.WARNING, "Server returned an invalid ItemProperty ID{0}! (is RareItems up to date?)", ipId);
+                                    
+                                    for(Player pAnnounceTo : Bukkit.getOnlinePlayers())
+                                    {
+                                        if(pAnnounceTo.isOp() || pAnnounceTo.hasPermission("rareitems.errors"))
+                                        {
+                                            pAnnounceTo.sendMessage("Server returned an invalid ItemProperty ID"+ipId+"! (is RareItems up to date?)");
+                                        }
+                                    }
                                 }
                             }
                             

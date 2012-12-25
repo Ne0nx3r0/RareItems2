@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
@@ -113,6 +114,30 @@ public class RareItem
         }
     }
 
+    public void onArrowHitGround(ProjectileHitEvent e,Player shooter)
+    {
+        for(ItemProperty ip : properties.keySet())
+        {
+            //TODO: Add cost for arrows
+            if(ip.onArrowHitGround(e,shooter, properties.get(ip)))
+            {
+                return;
+            }
+        }
+    }
+    
+    public void onArrowHitEntity(EntityDamageByEntityEvent e, Player shooter)
+    {
+        for(ItemProperty ip : properties.keySet())
+        {
+            //TODO: Add cost for arrows
+            if(ip.onArrowHitEntity(e,shooter, properties.get(ip)))
+            {
+                return;
+            }
+        }
+    }
+    
     public void onEquipped(Player p)
     {
         for(ItemProperty ip : properties.keySet())
