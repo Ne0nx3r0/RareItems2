@@ -2,7 +2,7 @@ package com.gmail.ne0nx3r0.rareitems.item.bows;
 
 import com.gmail.ne0nx3r0.rareitems.item.ItemProperty;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class FireArrow extends ItemProperty
 {
@@ -12,10 +12,12 @@ public class FireArrow extends ItemProperty
     }
     
     @Override
-    public boolean onArrowHitGround(ProjectileHitEvent e,Player shooter, int level)
+    public boolean onArrowHitEntity(EntityDamageByEntityEvent e, Player shooter, int level)
     {
+        e.getEntity().setFireTicks(level*20);
         
+        shooter.sendMessage("FIRE!");
         
-        return false;
+        return true;
     }
 }

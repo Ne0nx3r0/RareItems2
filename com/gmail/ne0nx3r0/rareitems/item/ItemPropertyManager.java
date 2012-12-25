@@ -2,6 +2,7 @@ package com.gmail.ne0nx3r0.rareitems.item;
 
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.item.abilities.*;
+import com.gmail.ne0nx3r0.rareitems.item.bows.*;
 import com.gmail.ne0nx3r0.rareitems.item.enchantments.*;
 import com.gmail.ne0nx3r0.rareitems.item.skills.*;
 import com.gmail.ne0nx3r0.rareitems.item.spells.*;
@@ -77,6 +78,9 @@ public class ItemPropertyManager
         this.storeItemProperty(new Regeneration());
         this.storeItemProperty(new Strength());
         this.storeItemProperty(new WaterBreathing());
+        
+        this.storeItemProperty(new FireArrow());
+        this.storeItemProperty(new Hookshot());
     }
     
     public boolean playerHasItemProperty(String playerName, int id)

@@ -197,7 +197,8 @@ public class RareItemsPlayerListener implements Listener
             if(!ridMeta.isEmpty())
             {
                 int rid = ridMeta.get(0).asInt();
-                Player p = Bukkit.getPlayer(e.getEntity().getMetadata("shooter").get(0).asString());
+                
+                Player p = Bukkit.getPlayer(arrow.getMetadata("shooter").get(0).asString());
 
                 if(p != null)
                 {
@@ -237,13 +238,13 @@ public class RareItemsPlayerListener implements Listener
         {
             Player p = (Player) e.getEntity();
             
-            Arrow arrow = (Arrow) e.getProjectile();
-            
             RareItem ri = RareItems.pm.getRareItem(p,p.getItemInHand());
 
             //Save RI info for when the arrow hits
             if(ri != null)
             {
+                Arrow arrow = (Arrow) e.getProjectile();
+            
                 arrow.setMetadata("rid", new FixedMetadataValue(RareItems.self, ri.getId()));
                 arrow.setMetadata("shooter", new FixedMetadataValue(RareItems.self, p.getName()));
             }

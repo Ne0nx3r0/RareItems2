@@ -252,6 +252,7 @@ public class ProfileManager
     public void fillWithCheckedInItems(Player p, Inventory inv)
     {
         String sPlayerName = p.getName().toLowerCase();
+        
         if(playerProfiles.containsKey(sPlayerName))
         {
             playerProfiles.get(sPlayerName).fillWithCheckedInItems(inv);
@@ -260,17 +261,42 @@ public class ProfileManager
 
     public boolean checkOutRareItem(RareItem ri, Player p)
     {
-        return playerProfiles.get(p.getName().toLowerCase()).checkOut(ri);
+        PlayerProfile pp = playerProfiles.get(p.getName().toLowerCase());
+
+        if(pp.checkOut(ri))
+        {
+            this.savePlayerProfile(pp);
+            
+            return true;
+        }
+        
+        return false;
     }
 
     public boolean checkInRareItem(RareItem ri, Player p)
     {
-        return playerProfiles.get(p.getName().toLowerCase()).checkIn(ri);
+        PlayerProfile pp = playerProfiles.get(p.getName().toLowerCase());
+
+        if(pp.checkIn(ri))
+        {
+            this.savePlayerProfile(pp);
+            return true;
+        }
+        
+        return false;
     }
     
     public boolean checkInRareItem(int rid, Player p)
     {
-        return playerProfiles.get(p.getName().toLowerCase()).checkIn(rid);
+        PlayerProfile pp = playerProfiles.get(p.getName().toLowerCase());
+
+        if(pp.checkIn(rid))
+        {
+            this.savePlayerProfile(pp);
+            return true;
+        }
+        
+        return false;
     }
     
     public void checkInAllRareItems(Player p)
