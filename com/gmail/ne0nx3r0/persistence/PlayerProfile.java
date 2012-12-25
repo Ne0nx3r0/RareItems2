@@ -165,7 +165,7 @@ public class PlayerProfile
         if(checkouts.containsKey(rid))
         {
             checkouts.remove(rid);
-                
+            
             RareItems.pm.savePlayerProfile(this);
             
             return true;
@@ -195,21 +195,26 @@ public class PlayerProfile
 
     HashMap<Integer,RareItem> getRareItems()
     {
-        return this.rareItems;
+        return rareItems;
     }
 
     Integer[] getCheckedOutRareItemData(int rid)
     {
-        return this.checkouts.get(rid);
+        return checkouts.get(rid);
     }
 
     public int getMoney()
     {
-        return this.money;
+        return money;
     }
 
     public void setMoney(int amount)
     {
-        this.money = amount;
+        money = amount;
+    }
+
+    void checkInAllRareItems()
+    {
+        checkouts = new HashMap<>();
     }
 }

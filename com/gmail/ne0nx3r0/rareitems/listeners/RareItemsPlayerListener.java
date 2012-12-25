@@ -24,7 +24,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 
 public class RareItemsPlayerListener implements Listener
 {
@@ -203,7 +202,7 @@ public class RareItemsPlayerListener implements Listener
             {
                 ri.onDamagedOther(e);
             }
-         }
+         }/*
          if(e.getDamager() instanceof Arrow)
          {
             Arrow arrow = (Arrow) e.getDamager();
@@ -214,9 +213,9 @@ public class RareItemsPlayerListener implements Listener
             {
                 System.out.println(e.getEntity().getMetadata("test").get(i));
             }
-         }
+         }*/
     }
-
+/*
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onEntityShootBow(EntityShootBowEvent e)
     {
@@ -240,7 +239,7 @@ public class RareItemsPlayerListener implements Listener
         {
             System.out.println(e.getEntity().getMetadata("test").get(i));
         }
-    }
+    }*/
         
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onEntityDeath(EntityDeathEvent e)

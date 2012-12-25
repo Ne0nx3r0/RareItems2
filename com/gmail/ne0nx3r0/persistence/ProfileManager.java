@@ -274,6 +274,15 @@ public class ProfileManager
     {
         return playerProfiles.get(p.getName().toLowerCase()).checkIn(rid);
     }
+    
+    public void checkInAllRareItems(Player p)
+    {
+        PlayerProfile pp = playerProfiles.get(p.getName().toLowerCase());
+        
+        pp.checkInAllRareItems();
+        
+        this.savePlayerProfile(pp);
+    }
 
     public PlayerProfile getPlayerProfile(String sPlayerName,int iSiteId)
     {

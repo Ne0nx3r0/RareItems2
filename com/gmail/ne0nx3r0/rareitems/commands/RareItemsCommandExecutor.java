@@ -1,13 +1,13 @@
 package com.gmail.ne0nx3r0.rareitems.commands;
 
 import com.gmail.ne0nx3r0.rareitems.RareItems;
-import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChest;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
 import com.gmail.ne0nx3r0.utils.MaterialName;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,9 +19,30 @@ import org.bukkit.inventory.ItemStack;
 public class RareItemsCommandExecutor implements CommandExecutor 
 {
     @Override
-    public boolean onCommand(CommandSender cs, Command cmd, String alias, String[] args) {
-        if (!(cs instanceof Player)){
+    public boolean onCommand(CommandSender cs, Command cmd, String alias, String[] args){
+        if(args.length == 2 
+        && args[0].equals("returnall")
+        && (cs.hasPermission("rareitems.returnall") || !(cs instanceof Player)))
+        {
+            if(Bukkit.getPlayer(args[1]) != null)
+            {
+                RareItems.pm.checkInAllRareItems(Bukkit.getPlayer(args[1]));
+                
+                cs.sendMessage(args[1]+"'s items checked in.");
+            }
+            else
+            {
+                cs.sendMessage(args[1]+" not found.");
+            }
+            
+            return true;
+        }
+        
+        if(!(cs instanceof Player)){
+            
             RareItems.logger.log(Level.INFO,"RI is not console-enabled.");
+            
+            return true;
         }
         
         Player p = (Player) cs;
