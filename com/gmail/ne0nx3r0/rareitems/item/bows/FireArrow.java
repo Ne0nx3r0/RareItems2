@@ -16,8 +16,6 @@ public class FireArrow extends ItemProperty
     {
         e.getEntity().setFireTicks(level*20);
         
-        shooter.sendMessage("FIRE!");
-        
         return true;
     }
 }

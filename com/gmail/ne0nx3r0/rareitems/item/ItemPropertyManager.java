@@ -81,6 +81,7 @@ public class ItemPropertyManager
         
         this.storeItemProperty(new FireArrow());
         this.storeItemProperty(new Hookshot());
+        this.storeItemProperty(new PoisonArrow());
     }
     
     public boolean playerHasItemProperty(String playerName, int id)
