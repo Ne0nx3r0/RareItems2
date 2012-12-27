@@ -27,6 +27,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
+import org.bukkit.metadata.Metadatable;
 
 public class RareItemsPlayerListener implements Listener
 {
@@ -192,13 +193,13 @@ public class RareItemsPlayerListener implements Listener
         {
             Arrow arrow = (Arrow) e.getDamager();
 
-            List<MetadataValue> ridMeta = arrow.getMetadata("rid");
-
-            if(!ridMeta.isEmpty())
+            MetadataValue mdvRid = getRareItemMetaData(arrow,"rid");
+            
+            if(mdvRid != null)
             {
-                int rid = ridMeta.get(0).asInt();
+                int rid = mdvRid.asInt();
                 
-                Player p = Bukkit.getPlayer(arrow.getMetadata("shooter").get(0).asString());
+                Player p = Bukkit.getPlayer(getRareItemMetaData(arrow,"shooter").asString());
 
                 if(p != null)
                 {
@@ -254,12 +255,12 @@ public class RareItemsPlayerListener implements Listener
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onProjectileHit(ProjectileHitEvent e)
     {
-        List<MetadataValue> ridMeta = e.getEntity().getMetadata("rid");
+        MetadataValue mdvRid = getRareItemMetaData(e.getEntity(), "rid");
         
-        if(!ridMeta.isEmpty())
+        if(mdvRid != null)
         {
-            int rid = ridMeta.get(0).asInt();
-            Player p = Bukkit.getPlayer(e.getEntity().getMetadata("shooter").get(0).asString());
+            int rid = mdvRid.asInt();
+            Player p = Bukkit.getPlayer(getRareItemMetaData(e.getEntity(),"shooter").asString());
             
             if(p != null)
             {
@@ -287,5 +288,20 @@ public class RareItemsPlayerListener implements Listener
                 }
             }
         }
+    }
+    
+    public MetadataValue getRareItemMetaData(Metadatable holder,String key)
+    {
+        List<MetadataValue> metadata = holder.getMetadata(key);
+        
+        for(MetadataValue mdv : metadata)
+        {
+            if(mdv.getOwningPlugin().equals(RareItems.self))
+            {
+                return mdv;
+            }
+        }
+        
+        return null;
     }
 }

@@ -17,6 +17,7 @@ import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -232,6 +233,8 @@ public class ApiMessenger
                                 RareItems.self.getServer().broadcastMessage("-------------------    RareItems   -----------------");
                                 RareItems.self.getServer().broadcastMessage(p.getName() + " scored a "+ri.getDisplayName()+"!");
                                 RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
+                            
+                                p.sendMessage(ChatColor.GRAY+"(You can claim this item with /ri claim)");
                             }
                         }
                         
