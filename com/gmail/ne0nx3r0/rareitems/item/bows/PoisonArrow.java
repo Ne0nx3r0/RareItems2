@@ -1,6 +1,7 @@
 package com.gmail.ne0nx3r0.rareitems.item.bows;
 
 import com.gmail.ne0nx3r0.rareitems.item.ItemProperty;
+import java.util.Random;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -11,7 +12,7 @@ public class PoisonArrow extends ItemProperty
 {
     public PoisonArrow()
     {
-        super(46,"Poison Arrow","Eww... It's green, and sticky.",1);
+        super(46,"Poison Arrow","Eww... It's green, and sticky.",6);
     }
     
     @Override
@@ -19,9 +20,17 @@ public class PoisonArrow extends ItemProperty
     {
         if(e.getEntity() instanceof LivingEntity)
         {
-            ((LivingEntity) e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.POISON,200,level));
-            
-            return true;
+            if(new Random().nextInt(4) == 0)
+            {
+                ((LivingEntity) e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.POISON,120,level));
+
+                if(e.getEntity() instanceof Player)
+                {
+                    ((Player) e.getEntity()).sendMessage("You've been hit by a poisoned arrow!");
+                }
+                
+                return true;
+            }
         }
         return false;
     }

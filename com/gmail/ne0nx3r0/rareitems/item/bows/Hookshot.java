@@ -9,7 +9,7 @@ public class Hookshot extends ItemProperty
 {
     public Hookshot()
     {
-        super(45,"Hookshot","Because 'grappling hook' is too metro.",1);
+        super(45,"Hookshot","Because 'grappling hook' is too metro.",2);
     }
     
     @Override
@@ -18,6 +18,8 @@ public class Hookshot extends ItemProperty
         Location location = e.getEntity().getLocation();
         
         shooter.teleport(location);
+        
+        shooter.sendMessage("Your hooktshot arrow pulls you away!");
         
         return false;
     }

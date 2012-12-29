@@ -118,10 +118,23 @@ public class RareItem
     {
         for(ItemProperty ip : properties.keySet())
         {
-            //TODO: Add cost for arrows
-            if(ip.onArrowHitGround(e,shooter, properties.get(ip)))
+            if(ip.hasCost(shooter))
             {
-                return;
+                if(ip.onArrowHitGround(e,shooter, properties.get(ip)))
+                {
+                    ip.takeCost(shooter);
+                }
+            }
+            else
+            {
+                if(RareItems.COST_TYPE == RareItems.COST_TYPE_FOOD)
+                {
+                    shooter.sendMessage("Your food bar is too low to use this skill!");
+                }
+                else if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
+                {
+                    shooter.sendMessage("You need more EXP to use this skill!");
+                }
             }
         }
     }
@@ -130,10 +143,23 @@ public class RareItem
     {
         for(ItemProperty ip : properties.keySet())
         {
-            //TODO: Add cost for arrows
-            if(ip.onArrowHitEntity(e,shooter, properties.get(ip)))
+            if(ip.hasCost(shooter))
             {
-                return;
+                if(ip.onArrowHitEntity(e,shooter, properties.get(ip)))
+                {
+                    ip.takeCost(shooter);
+                }
+            }
+            else
+            {
+                if(RareItems.COST_TYPE == RareItems.COST_TYPE_FOOD)
+                {
+                    shooter.sendMessage("Your food bar is too low to use this skill!");
+                }
+                else if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
+                {
+                    shooter.sendMessage("You need more EXP to use this skill!");
+                }
             }
         }
     }
