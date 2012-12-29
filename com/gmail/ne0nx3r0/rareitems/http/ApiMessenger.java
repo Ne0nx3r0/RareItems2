@@ -48,9 +48,12 @@ public class ApiMessenger
                     {
                         String sPlayerNameLowerCase = q.poll();
                         
-                        playersToFetch.add(sPlayerNameLowerCase);
-                        
-                        q.add(sPlayerNameLowerCase);
+                        if(Bukkit.getPlayer(sPlayerNameLowerCase) != null)
+                        {
+                            playersToFetch.add(sPlayerNameLowerCase);
+
+                            q.add(sPlayerNameLowerCase);
+                        }
                     }
                     
                     ApiMessenger.fetchPlayerRareItems(playersToFetch.toArray(new String[playersToFetch.size()]),true);
@@ -256,8 +259,8 @@ public class ApiMessenger
         q.remove(p.getName().toLowerCase());
     }
 
-    public void addPlayerToQueue(Player player)
+    public void addPlayerToQueue(Player p)
     {
-        q.add(player.getName().toLowerCase());
+        q.add(p.getName().toLowerCase());
     }
 }
