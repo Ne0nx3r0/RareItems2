@@ -1,6 +1,6 @@
 name: RareItems2
 main: com.gmail.ne0nx3r0.rareitems.RareItems
-version: '0.6.4'
+version: '0.6.5'
 database: false
 description: Rare Items v2
 commands:
