@@ -43,6 +43,8 @@ public class RareItemsCommandExecutor implements CommandExecutor
                 case "identify":
                 case "i":
                     return scIdentify(cs, args);
+                case "returnall":
+                    return scReturnAll(cs, args);
             }
         }
         
@@ -252,7 +254,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
         return true;
     }
     
-    private boolean scReturnall(CommandSender cs, String[] args)
+    private boolean scReturnAll(CommandSender cs, String[] args)
     {
         if(args.length == 2 
         && args[0].equals("returnall")
