@@ -19,7 +19,7 @@ public class Hookshot extends ItemProperty
         
         shooter.teleport(location);
         
-        shooter.sendMessage("Your hooktshot arrow pulls you away!");
+        shooter.sendMessage("Your hookshot arrow pulls you away!");
         
         return false;
     }
