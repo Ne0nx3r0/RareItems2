@@ -21,6 +21,6 @@ public class Hookshot extends ItemProperty
         
         shooter.sendMessage("Your hookshot arrow pulls you away!");
         
-        return false;
+        return true;
     }
 }
