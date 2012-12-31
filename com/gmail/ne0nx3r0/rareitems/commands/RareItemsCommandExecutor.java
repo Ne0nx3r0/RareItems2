@@ -75,7 +75,8 @@ public class RareItemsCommandExecutor implements CommandExecutor
         }
         else
         {
-            p.sendMessage("This does not appear to be a rare item!");
+            p.sendMessage(ChatColor.RED+"This does not appear to be a rare item!");
+            p.sendMessage("(Are you holding it?)");
         }
         
         return true;
