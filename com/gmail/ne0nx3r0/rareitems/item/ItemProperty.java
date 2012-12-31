@@ -126,4 +126,9 @@ public class ItemProperty
             p.setExp(p.getExp() - cost * RareItems.COST_MULTIPLIER);
         }
     }
+
+    String getDescription()
+    {
+        return this.description;
+    }
 }

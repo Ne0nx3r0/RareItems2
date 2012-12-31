@@ -6,13 +6,13 @@ import com.gmail.ne0nx3r0.utils.RomanNumeral;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -264,5 +264,19 @@ public class RareItem
     public HashMap<ItemProperty, Integer> getItemProperties()
     {
         return this.properties;
+    }
+
+    public ArrayList<String> getDescription()
+    {
+        ArrayList<String> sDescription = new ArrayList<>();
+        
+        sDescription.add(ChatColor.GOLD+getDisplayName());
+        
+        for(ItemProperty ip : properties.keySet())
+        {
+            sDescription.add(ChatColor.LIGHT_PURPLE+ip.getName()+": "+ChatColor.WHITE+ip.getDescription());
+        }
+        
+        return sDescription;
     }
 }
