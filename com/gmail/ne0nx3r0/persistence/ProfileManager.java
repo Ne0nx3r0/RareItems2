@@ -303,9 +303,12 @@ public class ProfileManager
     {
         PlayerProfile pp = playerProfiles.get(p.getName().toLowerCase());
         
-        pp.checkInAllRareItems();
-        
-        this.savePlayerProfile(pp);
+        if(pp != null)
+        {
+            pp.checkInAllRareItems();
+
+            this.savePlayerProfile(pp);
+        }
     }
 
     public PlayerProfile getPlayerProfile(String sPlayerName,int iSiteId)
