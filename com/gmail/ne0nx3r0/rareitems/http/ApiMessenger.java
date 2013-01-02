@@ -35,8 +35,7 @@ public class ApiMessenger
     {
         LAST_SENT_ID = 0;
         
-        TASK_ID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(RareItems.self,new Runnable()
-        {
+        TASK_ID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(RareItems.self,new Runnable(){
             @Override
             public void run()
             {
@@ -55,13 +54,17 @@ public class ApiMessenger
                             q.add(sPlayerNameLowerCase);
                         }
                     }
-                    
-                    ApiMessenger.fetchPlayerRareItems(playersToFetch.toArray(new String[playersToFetch.size()]),true);
+
+                    if(!playersToFetch.isEmpty())
+                    {
+                        ApiMessenger.fetchPlayerRareItems(
+                                playersToFetch.toArray(new String[playersToFetch.size()]),true);
+                    }
                 }
             }
         }, 20*60*30, 20*60*30);
     }
-
+                
     public static void fetchPlayerRareItems(int id,boolean onlyPending)
     {
         fetchPlayerRareItems("ids="+id,onlyPending);
