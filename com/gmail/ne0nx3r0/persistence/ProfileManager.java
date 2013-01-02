@@ -327,9 +327,12 @@ public class ProfileManager
 
     public void saveAllPlayerProfiles()
     {
-        for(PlayerProfile pp : playerProfiles.values())
+        if(!playerProfiles.isEmpty())
         {
-            savePlayerProfile(pp);
+            for(PlayerProfile pp : playerProfiles.values())
+            {
+                savePlayerProfile(pp);
+            }
         }
     }    
 

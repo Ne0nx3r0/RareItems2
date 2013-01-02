@@ -237,7 +237,7 @@ public class ApiMessenger
                                 RareItems.self.getServer().broadcastMessage(p.getName() + " scored a "+ri.getDisplayName()+"!");
                                 RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
                             
-                                p.sendMessage(ChatColor.GRAY+"(You can claim this item with /ri claim)");
+                                p.sendMessage(ChatColor.GOLD+"(You can claim this item with /ri claim)");
                             }
                         }
                         
