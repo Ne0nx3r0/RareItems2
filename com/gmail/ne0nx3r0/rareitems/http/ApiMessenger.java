@@ -46,7 +46,7 @@ public class ApiMessenger
                     for(int i=0;i<30 && i<q.size();i++)
                     {
                         String sPlayerNameLowerCase = q.poll();
-                        
+
                         if(Bukkit.getPlayer(sPlayerNameLowerCase) != null)
                         {
                             playersToFetch.add(sPlayerNameLowerCase);
@@ -265,5 +265,10 @@ public class ApiMessenger
     public void addPlayerToQueue(Player p)
     {
         q.add(p.getName().toLowerCase());
+    }
+
+    public void stopTask()
+    {
+        Bukkit.getScheduler().cancelTask(TASK_ID);
     }
 }

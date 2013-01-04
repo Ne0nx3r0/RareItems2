@@ -90,6 +90,6 @@ public class RareItems extends JavaPlugin{
     {      
         RareItems.pm.saveAllPlayerProfiles();
         
-        Bukkit.getScheduler().cancelTasks(this);
+        RareItems.am.stopTask();
     }
 }

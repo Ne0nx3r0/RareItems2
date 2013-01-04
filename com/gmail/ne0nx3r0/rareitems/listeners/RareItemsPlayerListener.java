@@ -4,9 +4,13 @@ import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChest;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
 import java.util.List;
+import java.util.Set;
 import org.bukkit.Bukkit;
+import org.bukkit.EntityEffect;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -168,19 +172,30 @@ public class RareItemsPlayerListener implements Listener
     {
         if(e.getEntity() instanceof Player)
         {
+           String sPlayerName = ((Player) e.getEntity()).getName();
+            Set<Integer> playerActiveItemProperties = RareItems.ipm.getPlayerActiveItemProperties(sPlayerName);
+           
            if(e.getCause() == EntityDamageEvent.DamageCause.FALL
-           && RareItems.ipm.playerHasItemProperty(((Player) e.getEntity()).getName(),40))//Cat's Feet
+           && playerActiveItemProperties.contains(40))//Cat's Feet
            {
                e.setCancelled(true);
            }
            else if(e.getCause().equals(EntityDamageEvent.DamageCause.DROWNING)
-           && RareItems.ipm.playerHasItemProperty(((Player) e.getEntity()).getName(),7))//Water Breathing
+           && playerActiveItemProperties.contains(7))//Water Breathing
            {
                    e.setCancelled(true);
            }
-           else if(RareItems.ipm.playerHasItemProperty(((Player) e.getEntity()).getName(),5))//Hardy
+           else if(playerActiveItemProperties.contains(5))//Hardy
            {
                e.setDamage(e.getDamage()-RareItems.ipm.getPlayerEffectLevel(((Player) e.getEntity()).getName(), 5));
+           }
+           else if(playerActiveItemProperties.contains(47))//Tough Love
+           {
+                e.getEntity().playEffect(EntityEffect.WOLF_HEARTS);
+               
+                //Entity kludgeE = e.getEntity().getWorld().spawnEntity(e.getEntity().getLocation(), EntityType.WOLF);
+                //kludgeE.playEffect(EntityEffect.WOLF_HEARTS);
+                //kludgeE.remove();
            }
         }
     }
@@ -217,7 +232,7 @@ public class RareItemsPlayerListener implements Listener
             Player attacker = (Player) e.getDamager();
 
             //Strength Ability
-            if(RareItems.ipm.playerHasItemProperty(attacker.getName(),5))//Strength
+            if(RareItems.ipm.playerHasActiveItemProperty(attacker.getName(),5))//Strength
             {
                 e.setDamage(e.getDamage()
                     +RareItems.ipm.getPlayerEffectLevel(attacker.getName(),5));//Strength

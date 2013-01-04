@@ -9,6 +9,7 @@ import com.gmail.ne0nx3r0.rareitems.item.spells.*;
 import com.gmail.ne0nx3r0.rareitems.item.vfx.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ItemPropertyManager
 {    
@@ -82,9 +83,20 @@ public class ItemPropertyManager
         this.storeItemProperty(new FireArrow());
         this.storeItemProperty(new Hookshot());
         this.storeItemProperty(new PoisonArrow());
+        
+        this.storeItemProperty(new ToughLove());
     }
     
-    public boolean playerHasItemProperty(String playerName, int id)
+    public Set<Integer> getPlayerActiveItemProperties(String sPlayerName)
+    {
+        if(playerActiveEffects.containsKey(sPlayerName))
+        {
+            return playerActiveEffects.get(sPlayerName).keySet();
+        }
+        return null;
+    }
+    
+    public boolean playerHasActiveItemProperty(String playerName, int id)
     {
         if(playerActiveEffects.containsKey(playerName))
         {
