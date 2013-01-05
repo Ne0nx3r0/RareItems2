@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -32,6 +34,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.metadata.Metadatable;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class RareItemsPlayerListener implements Listener
 {
@@ -175,28 +179,41 @@ public class RareItemsPlayerListener implements Listener
            String sPlayerName = ((Player) e.getEntity()).getName();
             Set<Integer> playerActiveItemProperties = RareItems.ipm.getPlayerActiveItemProperties(sPlayerName);
            
-           if(e.getCause() == EntityDamageEvent.DamageCause.FALL
-           && playerActiveItemProperties.contains(40))//Cat's Feet
-           {
-               e.setCancelled(true);
-           }
-           else if(e.getCause().equals(EntityDamageEvent.DamageCause.DROWNING)
-           && playerActiveItemProperties.contains(7))//Water Breathing
-           {
-                   e.setCancelled(true);
-           }
-           else if(playerActiveItemProperties.contains(5))//Hardy
-           {
-               e.setDamage(e.getDamage()-RareItems.ipm.getPlayerEffectLevel(((Player) e.getEntity()).getName(), 5));
-           }
-           else if(playerActiveItemProperties.contains(47))//Tough Love
-           {
-                e.getEntity().playEffect(EntityEffect.WOLF_HEARTS);
-               
-                //Entity kludgeE = e.getEntity().getWorld().spawnEntity(e.getEntity().getLocation(), EntityType.WOLF);
-                //kludgeE.playEffect(EntityEffect.WOLF_HEARTS);
-                //kludgeE.remove();
-           }
+            if(playerActiveItemProperties != null)
+            {
+                if(e.getCause() == EntityDamageEvent.DamageCause.FALL
+                && playerActiveItemProperties.contains(40))//Cat's Feet
+                {
+                    e.setCancelled(true);
+                }
+                else if(e.getCause().equals(EntityDamageEvent.DamageCause.DROWNING)
+                && playerActiveItemProperties.contains(7))//Water Breathing
+                {
+                        e.setCancelled(true);
+                }
+                else if(playerActiveItemProperties.contains(5))//Hardy
+                {
+                    e.setDamage(e.getDamage()-RareItems.ipm.getPlayerEffectLevel(((Player) e.getEntity()).getName(), 5));
+                }
+                else if(playerActiveItemProperties.contains(47))//Tough Love
+                {
+                    Player p = ((Player) e.getEntity());
+                    Location l = p.getLocation();
+                    l.setY(400);
+                    final LivingEntity kludgeE = (LivingEntity) p.getWorld().spawnEntity(l, EntityType.WOLF);
+                    kludgeE.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY,100,100));
+                    kludgeE.teleport(p.getLocation());
+
+                    RareItems.self.getServer().getScheduler().runTaskLater(RareItems.self,  new Runnable() {
+                        @Override  
+                        public void run()
+                        {
+                            kludgeE.playEffect(EntityEffect.WOLF_HEARTS);
+                            kludgeE.remove();
+                        }
+                    },3);
+                }
+            }
         }
     }
     

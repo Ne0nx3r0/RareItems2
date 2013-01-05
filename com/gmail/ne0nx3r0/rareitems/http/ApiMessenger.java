@@ -223,14 +223,29 @@ public class ApiMessenger
                                     }
                                 }
                             }
+                            RareItem ri = null;
                             
-                            RareItem ri = new RareItem(
-                                Integer.parseInt(sPendingItemId),
-                                sPlayerName,
-                                Integer.parseInt((String) pendingItem.get("m")),
-                                Byte.parseByte((String) pendingItem.get("dv")),
-                                ips
-                            );
+                            if(pendingItem.get("c") != null)
+                            {
+                                ri = new RareItem(
+                                    Integer.parseInt(sPendingItemId),
+                                    sPlayerName,
+                                    Integer.parseInt((String) pendingItem.get("m")),
+                                    Byte.parseByte((String) pendingItem.get("dv")),
+                                    ips,
+                                    (String) pendingItem.get("c")
+                                );
+                            }
+                            else
+                            {
+                                ri = new RareItem(
+                                    Integer.parseInt(sPendingItemId),
+                                    sPlayerName,
+                                    Integer.parseInt((String) pendingItem.get("m")),
+                                    Byte.parseByte((String) pendingItem.get("dv")),
+                                    ips
+                                );
+                            }
                             
                             pp.addRareItem(ri);
                             

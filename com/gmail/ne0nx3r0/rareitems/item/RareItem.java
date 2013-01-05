@@ -3,6 +3,7 @@ package com.gmail.ne0nx3r0.rareitems.item;
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.utils.MaterialName;
 import com.gmail.ne0nx3r0.utils.RomanNumeral;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bukkit.Bukkit;
@@ -15,6 +16,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 public class RareItem
 {
@@ -23,6 +25,7 @@ public class RareItem
     private final byte dataValue;
     private final HashMap<ItemProperty,Integer> properties;
     private final String owner;
+    private final String color;
     
     public RareItem(int riId, String owner, int materialId, byte dataValue,HashMap<ItemProperty,Integer> properties)
     {
@@ -31,6 +34,17 @@ public class RareItem
         this.materialId = materialId;
         this.dataValue = dataValue;
         this.properties = properties;
+        this.color = null;
+    }
+    
+    public RareItem(int riId, String owner, int materialId, byte dataValue,HashMap<ItemProperty,Integer> properties,String color)
+    {
+        this.id = riId;
+        this.owner = owner;
+        this.materialId = materialId;
+        this.dataValue = dataValue;
+        this.properties = properties;
+        this.color = color;
     }
     
     public void onInteract(PlayerInteractEvent e)
@@ -217,6 +231,17 @@ public class RareItem
 
         ItemMeta im = is.getItemMeta();
         
+        if(this.color != null && im instanceof LeatherArmorMeta)
+        {
+            LeatherArmorMeta lam = (LeatherArmorMeta) im;
+
+            lam.setColor(org.bukkit.Color.fromBGR(
+                Integer.valueOf(this.color.substring(0, 2), 16),
+                Integer.valueOf(this.color.substring(2, 4), 16), 
+                Integer.valueOf(this.color.substring(4, 6), 16)
+            ));
+        }
+        
         if(is.getType().equals(Material.WRITTEN_BOOK))
         {
             im.setDisplayName("Spellbook");
@@ -226,6 +251,8 @@ public class RareItem
         
         is.setItemMeta(im);
         
+        
+
         return is;
     }
 
@@ -242,6 +269,11 @@ public class RareItem
     public String getDisplayName()
     {
         String dispName = MaterialName.getMaterialDisplayName(materialId, dataValue);
+        
+        if(properties.isEmpty())
+        {
+            return dispName +" (Unknown properties)";
+        }
         
         for(ItemProperty ip : properties.keySet())
         {

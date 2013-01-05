@@ -72,6 +72,7 @@ public class ItemPropertyManager
         this.storeItemProperty(new Golden());
         this.storeItemProperty(new Smelly());
         this.storeItemProperty(new Cherry());
+        this.storeItemProperty(new Loving());
         
         this.storeItemProperty(new Durability());
         this.storeItemProperty(new Fly());
@@ -126,6 +127,7 @@ public class ItemPropertyManager
         }
         
         activeEffects.get(ip).put(name,level);
+        
         playerActiveEffects.get(name).put(ip.getId(), level);
     }
 
