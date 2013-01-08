@@ -1,10 +1,10 @@
 package com.gmail.ne0nx3r0.rareitems;
 
-import com.gmail.ne0nx3r0.rareitems.commands.RareItemsCommandExecutor;
-import com.gmail.ne0nx3r0.rareitems.listeners.RareItemsPlayerListener;
 import com.gmail.ne0nx3r0.persistence.ProfileManager;
+import com.gmail.ne0nx3r0.rareitems.commands.RareItemsCommandExecutor;
 import com.gmail.ne0nx3r0.rareitems.http.ApiMessenger;
 import com.gmail.ne0nx3r0.rareitems.item.ItemPropertyManager;
+import com.gmail.ne0nx3r0.rareitems.listeners.RareItemsPlayerListener;
 import java.io.File;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
@@ -17,7 +17,6 @@ public class RareItems extends JavaPlugin{
     public static Plugin self;
     public static ItemPropertyManager ipm;
     public static ApiMessenger am;
-    //public static VirtualChestManager vcm;
     public static ProfileManager pm;
     
     public static final Logger logger = Logger.getLogger("RareItemsRegistration");
