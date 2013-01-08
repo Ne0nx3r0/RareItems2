@@ -3,7 +3,6 @@ package com.gmail.ne0nx3r0.rareitems.item;
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.utils.MaterialName;
 import com.gmail.ne0nx3r0.utils.RomanNumeral;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bukkit.Bukkit;

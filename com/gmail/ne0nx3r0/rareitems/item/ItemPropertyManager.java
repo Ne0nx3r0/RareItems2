@@ -41,6 +41,8 @@ public class ItemPropertyManager
         this.storeItemProperty(new HalfBakedIdea());
         
         this.storeItemProperty(new Backstab());
+        this.storeItemProperty(new Blinding());
+        this.storeItemProperty(new Disarm());
         this.storeItemProperty(new CallLightning());
         this.storeItemProperty(new Confuse());
         this.storeItemProperty(new Poison());
