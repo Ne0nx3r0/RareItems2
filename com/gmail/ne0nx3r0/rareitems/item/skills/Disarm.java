@@ -49,12 +49,10 @@ public class Disarm extends ItemProperty
                 
                 p.getInventory().setItem(p.getInventory().getHeldItemSlot(), swapIn);
                 p.getInventory().setItem(iRandomSlot, swapOut);
-            
-                p.getInventory().setItem(iRandomSlot, swapIn);
                 
-                p.sendMessage("Disarmed!");
+                attacker.sendMessage("Disarmed!");
                 
-                attacker.sendMessage("You have been disarmed!");
+                p.sendMessage("You have been disarmed!");
 
                 return true;
             }
