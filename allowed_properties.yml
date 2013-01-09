@@ -4,9 +4,9 @@
 # 0 = free
 # 1-∞ = cost
 #
-# Default is allow with default cost
+# Properties that don't exist will be added with their default values
 #
-# Please, PLEASE double check this after you update, new itemproperties may have been added
+# Please, PLEASE watch your log and double check this after you update, new itemproperties may have been added
 #
 # Specific item propety information available at:
 # http://rareitemsplugin.tk/types

@@ -93,12 +93,20 @@ public class RareItems extends JavaPlugin{
         
         for(ItemProperty ip : RareItems.ipm.getAvailableItemProperties())
         {
-            int customCost = yml.getInt(ip.getName().replace(" ", ""),ip.getCost());
+            String sPropertyName = ip.getName().replace(" ", "");
             
-            if(customCost == -1)
+            int customCost = yml.getInt(sPropertyName,-2);
+            
+            if(customCost < -1)
+            {
+                this.getLogger().log(Level.INFO,"new property added to allowed_properties.yml: "+sPropertyName+": "+ip.getCost());
+                
+                yml.set(sPropertyName, ip.getCost());
+            }
+            else if(customCost == -1)
             {
                 ip.setEnabled(false);
-            }            
+            }
             else if(customCost != ip.getCost())
             {
                 ip.setCost(customCost);
