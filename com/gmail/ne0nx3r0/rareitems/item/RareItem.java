@@ -25,6 +25,7 @@ public class RareItem
     private final HashMap<ItemProperty,Integer> properties;
     private final String owner;
     private final String color;
+    private boolean allowed = true;
     
     public RareItem(int riId, String owner, int materialId, byte dataValue,HashMap<ItemProperty,Integer> properties)
     {
@@ -34,6 +35,14 @@ public class RareItem
         this.dataValue = dataValue;
         this.properties = properties;
         this.color = null;
+        
+        for(ItemProperty ip : this.properties.keySet())
+        {
+            if(!ip.isEnabled())
+            {
+                this.allowed = false;
+            }
+        }
     }
     
     public RareItem(int riId, String owner, int materialId, byte dataValue,HashMap<ItemProperty,Integer> properties,String color)
@@ -44,6 +53,14 @@ public class RareItem
         this.dataValue = dataValue;
         this.properties = properties;
         this.color = color;
+        
+        for(ItemProperty ip : this.properties.keySet())
+        {
+            if(!ip.isEnabled())
+            {
+                this.allowed = false;
+            }
+        }
     }
     
     public void onInteract(PlayerInteractEvent e)
@@ -407,5 +424,10 @@ public class RareItem
         }
         
         return sDescription;
+    }
+
+    public boolean isAllowed()
+    {
+        return this.allowed;
     }
 }

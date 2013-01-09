@@ -156,14 +156,17 @@ public class RareItemsPlayerListener implements Listener
 
                         e.setCancelled(true);
                     }
-                    else
+                    else if(!RareItems.pm.checkOutRareItem(riPickingUp,p))
                     {
-                        if(!RareItems.pm.checkOutRareItem(riPickingUp,p))
-                        {
-                            p.sendMessage("You cannot check out that item");
+                        p.sendMessage("You cannot check out that item");
 
-                            e.setCancelled(true);
-                        }
+                        e.setCancelled(true);
+                    }
+                    else if(!riPickingUp.isAllowed())
+                    {
+                        p.sendMessage("You cannot use that rare item on this server!");
+
+                        e.setCancelled(true);
                     }
                 }  
             }

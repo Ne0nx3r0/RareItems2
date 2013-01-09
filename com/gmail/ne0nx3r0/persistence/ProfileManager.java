@@ -84,11 +84,11 @@ public class ProfileManager
                 for(String sIpId : yml.getConfigurationSection("rareItems."+sRid+".p").getKeys(false))
                 {
                     ips.put(
-                        RareItems.ipm.getItemProperty(Integer.parseInt(sRid)),
-                        yml.getInt("rareItems."+sRid+".p."+sRid)
+                        RareItems.ipm.getItemProperty(Integer.parseInt(sIpId)),
+                        yml.getInt("rareItems."+sRid+".p."+sIpId)
                     );
                 }
-
+                
                 rareItems.put(rid,new RareItem(
                     rid,
                     sPlayerName,
