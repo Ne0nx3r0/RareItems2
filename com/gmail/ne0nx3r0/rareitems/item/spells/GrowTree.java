@@ -10,7 +10,7 @@ public class GrowTree extends ItemProperty
 {
     public GrowTree()
     {
-        super(26,"Grow Tree","Grow a tree from a sapling",6);
+        super(26,"Grow Tree","Grows a tree from a clicked sapling",8);
     }
     
     @Override

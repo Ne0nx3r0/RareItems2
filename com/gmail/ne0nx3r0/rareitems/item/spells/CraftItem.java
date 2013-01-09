@@ -7,7 +7,7 @@ public class CraftItem extends ItemProperty
 {
     public CraftItem()
     {
-        super(16,"Craft Item","Craft an item",0);
+        super(16,"Craft Item","Opens a virtual crafting table",1);
     }
     
     @Override

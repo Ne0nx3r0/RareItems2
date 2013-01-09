@@ -12,6 +12,7 @@ public class Haste extends ItemProperty
 {    
     public Haste()
     {
+        needs more testing.
         super(27,"Fast Mining","Allows you to mine faster than normal",4); 
     }
     

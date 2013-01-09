@@ -15,7 +15,7 @@ public class Loving extends IPConstantEffect
 {
     public Loving()
     {
-        super(48,"Loving","This is a visual effect item.");
+        super(48,"Loving","(VFX) Hearts");
         
         this.createRepeatingAppliedEffect((ItemProperty) this,20*3);
     }

@@ -8,7 +8,7 @@ public class Smoking extends IPConstantEffect
 {
     public Smoking()
     {
-        super(13,"Smoking","Creates a ring of smoke around you");
+        super(13,"Smoking","(VFX) Ring of smoke");
         
         this.createRepeatingAppliedEffect(this,20);
     }

@@ -1,13 +1,10 @@
 package com.gmail.ne0nx3r0.rareitems.item.spells;
 
 import com.gmail.ne0nx3r0.rareitems.item.ItemProperty;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class RepairItem extends ItemProperty
 {

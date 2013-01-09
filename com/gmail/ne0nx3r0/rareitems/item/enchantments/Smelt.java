@@ -9,7 +9,7 @@ public class Smelt extends ItemProperty
 {
     public Smelt()
     {
-        super(1,"Smelt","Turn cobblestone to stone",1);
+        super(1,"Smelt","Turns clicked cobblestone into stone",1);
     }
 
     @Override

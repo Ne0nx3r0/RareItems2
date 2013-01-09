@@ -7,7 +7,7 @@ public class MagicBag extends ItemProperty
 {
     public MagicBag()
     {
-        super(28,"Magic Bag","Mobile ender chest",1);
+        super(28,"Magic Bag","Opens your ender chest",1);
     }
     
     @Override

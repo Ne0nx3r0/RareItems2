@@ -7,7 +7,7 @@ public class Smelly extends IPConstantEffect
 {
     public Smelly()
     {
-        super(41,"Smelly","What is that smell?");
+        super(41,"Smelly","(VFX) Puke green particles");
         
         this.createRepeatingAppliedEffect(this,20*60);
     }

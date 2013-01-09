@@ -13,7 +13,7 @@ public class CatsFeet extends ItemProperty
 {
     public CatsFeet()
     {
-        super(40,"Cat's Feet","Lets you or another player jump much higher.",4);
+        super(40,"Cat's Feet","Lets you or a clicked target jump much higher for 60 seconds / lvl",4);
     }
     
     @Override

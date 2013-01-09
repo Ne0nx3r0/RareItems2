@@ -10,7 +10,7 @@ public class FireArrow extends ItemProperty
 {
     public FireArrow()
     {
-        super(44,"Fire Arrow","Light your opponents ablaze!",4);
+        super(44,"Fire Arrow","Arrows that hit a targt have a 25% chance to light them on fire. (2 seconds / level)",4);
     }
     
     @Override

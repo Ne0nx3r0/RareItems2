@@ -6,6 +6,6 @@ public class ToughLove extends IPConstantEffect
 {
     public ToughLove()
     {
-        super(47,"Tough Love","Creates a heart effect when you are harmed.");
+        super(47,"Tough Love","Creates a visual effect when harmed");
     }
 }

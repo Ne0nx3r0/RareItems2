@@ -23,13 +23,13 @@ public class HalfBakedIdea extends ItemProperty
 
             e.getPlayer().addPotionEffect(new PotionEffect(potionEffects[r.nextInt(potionEffects.length)],20*60,1));
 
-            e.getPlayer().sendMessage("Holy crap something happened!");
+            e.getPlayer().sendMessage("Something happened!");
         
             return true;
         }
         else
         {        
-            e.getPlayer().sendMessage("Holy crap something happened!");
+            e.getPlayer().sendMessage("Nothing happened?");
             
             return false;
         }

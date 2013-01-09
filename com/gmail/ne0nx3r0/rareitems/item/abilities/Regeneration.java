@@ -7,7 +7,7 @@ public class Regeneration extends IPConstantEffect
 {    
     public Regeneration()
     {
-        super(10,"Regeneration","Regenerate HP");
+        super(10,"Regeneration","Regenerate 1 HP/level/10 seconds");
         
         this.createRepeatingAppliedEffect(this,20*10);
     }

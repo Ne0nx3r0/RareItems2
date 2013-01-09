@@ -8,7 +8,7 @@ public class SummonCow extends ItemProperty
 {
     public SummonCow()
     {
-        super(32,"Summon Cow","Creates a cow.",12);
+        super(32,"Summon Cow","Creates one cow / level",12);
     }
     
     @Override

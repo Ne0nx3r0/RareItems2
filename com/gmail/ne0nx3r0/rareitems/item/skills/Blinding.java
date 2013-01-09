@@ -12,7 +12,7 @@ public class Blinding extends ItemProperty
 {
     public Blinding()
     {
-        super(49,"Blinding","20% chance to blind an enemy! (duration: 2 seconds / level)",4);
+        super(49,"Blinding","20% chance to blind a target onhit (3s / level)",4);
     }
     
     @Override
@@ -23,7 +23,7 @@ public class Blinding extends ItemProperty
         {
             LivingEntity le = (LivingEntity) e.getEntity();
             
-            le.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,40*level,1));
+            le.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,60*level,1));
             
             if(e.getDamager() instanceof Player)
             {

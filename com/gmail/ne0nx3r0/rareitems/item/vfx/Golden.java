@@ -7,7 +7,7 @@ public class Golden extends IPConstantEffect
 {
     public Golden()
     {
-        super(42,"Golden","Ooo shiny.");
+        super(42,"Golden","(VFX) Gold particles");
         
         this.createRepeatingAppliedEffect(this,20*60);
     }

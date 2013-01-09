@@ -1,6 +1,7 @@
 package com.gmail.ne0nx3r0.rareitems.item.abilities;
 
 import com.gmail.ne0nx3r0.rareitems.item.IPConstantEffect;
+import com.gmail.ne0nx3r0.rareitems.item.ItemProperty;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -9,9 +10,9 @@ public class Durability extends IPConstantEffect
     
     public Durability()
     {
-        super(9,"Durability","Automatically repairs your armor over time.");
+        super(9,"Durability","Automagically repairs equipped armor over time");
         
-        this.createRepeatingAppliedEffect(this,20*10);
+        this.createRepeatingAppliedEffect((ItemProperty) this,20*10);
     }
 
     @Override

@@ -12,7 +12,7 @@ public class FireHandling extends ItemProperty
 {
     public FireHandling()
     {
-        super(23,"Fire Handling","Scoop up fire.",4);
+        super(23,"Fire Handling","Clicked fire becomes a holdable item.",4);
     }
     
     @Override
@@ -22,8 +22,7 @@ public class FireHandling extends ItemProperty
         {
             Block bFire = e.getClickedBlock().getRelative(BlockFace.UP);
             
-            if(bFire != null
-            && bFire.getType() == Material.FIRE)
+            if(bFire != null && bFire.getType() == Material.FIRE)
             {
                 bFire.setType(Material.AIR);
 

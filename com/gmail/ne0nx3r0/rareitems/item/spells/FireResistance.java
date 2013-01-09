@@ -1,7 +1,6 @@
 package com.gmail.ne0nx3r0.rareitems.item.spells;
 
 
-import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.item.ItemProperty;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -14,7 +13,7 @@ public class FireResistance extends ItemProperty
 {
     public FireResistance()
     {
-        super(25,"Fire Resistance","Use to temporarily up your fire resistance",6);
+        super(25,"Fire Resistance","Grants you or a clicked target 20% fire resistance / lvl for 60 seconds",6);
     }
     
     @Override

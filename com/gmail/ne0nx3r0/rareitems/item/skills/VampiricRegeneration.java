@@ -11,13 +11,13 @@ public class VampiricRegeneration extends ItemProperty
 {
     public VampiricRegeneration()
     {
-        super(21,"Vampiric Regeneration","25% chance to steal health from any enemy you strike",1);
+        super(21,"Vampiric Regeneration","20% chance to steal 1-(3*level) HP from an enemy",5);
     }
     
     @Override
     public boolean onDamagedOther(final EntityDamageByEntityEvent e,int level)
     {
-        if(new Random().nextInt(4) == 0
+        if(new Random().nextInt(5) == 0
         && e.getEntity() instanceof LivingEntity && e.getDamager() instanceof LivingEntity)
         {
             LivingEntity attacked = (LivingEntity) e.getEntity();
@@ -39,9 +39,16 @@ public class VampiricRegeneration extends ItemProperty
                 iNewAttackerHP = 1;
             }
             
-            if(attacker instanceof Player)
+            attacked.setHealth(iNewAttackedHP);
+            attacker.setHealth(iNewAttackerHP);
+            
+            Player pAttacker = (Player) attacker;
+            ((Player) attacker).sendMessage(ChatColor.RED+"You stole "+iStolenHP+"HP!");
+            
+            if(attacked instanceof Player)
             {
-                ((Player) attacker).sendMessage(ChatColor.RED+"You stole "+iStolenHP+"HP!");
+                Player pAttacked = (Player) attacked;
+                pAttacked.sendMessage(ChatColor.RED+pAttacker.getName()+" stole "+iStolenHP+"HP from you!");
             }
             
             return true;

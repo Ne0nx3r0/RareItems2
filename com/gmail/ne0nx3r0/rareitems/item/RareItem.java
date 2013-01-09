@@ -305,7 +305,7 @@ public class RareItem
         
         for(ItemProperty ip : properties.keySet())
         {
-            sDescription.add(ChatColor.LIGHT_PURPLE+ip.getName()+": "+ChatColor.WHITE+ip.getDescription());
+            sDescription.add(ChatColor.LIGHT_PURPLE+ip.getName()+" (Costs "+ip.getCost()+" "+RareItems.COST_TYPE_STRING+"): "+ChatColor.WHITE+ip.getDescription());
         }
         
         return sDescription;

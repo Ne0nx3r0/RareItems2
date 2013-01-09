@@ -23,6 +23,7 @@ public class RareItems extends JavaPlugin{
     
     public static final int COST_TYPE_FOOD = 0;
     public static final int COST_TYPE_XP = 1;
+    public static String COST_TYPE_STRING;
     
     public static int COST_TYPE;
     public static int COST_MULTIPLIER; 
@@ -48,10 +49,12 @@ public class RareItems extends JavaPlugin{
         if(getConfig().getString("costType").equalsIgnoreCase("food"))
         {
             COST_TYPE = COST_TYPE_FOOD;
+            COST_TYPE_STRING = "food";
         }
         else if(getConfig().getString("costType").equalsIgnoreCase("xp"))
         {
             COST_TYPE = COST_TYPE_XP;
+            COST_TYPE_STRING = "exp";
         }
         
         COST_MULTIPLIER = getConfig().getInt("costMultiplier");

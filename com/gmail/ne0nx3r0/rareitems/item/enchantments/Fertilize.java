@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gmail.ne0nx3r0.rareitems.item.enchantments;
 
 import com.gmail.ne0nx3r0.rareitems.item.ItemProperty;
@@ -12,7 +8,7 @@ public class Fertilize extends ItemProperty
 {
     public Fertilize()
     {
-        super(3,"Fertilize","Turns dirt to grass.",1);
+        super(3,"Fertilize","Turns clicked dirt blocks to grass",2);
     }
     
     @Override

@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 {
     public Burning()
     {
-        super(11,"Burning","Creates a burning effect wherever you go");
+        super(11,"Burning","(VFX) Flames");
         
         this.createRepeatingAppliedEffect(this,20);
     }

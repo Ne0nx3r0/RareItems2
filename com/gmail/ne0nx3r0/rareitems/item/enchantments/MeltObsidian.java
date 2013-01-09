@@ -9,7 +9,7 @@ public class MeltObsidian extends ItemProperty
 {
     public MeltObsidian()
     {
-        super(24,"Melt Obsidian","Make lava from obsidian",1);
+        super(24,"Melt Obsidian","Turns clicked lava into obsidian",6);
     }
 
     @Override

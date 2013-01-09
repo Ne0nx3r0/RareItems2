@@ -9,7 +9,7 @@ public class PaintWool extends ItemProperty
 {
     public PaintWool()
     {
-        super(4,"Paint Wool","Paint wool colors",1);
+        super(4,"Paint Wool","Rotates the color of a clicked wool block",1);
     }
 
     @Override

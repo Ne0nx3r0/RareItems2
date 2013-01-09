@@ -7,7 +7,7 @@ public class AngelicGlow extends IPConstantEffect
 {
     public AngelicGlow()
     {
-        super(12,"Angelic Glow","Creates an angelic glow");
+        super(12,"Angelic Glow","(VFX) White particles");
         
         this.createRepeatingAppliedEffect(this,20*60);
     }

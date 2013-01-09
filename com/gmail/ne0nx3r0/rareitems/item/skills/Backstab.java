@@ -8,7 +8,7 @@ public class Backstab extends ItemProperty
 {
     public Backstab()
     {
-        super(15,"Backstab","Deal extra damage if an enemy can't see you!",2);
+        super(15,"Backstab","Deal extra damage if attacking an enemy from behind (damage * level)",8);
     }
     
     @Override

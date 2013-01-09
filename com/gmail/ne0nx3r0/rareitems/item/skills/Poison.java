@@ -12,18 +12,18 @@ public class Poison extends ItemProperty
 {
     public Poison()
     {
-        super(19,"Poison","25% chance to poison an enemy!",4);
+        super(19,"Poison","20% chance to poison an attacked target (6 seconds @ 1 * level dmg)",4);
     }
     
     @Override
     public boolean onDamagedOther(final EntityDamageByEntityEvent e,int level)
     {
-        if(new Random().nextInt(4) == 0
+        if(new Random().nextInt(5) == 0
         && e.getEntity() instanceof LivingEntity)
         {
             LivingEntity le = (LivingEntity) e.getEntity();
             
-            le.addPotionEffect(new PotionEffect(PotionEffectType.POISON,200,1*level));
+            le.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 180, 1 * level));
 
             if(e.getDamager() instanceof Player)
             {

@@ -8,7 +8,7 @@ public class EnderField extends IPConstantEffect
 {
     public EnderField()
     {
-        super(14,"Ender Field","Creates an ender signal wherever you go.");
+        super(14,"Ender Field","(VFX) Ender field");
         
         this.createRepeatingAppliedEffect(this,20);
     }

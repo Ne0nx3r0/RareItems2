@@ -9,7 +9,7 @@ public class Spore extends ItemProperty
 {
     public Spore()
     {
-        super(2,"Spore","Turn cobblestone to mossy cobblestone",1);
+        super(2,"Spore","Turns clicked cobblestone into mossy cobblestone.",1);
     }
     
     @Override

@@ -1,15 +1,16 @@
 package com.gmail.ne0nx3r0.rareitems.item.vfx;
 
 import com.gmail.ne0nx3r0.rareitems.item.IPConstantEffect;
+import com.gmail.ne0nx3r0.rareitems.item.ItemProperty;
 import org.bukkit.entity.Player;
 
 public class Cherry extends IPConstantEffect
 {
     public Cherry()
     {
-        super(43,"Cherry","Tastes delicious!");
+        super(43,"Cherry","(VFX) Red particles");
         
-        this.createRepeatingAppliedEffect(this,20*60);
+        this.createRepeatingAppliedEffect((ItemProperty) this,20*60);
     }
 
     @Override

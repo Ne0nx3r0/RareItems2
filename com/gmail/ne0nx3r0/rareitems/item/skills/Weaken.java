@@ -12,7 +12,7 @@ public class Weaken extends ItemProperty
 {
     public Weaken()
     {
-        super(22,"Weaken","25% chance to weaken an enemy!",6);
+        super(22,"Weaken","25% chance to weaken an enemy for 3 seconds/level",5);
     }
     
     @Override
@@ -23,11 +23,11 @@ public class Weaken extends ItemProperty
         {
             LivingEntity le = (LivingEntity) e.getEntity();
             
-            le.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,60,1));
+            le.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,3*20*level,1));
 
             if(e.getDamager() instanceof Player)
             {
-                ((Player) e.getDamager()).sendMessage("Weaken!");
+                ((Player) e.getDamager()).sendMessage("Weakened!");
             }
             if(e.getEntity() instanceof Player)
             {

@@ -8,7 +8,7 @@ public class SummonOcelot extends ItemProperty
 {
     public SummonOcelot()
     {
-        super(34,"Summon Ocelot","Creates an ocelot.",16);
+        super(34,"Summon Ocelot","Creates one ocelot / level",16);
     }
     
     @Override

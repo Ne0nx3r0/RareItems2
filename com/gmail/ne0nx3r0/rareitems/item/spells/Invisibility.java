@@ -13,7 +13,7 @@ public class Invisibility extends ItemProperty
 {
     public Invisibility()
     {
-        super(38,"Invisibility","Temporarily render yourself invisible. (60 seconds / level)",8);
+        super(38,"Invisibility","Invisibility for 60 seconds / lvl",8);
     }
     
     @Override

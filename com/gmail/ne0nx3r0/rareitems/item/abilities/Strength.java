@@ -6,6 +6,6 @@ public class Strength extends IPConstantEffect
 {
     public Strength()
     {
-        super(6,"Strength","You do more damage!");
+        super(6,"Strength","+1 damage/lvl");
     }
 }

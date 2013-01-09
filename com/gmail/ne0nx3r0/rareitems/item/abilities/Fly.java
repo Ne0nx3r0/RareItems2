@@ -9,11 +9,13 @@ import org.bukkit.entity.Player;
 
 public class Fly extends IPConstantEffect
 {
+    public int counter = 1;
+    
     public Fly()
     {
-        super(8,"Fly","You can fly.",1);
+        super(8,"Fly","Allows flight, costs Food/XP",1);
         
-        this.createRepeatingAppliedEffect(this,20*5);
+        this.createRepeatingAppliedEffect((ItemProperty) this,20*5);
         
         final ItemProperty ip = this;
         Bukkit.getScheduler().scheduleSyncRepeatingTask(RareItems.self,  new Runnable()
@@ -56,13 +58,25 @@ public class Fly extends IPConstantEffect
         if(p.isFlying())
         {
             if(this.hasCost(p))
-            {
-                this.takeCost(p);
+            { 
+                if(level <= counter)
+                {
+                    this.takeCost(p);
+                }
             }
             else
             {
                 p.setFlying(false);
             }
+        }
+
+        if(counter == 5)
+        {
+            counter = 1;
+        }
+        else 
+        {
+            counter++;
         }
     }
 }

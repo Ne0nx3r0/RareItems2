@@ -6,6 +6,6 @@ public class WaterBreathing extends IPConstantEffect
 {
     public WaterBreathing()
     {
-        super(7,"Water Breathing","Grow gills and breath underwater!");
+        super(7,"Water Breathing","Allows underwater breathing");
     }
 }
