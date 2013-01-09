@@ -12,7 +12,7 @@ public class FireHandling extends ItemProperty
 {
     public FireHandling()
     {
-        super(23,"Fire Handling","Clicked fire becomes a holdable item.",4);
+        super(23,"Fire Handling","Clicked fire becomes a holdable item.",8);
     }
     
     @Override

@@ -107,7 +107,7 @@ public class RareItems extends JavaPlugin{
             
             getLogger().log(Level.INFO, "Creating property_costs.yml");
             
-            this.copy(this.getResource("messages.yml"), propertyCostsFile);
+            this.copy(this.getResource("property_costs.yml"), propertyCostsFile);
         }
         
         FileConfiguration yml = YamlConfiguration.loadConfiguration(propertyCostsFile);

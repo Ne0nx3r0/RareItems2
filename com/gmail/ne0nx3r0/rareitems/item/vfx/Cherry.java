@@ -10,12 +10,12 @@ public class Cherry extends IPConstantEffect
     {
         super(43,"Cherry","(VFX) Red particles");
         
-        this.createRepeatingAppliedEffect((ItemProperty) this,20*60);
+        this.createRepeatingAppliedEffect((ItemProperty) this,20*5);
     }
 
     @Override
     public void applyEffectToPlayer(Player p,int level)
     {
-        this.addPotionGraphicalEffect(p, 0xF7022A, 20*60);
+        this.addPotionGraphicalEffect(p, 0xF7022A, 20*5);
     }
 }

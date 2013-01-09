@@ -18,7 +18,7 @@ public class RepairItem extends ItemProperty
     {
         ItemStack isSlotOne = e.getPlayer().getInventory().getItem(0);
         
-        if(isSlotOne.getType().getMaxDurability() > 20)
+        if(isSlotOne != null && isSlotOne.getType().getMaxDurability() > 20 && isSlotOne.getDurability() > 0)
         {
             short sDurability = (short) (isSlotOne.getDurability() - 8 * level);
             

@@ -21,6 +21,8 @@ public class MeltObsidian extends ItemProperty
             {
                 e.getClickedBlock().setType(Material.LAVA);
                 
+                e.setCancelled(true);
+                
                 return true;
             }
         }

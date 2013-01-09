@@ -9,12 +9,12 @@ public class AngelicGlow extends IPConstantEffect
     {
         super(12,"Angelic Glow","(VFX) White particles");
         
-        this.createRepeatingAppliedEffect(this,20*60);
+        this.createRepeatingAppliedEffect(this,20*5);
     }
 
     @Override
     public void applyEffectToPlayer(Player p,int level)
     {
-        this.addPotionGraphicalEffect(p, 0xffffff, 20*60);
+        this.addPotionGraphicalEffect(p, 0xffffff, 20*5);
     }
 }

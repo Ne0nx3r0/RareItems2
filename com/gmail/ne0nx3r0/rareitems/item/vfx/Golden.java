@@ -9,12 +9,12 @@ public class Golden extends IPConstantEffect
     {
         super(42,"Golden","(VFX) Gold particles");
         
-        this.createRepeatingAppliedEffect(this,20*60);
+        this.createRepeatingAppliedEffect(this,20*5);
     }
 
     @Override
     public void applyEffectToPlayer(Player p,int level)
     {
-        this.addPotionGraphicalEffect(p, 0xFFFE40, 20*60);
+        this.addPotionGraphicalEffect(p, 0xFFFE40, 20*5);
     }
 }
