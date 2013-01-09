@@ -97,16 +97,16 @@ public class RareItems extends JavaPlugin{
         pm = new ProfileManager();
         
 // Setup allowed item properties
-        File allowedPropetiesFile = new File(this.getDataFolder(),"allowed_properties.yml");
+        File allowedPropertiesFile = new File(this.getDataFolder(),"allowed_properties.yml");
         
-        if(!allowedPropetiesFile.exists())
+        if(!allowedPropertiesFile.exists())
         {
             getLogger().log(Level.INFO, "Creating allowed_propeties.yml");
             
-            this.copy(this.getResource("messages.yml"), allowedPropetiesFile);
+            this.copy(this.getResource("messages.yml"), allowedPropertiesFile);
         }
         
-        FileConfiguration yml = YamlConfiguration.loadConfiguration(allowedPropetiesFile);
+        FileConfiguration yml = YamlConfiguration.loadConfiguration(allowedPropertiesFile);
         
         for(ItemProperty ip : ipm.getAvailableItemProperties())
         {
@@ -118,7 +118,7 @@ public class RareItems extends JavaPlugin{
             {
                 int defaultCost = -1;
                 
-                if(getConfig().getBoolean("enableNewProperties"))
+                if(getConfig().getBoolean("enableNewProperties",true))
                 {
                     defaultCost = ip.getCost();
                 }
@@ -139,7 +139,7 @@ public class RareItems extends JavaPlugin{
         
         try
         {
-            yml.save(allowedPropetiesFile);
+            yml.save(allowedPropertiesFile);
         }
         catch (IOException ex)
         {
