@@ -22,7 +22,7 @@ public class ProfileManager
     
     public ProfileManager()
     {
-        playerProfiles = new HashMap<>();
+        playerProfiles = new HashMap<String,PlayerProfile>();
 
         PROFILE_DIRECTORY = new File(RareItems.self.getDataFolder(),"players");
         
@@ -66,7 +66,7 @@ public class ProfileManager
             int iSiteId = yml.getInt("siteId");
             int iMoney = yml.getInt("money");
             
-            HashMap<Integer,Integer[]> checkOuts = new HashMap<>();
+            HashMap<Integer,Integer[]> checkOuts = new HashMap<Integer,Integer[]>();
             for(String sRid : yml.getConfigurationSection("checkedOut").getKeys(false))
             {
                 checkOuts.put(
@@ -75,7 +75,7 @@ public class ProfileManager
                 );
             }
             
-            HashMap<Integer,RareItem> rareItems = new HashMap<>();
+            HashMap<Integer,RareItem> rareItems = new HashMap<Integer,RareItem>();
             for(String sRid : yml.getConfigurationSection("rareItems").getKeys(false))
             {
                 int rid = Integer.parseInt(sRid);
@@ -136,15 +136,15 @@ public class ProfileManager
         yml.set("money", pp.getMoney());
         yml.set("checkedOut", pp.getCheckedOutItems());
         
-        HashMap<Integer,Object> rareItems = new HashMap<>();
+        HashMap<Integer,Object> rareItems = new HashMap<Integer,Object>();
         for(RareItem ri : pp.getRareItems().values())
         {
-            HashMap<String,Object> rareItem = new HashMap<>();
+            HashMap<String,Object> rareItem = new HashMap<String,Object>();
             
             rareItem.put("m", ri.getMaterialId());
             rareItem.put("dv", ri.getDataValue());
             
-            HashMap<Integer,Integer> itemProperties = new HashMap<>();
+            HashMap<Integer,Integer> itemProperties = new HashMap<Integer,Integer>();
             
             for(ItemProperty ip : ri.getItemProperties().keySet())
             {

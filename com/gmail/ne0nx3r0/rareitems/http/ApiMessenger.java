@@ -29,7 +29,7 @@ public class ApiMessenger
     private int LAST_SENT_ID;
     
     private HashMap<String,Long> LastChecked = new HashMap<String,Long>();
-    Queue<String> q = new LinkedList<>();
+    Queue<String> q = new LinkedList<String>();
     
     public ApiMessenger()
     {
@@ -41,7 +41,7 @@ public class ApiMessenger
             {
                 if(Bukkit.getOnlinePlayers().length > 0)
                 {
-                    ArrayList<String> playersToFetch = new ArrayList<>();
+                    ArrayList<String> playersToFetch = new ArrayList<String>();
                     
                     for(int i=0;i<30 && i<q.size();i++)
                     {
@@ -115,14 +115,13 @@ public class ApiMessenger
                     connection.setDoOutput(true);
                     connection.setDoInput(true);
 
-                    try(OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream()))
-                    {
-                        writer.write(sQuery
-                            +"&onlyPending="+(onlyPending?'1':'0')
-                            +"&serverPort="+Bukkit.getServer().getPort()
-                        );
-                        writer.flush();
-                    }
+                    OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+                    writer.write(sQuery
+                        +"&onlyPending="+(onlyPending?'1':'0')
+                        +"&serverPort="+Bukkit.getServer().getPort()
+                    );
+                    writer.flush();
+ 
 
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
@@ -192,7 +191,7 @@ public class ApiMessenger
                         {   
                             Map<String,Object> pendingItem = (Map<String,Object>) pendingItems.get(sPendingItemId);
                             
-                            HashMap<ItemProperty,Integer> ips = new HashMap<>();
+                            HashMap<ItemProperty,Integer> ips = new HashMap<ItemProperty,Integer>();
                             
                             Map<String,String> pendingItemProperties = (Map<String,String>) pendingItem.get("ip");
                             for(String sIpId : pendingItemProperties.keySet())

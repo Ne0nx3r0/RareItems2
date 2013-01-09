@@ -6,7 +6,6 @@ import com.gmail.ne0nx3r0.rareitems.item.RareItem;
 import com.gmail.ne0nx3r0.utils.MaterialName;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -32,6 +31,24 @@ public class RareItemsCommandExecutor implements CommandExecutor
         }
         else
         {
+            if(args[0].equalsIgnoreCase("claim") || args[0].equalsIgnoreCase("c"))
+            {
+                return scClaim(cs, args);
+            }
+            else if(args[0].equalsIgnoreCase("return") || args[0].equalsIgnoreCase("r"))
+            {
+                return scReturn(cs, args);
+            }
+            else if(args[0].equalsIgnoreCase("identify") || args[0].equalsIgnoreCase("i"))
+            {
+                return scIdentify(cs, args);
+            }
+            else if(args[0].equalsIgnoreCase("returnall"))
+            {
+                return scReturnAll(cs, args);
+            }
+            /*
+             * Saving for later... Le sigh.
             switch(args[0])
             {
                 case "claim":
@@ -45,7 +62,7 @@ public class RareItemsCommandExecutor implements CommandExecutor
                     return scIdentify(cs, args);
                 case "returnall":
                     return scReturnAll(cs, args);
-            }
+            }*/
         }
         
         return false;
