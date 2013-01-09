@@ -97,16 +97,20 @@ public class RareItems extends JavaPlugin{
         pm = new ProfileManager();
         
 // Setup allowed item properties
-        File allowedPropertiesFile = new File(this.getDataFolder(),"allowed_properties.yml");
+        File propertyCostsFile = new File(this.getDataFolder(),"property_costs.yml");
         
-        if(!allowedPropertiesFile.exists())
+        boolean newPropertyFile = false;
+        
+        if(!propertyCostsFile.exists())
         {
-            getLogger().log(Level.INFO, "Creating allowed_propeties.yml");
+            newPropertyFile = true;
             
-            this.copy(this.getResource("messages.yml"), allowedPropertiesFile);
+            getLogger().log(Level.INFO, "Creating property_costs.yml");
+            
+            this.copy(this.getResource("messages.yml"), propertyCostsFile);
         }
         
-        FileConfiguration yml = YamlConfiguration.loadConfiguration(allowedPropertiesFile);
+        FileConfiguration yml = YamlConfiguration.loadConfiguration(propertyCostsFile);
         
         for(ItemProperty ip : ipm.getAvailableItemProperties())
         {
@@ -123,7 +127,10 @@ public class RareItems extends JavaPlugin{
                     defaultCost = ip.getCost();
                 }
                 
-                this.getLogger().log(Level.INFO,"new property added to allowed_properties.yml: "+sPropertyName+": "+defaultCost);
+                if(!newPropertyFile)
+                {
+                    getLogger().log(Level.INFO,"new property added to allowed_properties.yml: "+sPropertyName+": "+defaultCost);
+                }
                 
                 yml.set(sPropertyName, defaultCost);
             }
@@ -139,7 +146,7 @@ public class RareItems extends JavaPlugin{
         
         try
         {
-            yml.save(allowedPropertiesFile);
+            yml.save(propertyCostsFile);
         }
         catch (IOException ex)
         {
