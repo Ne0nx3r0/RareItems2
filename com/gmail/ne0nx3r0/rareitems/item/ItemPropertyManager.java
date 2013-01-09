@@ -27,11 +27,11 @@ public class ItemPropertyManager
     
     public ItemPropertyManager()
     {
-        playerActiveEffects = new HashMap<>();
-        tempEffectIds = new HashMap<>();
-        activeEffects = new HashMap<>();
-        itemPropertiesLookup = new HashMap<>();
-        itemPropertiesIdLookup = new HashMap<>();
+        playerActiveEffects = new HashMap<String,Map<Integer,Integer>>();
+        tempEffectIds = new HashMap<String,Map<Integer,Integer>>();
+        activeEffects = new HashMap<ItemProperty, HashMap<String,Integer>>();
+        itemPropertiesLookup = new HashMap<String,ItemProperty>();
+        itemPropertiesIdLookup = new HashMap<Integer,ItemProperty>();
         
         this.storeItemProperty(new Fertilize());
         this.storeItemProperty(new Smelt());

@@ -28,7 +28,7 @@ public class ApiMessenger
     private int TASK_ID;
     private int LAST_SENT_ID;
     
-    private HashMap<String,Long> LastChecked = new HashMap<>();
+    private HashMap<String,Long> LastChecked = new HashMap<String,Long>();
     Queue<String> q = new LinkedList<>();
     
     public ApiMessenger()

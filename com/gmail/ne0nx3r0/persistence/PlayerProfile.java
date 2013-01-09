@@ -24,8 +24,8 @@ public class PlayerProfile
         this.siteId = siteId;
         this.money = 0;
         
-        this.rareItems = new HashMap<>();
-        this.checkouts = new HashMap<>();
+        this.rareItems = new HashMap<Integer,RareItem>();
+        this.checkouts = new HashMap<Integer,Integer[]>();
     }
 
     PlayerProfile(String username, int siteId, int money,HashMap<Integer, RareItem> rareItems, HashMap<Integer, Integer[]> checkedOutRareItems)
@@ -180,7 +180,7 @@ public class PlayerProfile
 
     public void removeAllRareItems()
     {
-        this.rareItems = new HashMap<>();
+        this.rareItems = new HashMap<Integer,RareItem>();
     }
 
     int getSiteId()
@@ -215,6 +215,6 @@ public class PlayerProfile
 
     void checkInAllRareItems()
     {
-        checkouts = new HashMap<>();
+        checkouts = new HashMap<Integer,Integer[]>();
     }
 }

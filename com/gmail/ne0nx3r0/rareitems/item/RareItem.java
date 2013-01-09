@@ -266,7 +266,7 @@ public class RareItem
             is.getData().setData(dataValue);
         }
       
-        ArrayList<String> lore = new ArrayList<>();
+        ArrayList<String> lore = new ArrayList<String>();
         
         for(ItemProperty ip : properties.keySet())
         {
@@ -372,7 +372,7 @@ public class RareItem
 
     public ArrayList<String> getDescription()
     {
-        ArrayList<String> sDescription = new ArrayList<>();
+        ArrayList<String> sDescription = new ArrayList<String>();
         
         sDescription.add(ChatColor.GOLD+getDisplayName());
         
