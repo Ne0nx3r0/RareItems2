@@ -145,6 +145,7 @@ public class ProfileManager
             rareItem.put("dv", ri.getDataValue());
             
             HashMap<Integer,Integer> itemProperties = new HashMap<>();
+            
             for(ItemProperty ip : ri.getItemProperties().keySet())
             {
                 itemProperties.put(ip.getId(),ri.getItemProperties().get(ip));

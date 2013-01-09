@@ -13,7 +13,7 @@ public class VirtualChest implements InventoryHolder
 
     public VirtualChest(String playerOwner)
     {
-        this.chest = Bukkit.createInventory(this, 54, playerOwner);
+        this.chest = Bukkit.createInventory((InventoryHolder) this, 54, playerOwner);
     }
 
     @Override
