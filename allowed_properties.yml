@@ -1,0 +1,13 @@
+# PropertyName: Cost
+#
+# -1 = not allowed
+# 0 = free
+# 1-∞ = cost
+#
+# Default is allow with default cost
+#
+# Please, PLEASE double check this after you update, new itemproperties may have been added
+#
+# Specific item propety information available at:
+# http://rareitemsplugin.tk/types
+#

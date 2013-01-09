@@ -15,7 +15,8 @@ public class ItemProperty
     private final int id;
     private final String name;
     private final String description;
-    private final int cost;
+    private int cost;
+    private boolean enabled = true;
     
     public ItemProperty(int id,String name,String description,int cost)
     {
@@ -41,7 +42,7 @@ public class ItemProperty
     
     public void onUnequip(Player p, int level){}
 
-    int getCost()
+    public int getCost()
     {
         return cost * RareItems.COST_MULTIPLIER;
     }
@@ -134,5 +135,20 @@ public class ItemProperty
     String getDescription()
     {
         return this.description;
+    }
+
+    public void setCost(int customCost)
+    {
+        this.cost = customCost;
+    }
+
+    public void setEnabled(boolean enabled)
+    {
+        this.enabled = enabled;
+    }
+
+    boolean isEnabled()
+    {
+        return this.enabled;
     }
 }

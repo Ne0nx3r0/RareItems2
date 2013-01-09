@@ -50,6 +50,11 @@ public class RareItem
     {
         for(ItemProperty ip : properties.keySet())
         {
+            if(!ip.isEnabled())
+            {
+                continue;
+            }
+            
             if(ip.hasCost(e.getPlayer()))
             {
                 if(ip.onInteract(e, properties.get(ip)))
@@ -75,6 +80,11 @@ public class RareItem
     {
         for(ItemProperty ip : properties.keySet())
         {
+            if(!ip.isEnabled())
+            {
+                continue;
+            }
+            
             if(ip.hasCost(e.getPlayer()))
             {
                 if(ip.onInteractEntity(e, properties.get(ip)))
@@ -101,10 +111,14 @@ public class RareItem
         if(e.getDamager() instanceof Player)
         {
             Player p = (Player) e.getDamager();
-            
 
             for(ItemProperty ip : properties.keySet())
             {
+                if(!ip.isEnabled())
+                {
+                    continue;
+                }
+                
                 if(ip.hasCost(p))
                 {
                     if(ip.onDamagedOther(e, properties.get(ip)))
@@ -131,6 +145,11 @@ public class RareItem
     {
         for(ItemProperty ip : properties.keySet())
         {
+            if(!ip.isEnabled())
+            {
+                continue;
+            }
+            
             if(ip.hasCost(shooter))
             {
                 if(ip.onArrowHitGround(e,shooter, properties.get(ip)))
@@ -156,6 +175,11 @@ public class RareItem
     {
         for(ItemProperty ip : properties.keySet())
         {
+            if(!ip.isEnabled())
+            {
+                continue;
+            }
+            
             if(ip.hasCost(shooter))
             {
                 if(ip.onArrowHitEntity(e,shooter, properties.get(ip)))
@@ -181,6 +205,11 @@ public class RareItem
     {
         for(ItemProperty ip : properties.keySet())
         {
+            if(!ip.isEnabled())
+            {
+                continue;
+            }
+            
             ip.onEquip(p, properties.get(ip));
         }
     }    
@@ -189,6 +218,11 @@ public class RareItem
     {
         for(ItemProperty ip : properties.keySet())
         {
+            if(!ip.isEnabled())
+            {
+                continue;
+            }
+            
             ip.onUnequip(p, properties.get(ip));
         }
     }
@@ -223,7 +257,14 @@ public class RareItem
                 sLevel = " "+RomanNumeral.convertToRoman(properties.get(ip));
             }
 
-            lore.add(ip.getName() + sLevel);
+            if(!ip.isEnabled())
+            {
+                lore.add(ChatColor.GRAY+"(Not Allowed) "+ip.getName());
+            }
+            else
+            {
+                lore.add(ip.getName() + sLevel);
+            }
         }
         
         lore.add(RareItems.RID_PREFIX+this.id);
@@ -261,6 +302,11 @@ public class RareItem
         
         for(ItemProperty ip : properties.keySet())
         {
+            if(!ip.isEnabled())
+            {
+                continue;
+            }
+            
             ip.onUnequip(p, properties.get(ip));
         }
     }
@@ -276,7 +322,14 @@ public class RareItem
         
         for(ItemProperty ip : properties.keySet())
         {
-            dispName += " "+ip.getName()+" "+properties.get(ip)+",";
+            if(!ip.isEnabled())
+            {
+                dispName += ChatColor.GRAY+" (Not Allowed) "+ip.getName()+",";
+            }
+            else
+            {
+                dispName += " "+ip.getName()+" "+properties.get(ip)+",";
+            }
         }
         
         return dispName.substring(0,dispName.length()-1);
@@ -305,7 +358,17 @@ public class RareItem
         
         for(ItemProperty ip : properties.keySet())
         {
-            sDescription.add(ChatColor.LIGHT_PURPLE+ip.getName()+" (Costs "+ip.getCost()+" "+RareItems.COST_TYPE_STRING+"): "+ChatColor.WHITE+ip.getDescription());
+            if(!ip.isEnabled())
+            {
+                sDescription.add(ChatColor.GRAY+"(Not Allowed) "
+                        + ip.getName()+" "+ChatColor.WHITE+ip.getDescription());
+            }
+            else
+            {
+                sDescription.add(ChatColor.LIGHT_PURPLE + ip.getName()
+                        + " (Costs " + ip.getCost() + " " + RareItems.COST_TYPE_STRING + "): "
+                        + ChatColor.WHITE + ip.getDescription());
+            }
         }
         
         return sDescription;

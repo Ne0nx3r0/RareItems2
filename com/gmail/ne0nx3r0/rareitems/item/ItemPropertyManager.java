@@ -7,6 +7,7 @@ import com.gmail.ne0nx3r0.rareitems.item.enchantments.*;
 import com.gmail.ne0nx3r0.rareitems.item.skills.*;
 import com.gmail.ne0nx3r0.rareitems.item.spells.*;
 import com.gmail.ne0nx3r0.rareitems.item.vfx.*;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -192,5 +193,10 @@ public class ItemPropertyManager
             }, duration));
         
         RareItems.ipm.grantPlayerEffect(sPlayerName, ip, level);
+    }
+
+    public Collection<ItemProperty> getAvailableItemProperties()
+    {
+        return this.itemPropertiesIdLookup.values();
     }
 }
