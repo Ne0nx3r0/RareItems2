@@ -13,7 +13,7 @@ public class Fly extends IPConstantEffect
     
     public Fly()
     {
-        super(8,"Fly","Allows flight, costs Food/XP",1);
+        super(8,"Fly","Allows flight, cost taken while flying",1);
         
         this.createRepeatingAppliedEffect((ItemProperty) this,20*5);
         

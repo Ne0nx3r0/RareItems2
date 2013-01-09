@@ -12,14 +12,13 @@ public class Haste extends ItemProperty
 {    
     public Haste()
     {
-        needs more testing.
-        super(27,"Fast Mining","Allows you to mine faster than normal",4); 
+        super(27,"Haste","Allows you to run faster for 30 seconds / lvl ",4); 
     }
     
     @Override
     public boolean onInteract(PlayerInteractEvent e,int level)
     {
-        e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED,20*60,20*level));
+        e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED,20*30,level));
         
         return true;
     }
@@ -35,12 +34,12 @@ public class Haste extends ItemProperty
                     
             if(le instanceof Player)
             {
-                e.getPlayer().sendMessage("You cast "+this.getName()+" on "+((Player) le).getName()+"!");
+                e.getPlayer().sendMessage("You cast "+this.getName().toLowerCase()+" on "+((Player) le).getName().toLowerCase()+"!");
                 ((Player) le).sendMessage(e.getPlayer().getName()+" cast "+this.getName()+" on you!");
             }
             else
             {
-                e.getPlayer().sendMessage("You cast "+this.getName()+" on that thing!");
+                e.getPlayer().sendMessage("You cast "+this.getName().toLowerCase()+" on that thing!");
             }
             
             return true;

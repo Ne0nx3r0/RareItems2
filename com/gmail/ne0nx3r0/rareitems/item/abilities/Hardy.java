@@ -6,6 +6,6 @@ public class Hardy extends IPConstantEffect
 {
     public Hardy()
     {
-        super(5,"Hardy","-1 damage per level");
+        super(5,"Hardy","-1 damage / lvl");
     }
 }
