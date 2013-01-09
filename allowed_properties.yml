@@ -4,10 +4,12 @@
 # 0 = free
 # 1-∞ = cost
 #
-# Properties that don't exist will be added with their default values
+# Ex: 
+# FireHandling: 8
+# Spore: 0
+# Fly: -1
 #
-# Please, PLEASE watch your log and double check this after you update, new itemproperties may have been added
+# Specific item propety info at:
+# http://www.rareitemsplugin.tk/types
 #
-# Specific item propety information available at:
-# http://rareitemsplugin.tk/types
-#
+

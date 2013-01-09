@@ -3,10 +3,13 @@
 #
 # Hipster config file doesn't believe you've never heard of RareItems 1
 #
-# costType - food or xp
-# costMultiplier - increase cost (2 = 200% cost)
+# costType - food, xp, or money (requires Vault)
+# costMultiplier - increase cost (2 = 200% cost specified in allowed_properties.yml)
 # publishServer - Will publish server to a public list of servers that use RareItems
 #
+# enableNewPropeties: decides what to do with new item properties
+# - true means new properties will be added with default costs
+# - false means new properties will be added but disabled. You can then set the value of an itemproperty to -2 to use the default cost, or specify your own cost value
 #
 usePermissions: true
 costType: food
@@ -14,3 +17,4 @@ costMultiplier: 1
 maxItemsCheckedOut: 5
 debugMode: false
 publishServer: true
+enableNewProperties: true

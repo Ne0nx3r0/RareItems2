@@ -13,12 +13,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RareItems extends JavaPlugin{
@@ -31,7 +33,7 @@ public class RareItems extends JavaPlugin{
     
     public static final int COST_TYPE_FOOD = 0;
     public static final int COST_TYPE_XP = 1;
-    public static String COST_TYPE_STRING;
+    public static final int COST_TYPE_MONEY = 2;
     
     public static int COST_TYPE;
     public static int COST_MULTIPLIER; 
@@ -40,6 +42,8 @@ public class RareItems extends JavaPlugin{
     public static boolean DEBUG_MODE = false;
 
     public static final String RID_PREFIX = ChatColor.DARK_GRAY+"RID: "+ChatColor.GRAY;
+    
+    public static  Economy economy;
     
     @Override
     public void onEnable()
@@ -57,12 +61,25 @@ public class RareItems extends JavaPlugin{
         if(getConfig().getString("costType").equalsIgnoreCase("food"))
         {
             COST_TYPE = COST_TYPE_FOOD;
-            COST_TYPE_STRING = "food";
         }
         else if(getConfig().getString("costType").equalsIgnoreCase("xp"))
         {
             COST_TYPE = COST_TYPE_XP;
-            COST_TYPE_STRING = "exp";
+        }
+        else if(getConfig().getString("costType").equalsIgnoreCase("money"))
+        {
+            RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+            
+            if(economyProvider != null)
+            {
+                economy = economyProvider.getProvider();
+            }
+
+            this.getLogger().log(Level.SEVERE,"You specified money as your cost type, however you don't have Vault! Disabling...");
+            
+            this.getPluginLoader().disablePlugin(this);
+            
+            COST_TYPE = COST_TYPE_MONEY;
         }
         
         COST_MULTIPLIER = getConfig().getInt("costMultiplier");
@@ -73,11 +90,11 @@ public class RareItems extends JavaPlugin{
         
         MAX_CHECKED_OUT_ITEMS = getConfig().getInt("maxItemsCheckedOut");
         
-        RareItems.ipm = new ItemPropertyManager();
+        ipm = new ItemPropertyManager();
         
-        RareItems.am = new ApiMessenger();
+        am = new ApiMessenger();
         
-        RareItems.pm = new ProfileManager();
+        pm = new ProfileManager();
         
 // Setup allowed item properties
         File allowedPropetiesFile = new File(this.getDataFolder(),"allowed_properties.yml");
@@ -91,7 +108,7 @@ public class RareItems extends JavaPlugin{
         
         FileConfiguration yml = YamlConfiguration.loadConfiguration(allowedPropetiesFile);
         
-        for(ItemProperty ip : RareItems.ipm.getAvailableItemProperties())
+        for(ItemProperty ip : ipm.getAvailableItemProperties())
         {
             String sPropertyName = ip.getName().replace(" ", "");
             
@@ -99,9 +116,16 @@ public class RareItems extends JavaPlugin{
             
             if(customCost < -1)
             {
-                this.getLogger().log(Level.INFO,"new property added to allowed_properties.yml: "+sPropertyName+": "+ip.getCost());
+                int defaultCost = -1;
                 
-                yml.set(sPropertyName, ip.getCost());
+                if(getConfig().getBoolean("enableNewProperties"))
+                {
+                    defaultCost = ip.getCost();
+                }
+                
+                this.getLogger().log(Level.INFO,"new property added to allowed_properties.yml: "+sPropertyName+": "+defaultCost);
+                
+                yml.set(sPropertyName, defaultCost);
             }
             else if(customCost == -1)
             {
@@ -135,7 +159,7 @@ public class RareItems extends JavaPlugin{
         {
             for(Player p : Bukkit.getOnlinePlayers())
             {
-                RareItems.am.addPlayerToQueue(p);
+                am.addPlayerToQueue(p);
             }
             
             ApiMessenger.fetchPlayerRareItems(Bukkit.getOnlinePlayers(), false);
@@ -145,9 +169,9 @@ public class RareItems extends JavaPlugin{
     @Override
     public void onDisable()
     {      
-        RareItems.pm.saveAllPlayerProfiles();
+        pm.saveAllPlayerProfiles();
         
-        RareItems.am.stopTask();
+        am.stopTask();
     }
     
     private void copy(InputStream in, File file)

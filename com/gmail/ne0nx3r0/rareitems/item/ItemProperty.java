@@ -110,9 +110,16 @@ public class ItemProperty
                 return true;
             }
         }        
-        if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
+        else if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
         {
             if(p.getExp() >= cost * RareItems.COST_MULTIPLIER)
+            {
+                return true;
+            }
+        }        
+        else if(RareItems.COST_TYPE == RareItems.COST_TYPE_MONEY)
+        {
+            if(RareItems.economy.has(p.getName(), cost * RareItems.COST_MULTIPLIER))
             {
                 return true;
             }
@@ -126,9 +133,13 @@ public class ItemProperty
         {
             p.setFoodLevel(p.getFoodLevel() - cost * RareItems.COST_MULTIPLIER);
         }        
-        if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
+        else if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
         {
             p.setExp(p.getExp() - cost * RareItems.COST_MULTIPLIER);
+        }        
+        else if(RareItems.COST_TYPE == RareItems.COST_TYPE_MONEY)
+        {
+            RareItems.economy.withdrawPlayer(p.getName(), cost * RareItems.COST_MULTIPLIER);
         }
     }
 

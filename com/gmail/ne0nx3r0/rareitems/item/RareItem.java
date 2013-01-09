@@ -72,6 +72,10 @@ public class RareItem
                 {
                     e.getPlayer().sendMessage("You need more EXP to use this!");
                 }
+                else if(RareItems.COST_TYPE == RareItems.COST_TYPE_MONEY)
+                {
+                    e.getPlayer().sendMessage("You need more "+RareItems.economy.currencyNamePlural()+" to use this!");
+                }
             }
         }
     }
@@ -101,6 +105,10 @@ public class RareItem
                 else if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
                 {
                     e.getPlayer().sendMessage("You need more EXP to use this!");
+                }
+                else if(RareItems.COST_TYPE == RareItems.COST_TYPE_MONEY)
+                {
+                    e.getPlayer().sendMessage("You need more "+RareItems.economy.currencyNamePlural()+" to use this skill!");
                 }
             }
         }
@@ -136,6 +144,10 @@ public class RareItem
                     {
                         p.sendMessage("You need more EXP to use this skill!");
                     }
+                    else if(RareItems.COST_TYPE == RareItems.COST_TYPE_MONEY)
+                    {
+                        p.sendMessage("You need more "+RareItems.economy.currencyNamePlural()+" to use this skill!");
+                    }
                 }
             }
         }
@@ -167,6 +179,10 @@ public class RareItem
                 {
                     shooter.sendMessage("You need more EXP to use this skill!");
                 }
+                else if(RareItems.COST_TYPE == RareItems.COST_TYPE_MONEY)
+                {
+                    shooter.sendMessage("You need more "+RareItems.economy.currencyNamePlural()+" to use this skill!");
+                }
             }
         }
     }
@@ -196,6 +212,10 @@ public class RareItem
                 else if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
                 {
                     shooter.sendMessage("You need more EXP to use this skill!");
+                }
+                else if(RareItems.COST_TYPE == RareItems.COST_TYPE_MONEY)
+                {
+                    shooter.sendMessage("You need more "+RareItems.economy.currencyNamePlural()+" to use this skill!");
                 }
             }
         }
@@ -364,9 +384,24 @@ public class RareItem
                         + ip.getName()+" "+ChatColor.WHITE+ip.getDescription());
             }
             else
-            {
+            {                
+                String sCostString = "";
+                
+                if(RareItems.COST_TYPE == RareItems.COST_TYPE_FOOD)
+                {
+                    sCostString = "food";
+                }
+                else if(RareItems.COST_TYPE == RareItems.COST_TYPE_XP)
+                {
+                    sCostString = "exp";
+                }
+                else if(RareItems.COST_TYPE == RareItems.COST_TYPE_MONEY)
+                {
+                    sCostString = RareItems.economy.currencyNamePlural();
+                }
+                
                 sDescription.add(ChatColor.LIGHT_PURPLE + ip.getName()
-                        + " (Costs " + ip.getCost() + " " + RareItems.COST_TYPE_STRING + "): "
+                        + " (Costs " + ip.getCost() +sCostString+"): "
                         + ChatColor.WHITE + ip.getDescription());
             }
         }

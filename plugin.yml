@@ -3,6 +3,7 @@ main: com.gmail.ne0nx3r0.rareitems.RareItems
 version: '0.10'
 database: false
 description: Rare Items v2
+softdepend: [Vault]
 commands:
     ri:
       description: RareItems commands
