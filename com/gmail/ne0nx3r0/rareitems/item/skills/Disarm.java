@@ -36,23 +36,23 @@ public class Disarm extends ItemProperty
         if(new Random().nextInt(5) == 0
         && e.getEntity() instanceof Player)
         {
-            Player attacker = (Player) e.getDamager();
-            Player p = (Player) e.getEntity();
+            Player pAttacked = (Player) e.getEntity();
             
-            if(p.getItemInHand() != null
-            && disarmables.contains(p.getItemInHand().getType()))
+            if(pAttacked.getOpenInventory() == null
+            && pAttacked.getItemInHand() != null
+            && disarmables.contains(pAttacked.getItemInHand().getType()))
             {
                 int iRandomSlot = (new Random()).nextInt(44)+9;
 
-                ItemStack swapOut = p.getInventory().getItem(p.getInventory().getHeldItemSlot());
-                ItemStack swapIn = p.getInventory().getItem(iRandomSlot);
+                ItemStack swapOut = pAttacked.getInventory().getItem(pAttacked.getInventory().getHeldItemSlot());
+                ItemStack swapIn = pAttacked.getInventory().getItem(iRandomSlot);
                 
-                p.getInventory().setItem(p.getInventory().getHeldItemSlot(), swapIn);
-                p.getInventory().setItem(iRandomSlot, swapOut);
+                pAttacked.getInventory().setItem(pAttacked.getInventory().getHeldItemSlot(), swapIn);
+                pAttacked.getInventory().setItem(iRandomSlot, swapOut);
                 
-                attacker.sendMessage("Disarmed!");
+                ((Player) e.getDamager()).sendMessage("Disarmed "+pAttacked.getName()+"!");
                 
-                p.sendMessage("You have been disarmed!");
+                pAttacked.sendMessage("You have been disarmed!");
 
                 return true;
             }

@@ -69,6 +69,8 @@ public class RareItem
         {
             if(!ip.isEnabled())
             {
+                e.getPlayer().sendMessage(ChatColor.RED+ip.getName()+" is not allowed on this server!");
+                e.getPlayer().sendMessage(ChatColor.WHITE+"You can return this item using /ri c, or /ri r");
                 continue;
             }
             
@@ -103,6 +105,8 @@ public class RareItem
         {
             if(!ip.isEnabled())
             {
+                e.getPlayer().sendMessage(ChatColor.RED+ip.getName()+" is not allowed on this server!");
+                e.getPlayer().sendMessage(ChatColor.WHITE+"You can return this item using /ri c, or /ri r");
                 continue;
             }
             
@@ -141,6 +145,8 @@ public class RareItem
             {
                 if(!ip.isEnabled())
                 {
+                    p.sendMessage(ChatColor.RED+ip.getName()+" is not allowed on this server!");
+                    p.sendMessage(ChatColor.WHITE+"You can return this item using /ri c, or /ri r");
                     continue;
                 }
                 
@@ -176,6 +182,8 @@ public class RareItem
         {
             if(!ip.isEnabled())
             {
+                shooter.sendMessage(ChatColor.RED+ip.getName()+" is not allowed on this server!");
+                shooter.sendMessage(ChatColor.WHITE+"You can return this item using /ri c, or /ri r");
                 continue;
             }
             
@@ -210,6 +218,8 @@ public class RareItem
         {
             if(!ip.isEnabled())
             {
+                shooter.sendMessage(ChatColor.RED+ip.getName()+" is not allowed on this server!");
+                shooter.sendMessage(ChatColor.WHITE+"You can return this item using /ri c, or /ri r");
                 continue;
             }
             
@@ -244,6 +254,8 @@ public class RareItem
         {
             if(!ip.isEnabled())
             {
+                p.sendMessage(ChatColor.RED+ip.getName()+" is not allowed on this server!");
+                p.sendMessage(ChatColor.WHITE+"You can return this item using /ri c, or /ri r");
                 continue;
             }
             
@@ -328,8 +340,6 @@ public class RareItem
         
         is.setItemMeta(im);
         
-        
-
         return is;
     }
 
