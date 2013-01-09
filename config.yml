@@ -11,6 +11,11 @@
 # - true means new properties will be added with default costs
 # - false means new properties will be added but disabled. You can then set the value of an itemproperty to -2 to use the default cost, or specify your own cost value
 #
+# Specific item propety costs can be customized in property_costs.yml
+#
+# Info on item properties at:
+# http://www.rareitemsplugin.tk/types
+#
 usePermissions: true
 costType: food
 costMultiplier: 1

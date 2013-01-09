@@ -1,4 +1,4 @@
-# PropertyName: Cost
+# PropertyName: Cost; -1 = not allowed, -2 = reset to default value
 #
 # -1 = not allowed
 # 0 = free
@@ -12,4 +12,4 @@
 # Specific item propety info at:
 # http://www.rareitemsplugin.tk/types
 #
-
+---

@@ -313,9 +313,9 @@ public class RareItem
             LeatherArmorMeta lam = (LeatherArmorMeta) im;
 
             lam.setColor(org.bukkit.Color.fromBGR(
-                Integer.valueOf(this.color.substring(0, 2), 16),
+                Integer.valueOf(this.color.substring(4, 6), 16),
                 Integer.valueOf(this.color.substring(2, 4), 16), 
-                Integer.valueOf(this.color.substring(4, 6), 16)
+                Integer.valueOf(this.color.substring(0, 2), 16)
             ));
         }
         
