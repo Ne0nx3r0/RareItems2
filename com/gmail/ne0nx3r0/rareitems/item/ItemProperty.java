@@ -57,23 +57,38 @@ public class ItemProperty
         return id;
     }
 
-    public int addPotionGraphicalEffect(LivingEntity entity, int color, int duration)
+    public void addPotionGraphicalEffect(LivingEntity entity, int color)
     {
         String packageName = RareItems.self.getServer().getClass().getPackage().getName();
         String version = packageName.substring(packageName.lastIndexOf('.') + 1);
 
         if(version.equals("v1_4_5"))
         {
-            return com.gmail.ne0nx3r0.api.v1_4_5.PotionVisual
-                .addPotionGraphicalEffect(entity, color, duration);
+            com.gmail.ne0nx3r0.api.v1_4_5.PotionVisual
+                .addPotionGraphicalEffect(entity, color);
         }
         else if(version.equals("v1_4_6"))
         {
-            return com.gmail.ne0nx3r0.api.v1_4_6.PotionVisual
-                .addPotionGraphicalEffect(entity, color, duration);
+            com.gmail.ne0nx3r0.api.v1_4_6.PotionVisual
+                .addPotionGraphicalEffect(entity, color);
         }
+    }
+    
+    public void removePotionGraphicalEffect(LivingEntity entity)
+    {
+        String packageName = RareItems.self.getServer().getClass().getPackage().getName();
+        String version = packageName.substring(packageName.lastIndexOf('.') + 1);
 
-        return -1;
+        if(version.equals("v1_4_5"))
+        {
+            com.gmail.ne0nx3r0.api.v1_4_5.PotionVisual
+                .removePotionGraphicalEffect(entity);
+        }
+        else if(version.equals("v1_4_6"))
+        {
+            com.gmail.ne0nx3r0.api.v1_4_6.PotionVisual
+                .removePotionGraphicalEffect(entity);
+        }
     }
     
     public void createRepeatingAppliedEffect(final ItemProperty ip,int duration)

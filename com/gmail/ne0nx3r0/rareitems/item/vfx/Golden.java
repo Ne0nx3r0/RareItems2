@@ -1,6 +1,8 @@
 package com.gmail.ne0nx3r0.rareitems.item.vfx;
 
+import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.item.IPConstantEffect;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 public class Golden extends IPConstantEffect
@@ -8,13 +10,21 @@ public class Golden extends IPConstantEffect
     public Golden()
     {
         super(42,"Golden","(VFX) Gold particles");
-        
-        this.createRepeatingAppliedEffect(this,20*5);
     }
-
+    
     @Override
-    public void applyEffectToPlayer(Player p,int level)
+    public void onEquip(Player p,int level)
     {
-        this.addPotionGraphicalEffect(p, 0xFFFE40, 20*5);
+        RareItems.ipm.grantPlayerEffect(p.getName(),this,level);
+        
+        this.addPotionGraphicalEffect((LivingEntity) p,0xFFFE40);
+    }
+    
+    @Override
+    public void onUnequip(Player p,int level)
+    {
+        RareItems.ipm.revokePlayerEffect(p.getName(),this);
+        
+        this.removePotionGraphicalEffect((LivingEntity) p);
     }
 }
