@@ -166,9 +166,10 @@ public class RareItems extends JavaPlugin{
         {
             for(Player p : Bukkit.getOnlinePlayers())
             {
+                RareItems.pm.loadPlayerProfile(p,false);
                 am.addPlayerToQueue(p);
             }
-            
+                        
             ApiMessenger.fetchPlayerRareItems(Bukkit.getOnlinePlayers(), false);
         }
     }    
@@ -176,7 +177,10 @@ public class RareItems extends JavaPlugin{
     @Override
     public void onDisable()
     {      
-        pm.saveAllPlayerProfiles();
+        for(Player p : Bukkit.getOnlinePlayers())
+        {
+            p.closeInventory();
+        }
         
         am.stopTask();
     }

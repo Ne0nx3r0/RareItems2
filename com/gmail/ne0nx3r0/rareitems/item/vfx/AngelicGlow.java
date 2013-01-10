@@ -15,6 +15,6 @@ public class AngelicGlow extends IPConstantEffect
     @Override
     public void applyEffectToPlayer(Player p,int level)
     {
-        this.addPotionGraphicalEffect(p, 0xffffff, 20*5);
+        this.addPotionGraphicalEffect(p, 0xffffff, 20*6);
     }
 }

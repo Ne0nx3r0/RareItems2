@@ -16,6 +16,6 @@ public class Cherry extends IPConstantEffect
     @Override
     public void applyEffectToPlayer(Player p,int level)
     {
-        this.addPotionGraphicalEffect(p, 0xF7022A, 20*5);
+        this.addPotionGraphicalEffect(p, 0xF7022A, 20*6);
     }
 }

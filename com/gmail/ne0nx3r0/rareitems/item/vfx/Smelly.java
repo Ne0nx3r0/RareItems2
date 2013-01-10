@@ -15,6 +15,6 @@ public class Smelly extends IPConstantEffect
     @Override
     public void applyEffectToPlayer(Player p,int level)
     {
-        this.addPotionGraphicalEffect(p, 0x9AAE07, 20*5);
+        this.addPotionGraphicalEffect(p, 0x9AAE07, 20*6);
     }
 }

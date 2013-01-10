@@ -34,6 +34,11 @@ public class ProfileManager
     
     public void loadPlayerProfile(Player p)
     {
+        loadPlayerProfile(p,false);
+    }
+
+    public void loadPlayerProfile(Player p, boolean offlineOnly)
+    {
         String sPlayerName = p.getName().toLowerCase();
         
         if(playerProfiles.containsKey(sPlayerName))
@@ -106,14 +111,17 @@ public class ProfileManager
                 checkOuts
             ));
             
-            ApiMessenger.fetchPlayerRareItems(iSiteId,false);
+            if(!offlineOnly)
+            {
+                ApiMessenger.fetchPlayerRareItems(iSiteId,false);
+            }
         }
-        else
+        else if(!offlineOnly)
         {
             ApiMessenger.fetchPlayerRareItems(p,false);
         }
     }
-
+    
     public void savePlayerProfile(PlayerProfile pp)
     {
         File ymlFile = new File(PROFILE_DIRECTORY,pp.getName()+".yml");
@@ -325,7 +333,7 @@ public class ProfileManager
         
         return pp;
     }
-
+/*
     public void saveAllPlayerProfiles()
     {
         if(!playerProfiles.isEmpty())
@@ -336,7 +344,7 @@ public class ProfileManager
             }
         }
     }    
-
+*/
     public Integer[] getCheckedOutRareItemData(Player p, int rid)
     {
         return this.playerProfiles.get(p.getName().toLowerCase()).getCheckedOutRareItemData(rid);
