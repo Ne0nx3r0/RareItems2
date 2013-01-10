@@ -3,6 +3,7 @@ package com.gmail.ne0nx3r0.rareitems.listeners;
 import com.gmail.ne0nx3r0.rareitems.RareItems;
 import com.gmail.ne0nx3r0.rareitems.inventory.VirtualChest;
 import com.gmail.ne0nx3r0.rareitems.item.RareItem;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
@@ -321,18 +323,22 @@ public class RareItemsPlayerListener implements Listener
     }
         
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-    public void onEntityDeath(EntityDeathEvent e)
+    public void onPlayerDeath(PlayerDeathEvent e)
     {
-        if(e.getEntity() instanceof Player)
+        ArrayList<ItemStack> removeThese = new ArrayList<ItemStack>();
+        List<ItemStack> drops = e.getDrops();        
+        
+        for(int i = 0;i<drops.size();i++)
         {
-            Player p = (Player) e.getEntity();
-            for(ItemStack isDrop : e.getDrops())
+            if(RareItems.pm.getRareItem(e.getEntity(), drops.get(i)) != null)
             {
-                if(RareItems.pm.getRareItem(p, isDrop) != null)
-                {
-                    e.getDrops().remove(isDrop);
-                }
+                removeThese.add(drops.get(i));
             }
+        }
+        
+        for(ItemStack isRemove : removeThese)
+        {
+            drops.remove(isRemove);
         }
     }
     
