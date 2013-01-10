@@ -322,41 +322,44 @@ public class RareItemsPlayerListener implements Listener
             }
         }
     }
-        
+        /*
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerDeath(PlayerDeathEvent e)
     {
-        List<ItemStack> drops = e.getDrops();        
-        
-        if(drops != null && !drops.isEmpty())
+        if(RareItems.self.getConfig().getBoolean("automaticallyReturnDeathDroppedRareItems"))
         {
-            ArrayList<ItemStack> isRemoveThese = new ArrayList<ItemStack>();
-        
-            for(int i = 0;i<drops.size();i++)
+            List<ItemStack> drops = e.getDrops();        
+
+            if(drops != null && !drops.isEmpty())
             {
-                if(RareItems.pm.getRareItem(e.getEntity(), drops.get(i)) != null)
+                ArrayList<ItemStack> isRemoveThese = new ArrayList<ItemStack>();
+
+                for(int i = 0;i<drops.size();i++)
                 {
-                    isRemoveThese.add(drops.get(i));
+                    if(RareItems.pm.getRareItem(e.getEntity(), drops.get(i)) != null)
+                    {
+                        isRemoveThese.add(drops.get(i));
+                    }
                 }
-            }
 
-            if(!isRemoveThese.isEmpty())
-            {
-                Player p = (Player) e.getEntity();
-
-                for(ItemStack isRemove : isRemoveThese)
+                if(!isRemoveThese.isEmpty())
                 {
-                    RareItem ri = RareItems.pm.getRareItem(p, isRemove);
-                    
-                    RareItems.pm.checkInRareItem(ri, p);
-                    
-                    drops.remove(isRemove);
-                    
-                    p.sendMessage(ChatColor.GOLD+"Rare Item checked automatically in: "+ri.getDisplayName());
+                    Player p = (Player) e.getEntity();
+
+                    for(ItemStack isRemove : isRemoveThese)
+                    {
+                        RareItem ri = RareItems.pm.getRareItem(p, isRemove);
+
+                        RareItems.pm.checkInRareItem(ri, p);
+
+                        drops.remove(isRemove);
+
+                        p.sendMessage(ChatColor.GOLD+"Rare Item checked automatically in: "+ri.getDisplayName());
+                    }
                 }
             }
         }
-    }
+    }*/
     
     public MetadataValue getRareItemMetaData(Metadatable holder,String key)
     {

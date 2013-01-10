@@ -316,6 +316,8 @@ public class RareItem
             }
         }
         
+        lore.add(ChatColor.GRAY+"Owner: "+ChatColor.GREEN+this.getOwner());
+        
         lore.add(RareItems.RID_PREFIX+this.id);
 
         ItemMeta im = is.getItemMeta();
