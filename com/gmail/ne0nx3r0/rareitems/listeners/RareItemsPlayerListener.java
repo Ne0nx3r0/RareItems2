@@ -322,23 +322,33 @@ public class RareItemsPlayerListener implements Listener
         }
     }
         
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerDeath(PlayerDeathEvent e)
     {
-        ArrayList<ItemStack> removeThese = new ArrayList<ItemStack>();
         List<ItemStack> drops = e.getDrops();        
         
-        for(int i = 0;i<drops.size();i++)
+        if(drops != null && !drops.isEmpty())
         {
-            if(RareItems.pm.getRareItem(e.getEntity(), drops.get(i)) != null)
-            {
-                removeThese.add(drops.get(i));
-            }
-        }
+            ArrayList<ItemStack> isRemoveThese = new ArrayList<ItemStack>();
         
-        for(ItemStack isRemove : removeThese)
-        {
-            drops.remove(isRemove);
+            for(int i = 0;i<drops.size();i++)
+            {
+                if(RareItems.pm.getRareItem(e.getEntity(), drops.get(i)) != null)
+                {
+                    isRemoveThese.add(drops.get(i));
+                }
+            }
+
+            if(!isRemoveThese.isEmpty())
+            {
+                Player p = (Player) e.getEntity();
+
+                for(ItemStack isRemove : isRemoveThese)
+                {
+                    RareItems.pm.checkInRareItem(RareItems.pm.getRareItem(p, isRemove), p);
+                    drops.remove(isRemove);
+                }
+            }
         }
     }
     
