@@ -57,7 +57,19 @@ public class RareItemsPlayerListener implements Listener
     @EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
     public void onPlayerChangeWorld(PlayerChangedWorldEvent e)
     {
-        RareItems.pm.refreshArmor(e.getPlayer());
+        final String sPlayer = e.getPlayer().getName();
+        
+        RareItems.self.getServer().getScheduler().scheduleSyncDelayedTask(RareItems.self, new Runnable() {
+            @Override 
+            public void run()
+            {
+                Player p = Bukkit.getPlayer(sPlayer);
+                if(p != null)
+                {
+                    RareItems.pm.refreshArmor(p);
+                }
+            }
+        },20);
     }
     
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

@@ -72,6 +72,7 @@ public class ProfileManager
             int iMoney = yml.getInt("money");
             
             HashMap<Integer,Integer[]> checkOuts = new HashMap<Integer,Integer[]>();
+            
             for(String sRid : yml.getConfigurationSection("checkedOut").getKeys(false))
             {
                 checkOuts.put(
@@ -81,11 +82,13 @@ public class ProfileManager
             }
             
             HashMap<Integer,RareItem> rareItems = new HashMap<Integer,RareItem>();
+            
             for(String sRid : yml.getConfigurationSection("rareItems").getKeys(false))
             {
                 int rid = Integer.parseInt(sRid);
                 
                 HashMap<ItemProperty,Integer> ips = new HashMap<ItemProperty,Integer>();
+                
                 for(String sIpId : yml.getConfigurationSection("rareItems."+sRid+".p").getKeys(false))
                 {
                     ips.put(
@@ -145,6 +148,7 @@ public class ProfileManager
         yml.set("checkedOut", pp.getCheckedOutItems());
         
         HashMap<Integer,Object> rareItems = new HashMap<Integer,Object>();
+        
         for(RareItem ri : pp.getRareItems().values())
         {
             HashMap<String,Object> rareItem = new HashMap<String,Object>();
@@ -166,9 +170,12 @@ public class ProfileManager
         
         yml.set("rareItems",rareItems);
 
-        try {
+        try
+        {
             yml.save(ymlFile);
-        } catch (IOException ex) {
+        }
+        catch (IOException ex)
+        {
             Logger.getLogger(ProfileManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -176,8 +183,6 @@ public class ProfileManager
     public void addPlayerProfile(PlayerProfile pp)
     {
         this.playerProfiles.put(pp.getName().toLowerCase(), pp);
-        
-        pp.refreshArmor();
     }
 
     public RareItem getRareItem(Player p, ItemStack is)

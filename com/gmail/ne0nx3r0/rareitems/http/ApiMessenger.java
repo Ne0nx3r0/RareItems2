@@ -276,6 +276,8 @@ public class ApiMessenger
                         }
                         
                         RareItems.pm.savePlayerProfile(pp);
+                        
+                        pp.refreshArmor();
                     }
                 }
                 
