@@ -248,13 +248,30 @@ public class ApiMessenger
                             
                             pp.addRareItem(ri);
                             
+                            final String sPlayerAnnounceName = p.getName();
+                            final String dispName = ri.getDisplayName();
+                            
                             if(((String) pendingItem.get("p")).equals("1"))
                             {
-                                RareItems.self.getServer().broadcastMessage("-------------------    RareItems   -----------------");
-                                RareItems.self.getServer().broadcastMessage(p.getName() + " scored a "+ri.getDisplayName()+"!");
-                                RareItems.self.getServer().broadcastMessage("----------------------------------------------------");
-                            
-                                p.sendMessage(ChatColor.GOLD+"(You can claim this item with /ri claim)");
+                                RareItems.self.getServer().broadcastMessage(ChatColor.GOLD+"------------------    RareItems   -----------------");
+                                RareItems.self.getServer().broadcastMessage("    Get ready! Someone's about to get a RareItem!  ");
+                                RareItems.self.getServer().broadcastMessage(ChatColor.GOLD+"---------------------------------------------------");
+                                        
+                                RareItems.self.getServer().getScheduler().scheduleSyncDelayedTask(RareItems.self, new Runnable()
+                                {
+                                    @Override 
+                                    public void run()
+                                    {
+                                        RareItems.self.getServer().broadcastMessage(ChatColor.GOLD+"------------------    RareItems   -----------------");
+                                        RareItems.self.getServer().broadcastMessage(sPlayerAnnounceName + " scored a "+dispName+"!");
+                                        RareItems.self.getServer().broadcastMessage(ChatColor.GOLD+"---------------------------------------------------");
+
+                                        if(Bukkit.getPlayer(sPlayerAnnounceName) != null)
+                                        {
+                                            Bukkit.getPlayer(sPlayerAnnounceName).sendMessage(ChatColor.GOLD+"(You can claim this item with /ri claim)");
+                                        }
+                                    }
+                                },20*10);
                             }
                         }
                         
