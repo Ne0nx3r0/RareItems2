@@ -352,7 +352,7 @@ public class RareItemsPlayerListener implements Listener
                     
                     drops.remove(isRemove);
                     
-                    p.sendMessage(ChatColor.GOLD+"Rare Item Checked in: "+ri.getDisplayName());
+                    p.sendMessage(ChatColor.GOLD+"Rare Item checked automatically in: "+ri.getDisplayName());
                 }
             }
         }
