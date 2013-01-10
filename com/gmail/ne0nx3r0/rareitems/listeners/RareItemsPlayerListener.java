@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.EntityEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -345,8 +346,13 @@ public class RareItemsPlayerListener implements Listener
 
                 for(ItemStack isRemove : isRemoveThese)
                 {
-                    RareItems.pm.checkInRareItem(RareItems.pm.getRareItem(p, isRemove), p);
+                    RareItem ri = RareItems.pm.getRareItem(p, isRemove);
+                    
+                    RareItems.pm.checkInRareItem(ri, p);
+                    
                     drops.remove(isRemove);
+                    
+                    p.sendMessage(ChatColor.GOLD+"Rare Item Checked in: "+ri.getDisplayName());
                 }
             }
         }
