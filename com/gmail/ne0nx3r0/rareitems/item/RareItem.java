@@ -316,7 +316,7 @@ public class RareItem
             }
         }
         
-        lore.add(ChatColor.GRAY+"Owner: "+ChatColor.GREEN+this.getOwner());
+        lore.add(ChatColor.DARK_GRAY+"Owner: "+ChatColor.GREEN+this.getOwner());
         
         lore.add(RareItems.RID_PREFIX+this.id);
 
