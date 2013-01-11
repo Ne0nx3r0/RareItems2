@@ -41,6 +41,7 @@ public class GreaterBurst extends ItemProperty
         
         if(!nearbyEntities.isEmpty())
         {
+            boolean showFx = false;
             Vector vPlayer = player.getLocation().toVector();
             
             for(Entity ent : nearbyEntities)
@@ -52,26 +53,36 @@ public class GreaterBurst extends ItemProperty
                     unitVector.setY(0.55/level);
 
                     ent.setVelocity(unitVector.multiply(level*2));
+                    
+                    showFx = true;
                 }
             }
             
-            try
+            if(showFx)
             {
-                RareItems.fireworks.playFirework(
-                    player.getWorld(), player.getLocation(),
-                    FireworkEffect
-                        .builder()
-                        .with(Type.BALL_LARGE)
-                        .withColor(Color.WHITE)
-                        .build()
-                );
+                try
+                {
+                    RareItems.fireworks.playFirework(
+                        player.getWorld(), player.getLocation(),
+                        FireworkEffect
+                            .builder()
+                            .with(Type.BALL_LARGE)
+                            .withColor(Color.WHITE)
+                            .build()
+                    );
+                }
+                catch (Exception ex)
+                {
+                    //For enabling later, for now just let older versions gracefully downgrade. 
+                    //player.sendMessage(ChatColor.RED+"An error occurred while executing this RareItem's power.");
+                    //Logger.getLogger(GreaterBurst.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                player.sendMessage(ChatColor.RED+"An error occurred while executing this RareItem's power.");
-                Logger.getLogger(GreaterBurst.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
             }
-
+            
             return true;
         }
         
