@@ -67,6 +67,8 @@ public class ItemPropertyManager
         this.storeItemProperty(new SummonPig());
         this.storeItemProperty(new Invisibility());
         this.storeItemProperty(new CatsFeet());
+        this.storeItemProperty(new Burst());
+        this.storeItemProperty(new GreaterBurst());
         
         this.storeItemProperty(new AngelicGlow());
         this.storeItemProperty(new Burning());

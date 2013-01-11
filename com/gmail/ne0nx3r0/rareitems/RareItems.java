@@ -6,6 +6,7 @@ import com.gmail.ne0nx3r0.rareitems.http.ApiMessenger;
 import com.gmail.ne0nx3r0.rareitems.item.ItemProperty;
 import com.gmail.ne0nx3r0.rareitems.item.ItemPropertyManager;
 import com.gmail.ne0nx3r0.rareitems.listeners.RareItemsPlayerListener;
+import com.gmail.ne0nx3r0.utils.FireworkVisualEffect;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,7 +44,8 @@ public class RareItems extends JavaPlugin{
 
     public static final String RID_PREFIX = ChatColor.DARK_GRAY+"RID: "+ChatColor.GRAY;
     
-    public static  Economy economy;
+    public static Economy economy;
+    public static FireworkVisualEffect fireworks;
     
     @Override
     public void onEnable()
@@ -166,12 +168,16 @@ public class RareItems extends JavaPlugin{
         {
             for(Player p : Bukkit.getOnlinePlayers())
             {
-                RareItems.pm.loadPlayerProfile(p,false);
+                RareItems.pm.loadPlayerProfile(p,true);
                 am.addPlayerToQueue(p);
             }
                         
             ApiMessenger.fetchPlayerRareItems(Bukkit.getOnlinePlayers(), false);
         }
+    
+//Fireworks
+        this.fireworks = new FireworkVisualEffect();
+        
     }    
     
     @Override

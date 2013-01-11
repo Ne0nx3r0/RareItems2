@@ -222,6 +222,7 @@ public class ApiMessenger
                                     }
                                 }
                             }
+                            
                             RareItem ri = null;
                             
                             if(pendingItem.get("c") != null)

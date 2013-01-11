@@ -37,7 +37,6 @@ public class CatsFeet extends ItemProperty
 
             le.addPotionEffect(new PotionEffect(PotionEffectType.JUMP,duration,level));
                     
-            
             if(le instanceof Player)
             {
                 e.getPlayer().sendMessage("You cast Cat's Feet on "+((Player) le).getName()+"!");
