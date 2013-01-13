@@ -22,6 +22,8 @@ public class CatsFeet extends ItemProperty
         e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.JUMP,20*60*level,1*level));
         
         e.getPlayer().sendMessage("You can jump higher!");
+            
+        RareItems.ipm.addTemporaryEffect(e.getPlayer().getName(),this,level,20*60*level);
         
         return true;
     }    
@@ -47,7 +49,7 @@ public class CatsFeet extends ItemProperty
                 e.getPlayer().sendMessage("You cast Cat's Feet on that thing!");
             }
             
-            RareItems.ipm.addTemporaryEffect(e.getPlayer().getName(),this,level,duration);
+            RareItems.ipm.addTemporaryEffect(((Player) le).getName(),this,level,duration);
             
             return true;
         }

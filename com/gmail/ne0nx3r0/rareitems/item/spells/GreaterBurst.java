@@ -86,8 +86,6 @@ public class GreaterBurst extends ItemProperty
             return true;
         }
         
-        player.sendMessage(ChatColor.RED+"No nearby targets.");
-        
         return false;
     }
 }

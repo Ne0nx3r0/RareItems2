@@ -103,8 +103,14 @@ public class ApiMessenger
     {
         if(RareItems.DEBUG_MODE)
         {
-            RareItems.logger.log(Level.INFO, "query:{0}&onlyPending={1}&serverPort={2}",
-                    new Object[]{sQuery, onlyPending?'1':'0', Bukkit.getServer().getPort()});
+            RareItems.logger.log(Level.INFO, "query:{0}&onlyPending={1}&serverPort={2}&version={3}&sid={4}",
+            new Object[]{
+                sQuery,
+                onlyPending?'1':'0',
+                Bukkit.getServer().getPort(),
+                RareItems.self.getDescription().getVersion(),
+                RareItems.self.getServer().getServerId()
+            });
         }
         (new Thread(){
             @Override
