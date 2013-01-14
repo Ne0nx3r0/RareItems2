@@ -9,7 +9,7 @@ public class Hookshot extends ItemProperty
 {
     public Hookshot()
     {
-        super(45,"Hookshot","Arrows that hit the ground pull the shooter to them.",2);
+        super(45,"Hookshot","Arrows that hit the ground pull the shooter to them.",3);
     }
     
     @Override

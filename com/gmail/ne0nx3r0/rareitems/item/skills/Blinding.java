@@ -12,13 +12,13 @@ public class Blinding extends ItemProperty
 {
     public Blinding()
     {
-        super(49,"Blinding","20% chance to blind a target onhit (3s / level)",4);
+        super(49,"Blinding","25% chance to blind a target onhit (3s / level)",2);
     }
     
     @Override
     public boolean onDamagedOther(final EntityDamageByEntityEvent e,int level)
     {
-        if(new Random().nextInt(5) == 0
+        if(new Random().nextInt(4) == 0
         && e.getEntity() instanceof LivingEntity)
         {
             LivingEntity le = (LivingEntity) e.getEntity();

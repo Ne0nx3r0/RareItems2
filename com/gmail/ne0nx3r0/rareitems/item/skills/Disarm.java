@@ -15,7 +15,7 @@ public class Disarm extends ItemProperty
     
     public Disarm()
     {
-        super(50,"Disarm","20% chance on hit to cause a target to exchange their held weapon for a random one from their inventory",4);
+        super(50,"Disarm","25% chance on hit to cause a target to exchange their held weapon for a random one from their inventory",1);
         
         disarmables = new ArrayList<Material>(){};
         disarmables.add(Material.WOOD_SWORD);
@@ -33,7 +33,7 @@ public class Disarm extends ItemProperty
     @Override
     public boolean onDamagedOther(final EntityDamageByEntityEvent e,int level)
     {
-        if(new Random().nextInt(5) == 0
+        if(new Random().nextInt(4) == 0
         && e.getEntity() instanceof Player)
         {
             Player pAttacked = (Player) e.getEntity();

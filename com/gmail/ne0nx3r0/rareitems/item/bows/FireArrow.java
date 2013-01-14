@@ -10,7 +10,7 @@ public class FireArrow extends ItemProperty
 {
     public FireArrow()
     {
-        super(44,"Fire Arrow","Arrows that hit a targt have a 25% chance to light them on fire. (2 seconds / level)",4);
+        super(44,"Fire Arrow","Arrows that hit a targt have a 25% chance to light them on fire. (2 seconds / level)",0);
     }
     
     @Override
@@ -20,7 +20,7 @@ public class FireArrow extends ItemProperty
         {
             if(new Random().nextInt(4) == 0)
             {
-                e.getEntity().setFireTicks(level*40);
+                e.getEntity().setFireTicks(level*60);
         
                 if(e.getEntity() instanceof Player)
                 {

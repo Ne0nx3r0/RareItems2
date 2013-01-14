@@ -11,7 +11,7 @@ public class VampiricRegeneration extends ItemProperty
 {
     public VampiricRegeneration()
     {
-        super(21,"Vampiric Regeneration","20% chance to steal 1-(3*level) HP from an enemy",5);
+        super(21,"Vampiric Regeneration","20% chance to steal 1-(3*level) HP from an enemy",1);
     }
     
     @Override

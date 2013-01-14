@@ -12,13 +12,13 @@ public class CallLightning extends ItemProperty
 {
     public CallLightning()
     {
-        super(17,"Call Lightning","20% chance to strike an opponent with lightning",6);
+        super(17,"Call Lightning","25% chance to strike an opponent with lightning",2);
     }
     
     @Override
     public boolean onDamagedOther(final EntityDamageByEntityEvent e,int level)
     {
-        if(new Random().nextInt(5) == 0
+        if(new Random().nextInt(4) == 0
         && e.getEntity() instanceof LivingEntity)
         {
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(RareItems.self, new Runnable()

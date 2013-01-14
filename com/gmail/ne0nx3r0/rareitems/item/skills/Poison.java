@@ -12,7 +12,7 @@ public class Poison extends ItemProperty
 {
     public Poison()
     {
-        super(19,"Poison","20% chance to poison an attacked target (6 seconds @ 1 * level dmg)",4);
+        super(19,"Poison","20% chance to poison an attacked target (6 seconds @ 1 * level dmg)",2);
     }
     
     @Override

@@ -12,7 +12,7 @@ public class PoisonArrow extends ItemProperty
 {
     public PoisonArrow()
     {
-        super(46,"Poison Arrow","Arrows that hit a target have a 20% chance to poison it. (6 seconds @ 1 * level dmg)",6);
+        super(46,"Poison Arrow","Arrows that hit a target have a 25% chance to poison it. (6 seconds @ 1 * level dmg)",2);
     }
     
     @Override
@@ -20,7 +20,7 @@ public class PoisonArrow extends ItemProperty
     {
         if(e.getEntity() instanceof LivingEntity)
         {
-            if(new Random().nextInt(5) == 0)
+            if(new Random().nextInt(4) == 0)
             {
                 ((LivingEntity) e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.POISON,120,level));
 

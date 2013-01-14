@@ -12,7 +12,7 @@ public class Weaken extends ItemProperty
 {
     public Weaken()
     {
-        super(22,"Weaken","25% chance to weaken an enemy for 3 seconds/level",5);
+        super(22,"Weaken","25% chance to weaken an enemy for 3 seconds/level",1);
     }
     
     @Override
