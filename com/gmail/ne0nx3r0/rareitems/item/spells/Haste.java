@@ -20,6 +20,8 @@ public class Haste extends ItemProperty
     {
         e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED,20*30,level));
         
+        e.getPlayer().sendMessage("You cast "+this.getName().toLowerCase()+" on yourself!");
+        
         return true;
     }
     
@@ -30,7 +32,7 @@ public class Haste extends ItemProperty
         {
             LivingEntity le = (LivingEntity) e.getRightClicked();
 
-            le.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,20*60,20*level));
+            le.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,20*60,level));
                     
             if(le instanceof Player)
             {

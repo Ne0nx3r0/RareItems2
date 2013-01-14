@@ -19,7 +19,7 @@ public class CatsFeet extends ItemProperty
     @Override
     public boolean onInteract(PlayerInteractEvent e,int level)
     {
-        e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.JUMP,20*60*level,1*level));
+        e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.JUMP,20*60*level,level));
         
         e.getPlayer().sendMessage("You can jump higher!");
             
